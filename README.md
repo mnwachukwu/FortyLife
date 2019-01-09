@@ -4,7 +4,7 @@ Release Website URL: https://forty.life/
 
 # Introduction
 
-In my frustration one night, I decided that I've had enough of the shoddy free services that allow you to manage a MTG collection and it really cheesed me off to pick and pay for one specific provider that didn't have all the features that I would have wanted in a collection application. Instead of settling for one, I decided I would create one. It would have all of the bells and whistles - the best features - from all of the sites I've used and leave out all of the bad things from these sites. I then thought, I have a lot of Magic: The Gathering playing friends who also write code so I wanted to open source the effort.
+In my frustration one night, I decided that I've had enough of the shoddy free services that allow you to manage a Magic: The Gathering collection and it really cheesed me off to pick and pay for one specific provider that didn't have all the features that I would have wanted in a collection application. Instead of settling for one, I decided I would create one. It would have all of the bells and whistles - the best features - from all of the sites I've used and leave out all of the bad things from these sites. I then thought, I have a lot of Magic: The Gathering playing friends who also write code so I wanted to open source the effort.
 
 This is the project for that vision. I plan to purchase the domain forty.life for this project will will host release versions of this project. Of course, anyone is free to take the project for themselves and host their own instance. We will work on an agreeable license for proper terms of use. This code is being worked on to provide a free service, so of course derivative works must be offered for free.
 
