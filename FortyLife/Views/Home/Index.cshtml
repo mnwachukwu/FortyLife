@@ -1,0 +1,12 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div>
+    <p class="lead">Forty Life is a free and <a href="https://git.tm14.net/mattn/FortyLife">open-source</a> Magic: The Gathering collection web application for building and tracking your decks and collections using powerful features backed by the most up to date card information.</p>
+    
+    @if (!Request.IsAuthenticated)
+    {
+        <p><a href="#" class="btn btn-outline-success btn-lg">Get started &raquo;</a> &nbsp; <a href="#" class="btn btn-outline-primary btn-lg">Learn more &raquo;</a></p>
+    }
+</div>
