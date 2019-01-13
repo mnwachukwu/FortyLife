@@ -5,5 +5,5 @@ packages/
 FortyLife/bin
 FortyLife/obj
 FortyLife/App_Data/aspnet-FortyLife-20190112092055\.mdf
-
 FortyLife/App_Data/aspnet-FortyLife-20190112092055_log\.ldf
+FortyLife/Properties/PublishProfiles
