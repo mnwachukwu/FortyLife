@@ -37,7 +37,7 @@ namespace FortyLife.Data.Scryfall
 
         public string ManaCost { get; set; }
 
-        public int Cmc { get; set; }
+        public double Cmc { get; set; }
 
         public string TypeLine { get; set; }
 

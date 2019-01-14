@@ -82,7 +82,7 @@
     <Compile Include="Scryfall\Card.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scryfall\List.cs" />
+    <Compile Include="Scryfall\ScryfallList.cs" />
     <Compile Include="RequestEngine.cs" />
     <Compile Include="Scryfall\ScryfallCache.cs" />
   </ItemGroup>

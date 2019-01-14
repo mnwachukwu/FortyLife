@@ -19,19 +19,7 @@
             </a>
 
             <div class="navbar-collapse collapse">
-                <ul class="navbar-nav mr-auto">
-                    <li>
-                        <form class="form-inline">
-                            <input class="form-control mr-sm-2 border border-success bg-secondary text-white" type="search" placeholder="Card Name" aria-label="Card Name">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        </form>
-                    </li>
-                    <li>
-                        &nbsp;
-                        <a href="#" class="btn btn-outline-warning my-2 my-sm-0">Advanced Search</a>
-                    </li>
-                </ul>
-
+                @Html.Partial("_Search")
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

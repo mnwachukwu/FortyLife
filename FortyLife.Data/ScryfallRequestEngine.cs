@@ -16,7 +16,7 @@ namespace FortyLife.Data
 
         public ScryfallList Request(string requestUri)
         {
-            var jsonResult = Get(BaseSearchUri + requestUri);
+            var jsonResult = Get(BaseSearchUri + requestUri).Replace("_", string.Empty);
             return JsonConvert.DeserializeObject<ScryfallList>(jsonResult);
         }
 

@@ -1,0 +1,51 @@
+﻿@using FortyLife.Core
+@model FortyLife.Models.SearchResultsViewMovel
+
+@{
+    ViewBag.Title = "Results";
+}
+
+<h3>Results for "@Model.NameSearch"</h3>
+
+<div>
+    <i>Search yielded @Model.Results.TotalCards cards.</i>
+
+    <table>
+        <thead>
+            <tr>
+                <td>Name</td>
+                <td>Mana Cost</td>
+                <td>Color</td>
+                <td>Color Identity</td>
+                <td>Type</td>
+                <td>Text</td>
+                <td>P/T</td>
+                <td>Set</td>
+                <td>Rarity</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cardResult in Model.Results.Data)
+            {
+                <tr>
+                    <td>@cardResult.Name</td>
+                    <td>@cardResult.ManaCost</td>
+                    <td>@CardDataFormatter.FormatColor(cardResult.Colors)</td>
+                    <td>@cardResult.ColorIdentity</td>
+                    <td>@cardResult.TypeLine</td>
+                    <td>@cardResult.OracleText</td>
+                    @if (cardResult.Power != null)
+                    {
+                        <td>@cardResult.Power/@cardResult.Toughness</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                    <td>@cardResult.SetName</td>
+                    <td>@cardResult.Rarity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
