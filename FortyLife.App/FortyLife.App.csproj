@@ -210,7 +210,11 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ColorPie.css" />
+    <Content Include="Content\mana.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Fonts\mana.svg" />
+    <Content Include="Fonts\mplantin.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="ApplicationInsights.config">
@@ -239,6 +243,13 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
+    <Content Include="Fonts\mana.eot" />
+    <Content Include="Fonts\mana.ttf" />
+    <Content Include="Fonts\mana.woff" />
+    <Content Include="Fonts\mana.woff2" />
+    <Content Include="Fonts\mplantin.eot" />
+    <Content Include="Fonts\mplantin.ttf" />
+    <Content Include="Fonts\mplantin.woff" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
