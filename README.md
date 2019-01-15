@@ -42,6 +42,6 @@ Because we're bound to need one eventually. Being developers, We like long, desc
 
 [Scryfall API: Magic Card Data](https://scryfall.com/docs/api) - Premier card lookup application which freely provides it's API on which Forty Life relies on for all its data... Thank you!
 
-[TCGPlayer API: Card Price Data]() - Do you trust anyone else for pricing up cards? Exactly. Thanks you!
+[TCGPlayer API: Card Price Data](https://docs.tcgplayer.com/v1.20.0/reference) - Do you trust anyone else for pricing up cards? Exactly. Thanks you!
 
 [Mana Symbol Font](https://andrewgioia.github.io/Mana/index.html) - Beautiful FontAwesome style fonts that makes our website look like Magic! They're beautiful... Thank you!
