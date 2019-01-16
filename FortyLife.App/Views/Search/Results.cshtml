@@ -28,8 +28,8 @@
                 <tr>
                     <td>@cardResult.Name</td>
                     <td>@Html.Raw(CardDataFormatter.RenderSymbols(cardResult.ManaCost))</td>
-                    <td>@*@CardDataFormatter.FormatColor(cardResult.Colors)*@ @Html.Raw(CardDataFormatter.RenderColorWheel(cardResult.Colors))</td>
-                    <td>@CardDataFormatter.FormatColor(cardResult.ColorIdentity)</td>
+                    <td>@Html.Raw(CardDataFormatter.RenderColorWheel(cardResult.Colors))</td>
+                    <td>@Html.Raw(CardDataFormatter.RenderColorWheel(cardResult.ColorIdentity))</td>
                     <td>@Html.Raw(CardDataFormatter.CardType(cardResult.TypeLine))</td>
                     <td>@cardResult.SetName</td>
                     <td>@cardResult.Rarity</td>

@@ -8,14 +8,33 @@ namespace FortyLife.Core
 {
     public static class CardDataFormatter
     {
+        // used for sorting colors from scryfall
+        public static string WubrgOrder = "WUBRG";
+
+        public static Dictionary<string, string> WubrgHtmlColors = new Dictionary<string, string>
+        {
+            {"White", "#ffff99"},
+            {"Blue", "#3366ff"},
+            {"Black", "#161519"},
+            {"Red", "#ff5050"},
+            {"Green", "#33cc33"},
+            {"Colorless", "#d2d7dd" }
+        };
+
+        public static string FormatColor(string color)
+        {
+            return FormatColor(new List<string> { color });
+        }
+
         public static string FormatColor(List<string> colors)
         {
             if (colors == null || colors.Count == 0)
                 return "Colorless";
-            
-            var sb = new StringBuilder();
 
-            foreach (var color in colors)
+            var sb = new StringBuilder();
+            var sortedColors = colors.OrderBy(i => WubrgOrder.IndexOf(i, StringComparison.Ordinal));
+
+            foreach (var color in sortedColors)
             {
                 switch (color)
                 {
@@ -119,19 +138,68 @@ namespace FortyLife.Core
         public static string CardType(string typeLine)
         {
             var typeText = typeLine.Split('—')[0].Trim();
-            return $"<i class=\"ms ms-{typeText.Replace("Legendary", string.Empty).ToLower().Trim()}\" title=\"{typeText}\"></i> " + typeText;
+            return $"<i class=\"ms ms-{typeText.ReplaceSupertypes().ToLower().Trim()}\" title=\"{typeText}\"></i> " + typeText;
         }
 
         public static string RenderColorWheel(List<string> colors)
         {
-            return
-                $"\r\n<div class=\"pie pie-icon-size\" title=\"{FormatColor(colors)}\">\r\n " +
-                "<div class=\"pie__segment\" style=\"--offset: 0; --value: 20; --bg: #ffff99;\"></div>\r\n" + // White
-                "<div class=\"pie__segment\" style=\"--offset: 20; --value: 20; --bg: #3366ff;\"></div>\r\n" + // Blue
-                "<div class=\"pie__segment\" style=\"--offset: 40; --value: 20; --bg: #6600ff;\"></div>\r\n" + // Black
-                "<div class=\"pie__segment\" style=\"--offset: 60; --value: 20; --bg: #ff5050;\"></div>\r\n" + // Red
-                "<div class=\"pie__segment\" style=\"--offset: 80; --value: 20; --bg: #33cc33;\"></div>\r\n" + // Green
-                "</div>\r\n";
+            var pieHtml = $"\r\n<div class=\"pie pie-icon-size\" title=\"{FormatColor(colors)}\">\r\n";
+            var offset = 0;
+            int step;
+
+            if (colors == null || colors.Count == 0)
+            {
+                // Each slice can only represent 50% of a wheel, so render the other half
+                pieHtml += $"<div class=\"pie__segment\" style=\"--offset: 0; --value: 50; --bg: {WubrgHtmlColors["Colorless"]}\"></div>\r\n";
+                pieHtml += $"<div class=\"pie__segment\" style=\"--offset: 50; --value: 50; --bg: {WubrgHtmlColors["Colorless"]}\"></div>\r\n";
+                pieHtml += "</div>\r\n";
+
+                return pieHtml;
+            }
+
+            var sortedColors = colors.OrderBy(i => WubrgOrder.IndexOf(i, StringComparison.Ordinal)).ToList();
+
+            switch (sortedColors.Count)
+            {
+                default: // Each slice can only represent 50% of a wheel, so no need for cases 1 or 2 (special handling in place for case 1)
+                    step = 50;
+                    break;
+
+                case 3:
+                    step = 33;
+                    break;
+
+                case 4:
+                    step = 25;
+                    break;
+
+                case 5:
+                    step = 20;
+                    break;
+            }
+
+            foreach (var color in sortedColors)
+            {
+                pieHtml += $"<div class=\"pie__segment\" style=\"--offset: {offset}; --value: {step}; --bg: {WubrgHtmlColors[FormatColor(color)]}\"></div>\r\n";
+                offset += step;
+
+                // Each slice can only represent 50% of a wheel, so render the other half
+                if (colors.Count == 1)
+                {
+                    pieHtml +=
+                        $"<div class=\"pie__segment\" style=\"--offset: {offset}; --value: {step}; --bg: {WubrgHtmlColors[FormatColor(color)]}\"></div>\r\n";
+                }
+            }
+
+            pieHtml += "</div>\r\n";
+
+            return pieHtml;
+        }
+
+        public static string ReplaceSupertypes(this string type)
+        {
+            return type.Replace("Legendary", string.Empty).Replace("Basic", string.Empty).Replace("Snow", string.Empty)
+                .Replace("World", string.Empty).Replace("Host", string.Empty);
         }
     }
 }
