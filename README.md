@@ -1,4 +1,8 @@
-Release Website URL: https://forty.life/
+[Production Site](https://forty.life/) - forty.life
+
+[Development Site](https://dev.forty.life/) - dev.forty.life (Not a working site yet; working on it!)
+
+*Note: There is no automatic deployment pipeline in place quite yet. That will be set up eventually and the Development Site will enjoy automatic nightly builds while the Production Site will have one click deployments set up.*
 
 ---
 
@@ -8,7 +12,7 @@ In my frustration one night, I decided that I've had enough of the shoddy free s
 
 This is the project for that vision. I have purchased the domain forty.life and some hosting to use for the release version of this project. Of course, anyone is free to take the project for themselves and modify it, redistribute it, or host their own instance. We will work on an agreeable license for proper terms of use. This code is being worked on to provide a free service, so of course derivative works must be offered for free. Honestly, the commercialization of such a service is understandable, but I will commit to keeping Forty Life and any forked projects free of charge.
 
-*(Add more introduction. Find a license to use.*
+*(Add more introduction. Find a license to use.)*
 
 # Contribute!
 
@@ -16,7 +20,7 @@ Would you like to contribute the project? Head over to the [Issues List](https:/
 
 *(Insert steps to clone repo and run project.)*
 
-*(Include standard operating procedure (SOP) for contributing to source.)*
+*(Include SOP for contributing to source.)*
 
 # Governance
 
@@ -34,6 +38,8 @@ Because we're bound to need one eventually. Being developers, We like long, desc
 
 * CDT -> Core Development Team: The five individuals who will vote on major decisions that need to be made with the direction of the project. Ideally, they'll be the five top contributors to the project.
 
+* CPE -> Card Parsing Engine: One of the longer named, more important static classes that handle rendering Andrew's awesome fonts in place of Scryfall's brackets is used to textually represent mana and card symbols. Who's Andrew? See the Attributions section!
+
 # License
 
 *(Find a license to use.)*
@@ -42,8 +48,8 @@ Because we're bound to need one eventually. Being developers, We like long, desc
 
 [Scryfall API: Magic Card Data](https://scryfall.com/docs/api) - Premier card lookup application which freely provides it's API on which Forty Life relies on for all its data... Thank you!
 
-[TCGPlayer API: Card Price Data](https://docs.tcgplayer.com/v1.20.0/reference) - Do you trust anyone else for pricing up cards? Exactly. Thanks you!
+[TCGPlayer API: Card Price Data](https://docs.tcgplayer.com/v1.20.0/reference) - Do you trust anyone else for pricing up cards? Exactly. Thank you!
 
-[Mana: Mana Symbol Font](https://andrewgioia.github.io/Mana/index.html) - A beautiful FontAwesome style font that makes our website look like Magic! They're beautiful... Thank you!
+[Mana: Mana Symbol Font](https://andrewgioia.github.io/Mana/index.html) - A beautiful FontAwesome style font that makes our website look like Magic! They're beautiful. Thank you!
 
 [Keyrune: Set Symbol Font](https://andrewgioia.github.io/Keyrune/index.html) - Another FontAwesome style font that help make our site prettier! [Andrew Gioia](http://andrewgioia.com/), you rock!

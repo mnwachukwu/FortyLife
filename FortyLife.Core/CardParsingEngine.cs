@@ -195,7 +195,7 @@ namespace FortyLife.Core
 
         public static string RenderColorWheel(List<string> colors)
         {
-            var pieHtml = $"\r\n<div class=\"pie pie-icon-size\" title=\"{FormatColor(colors)}\">\r\n";
+            var pieHtml = $"<div class=\"d-flex justify-content-center\"> <div class=\"pie pie-icon-size\" title=\"{FormatColor(colors)}\">\r\n";
             var offset = 0;
             int step;
 
@@ -204,7 +204,7 @@ namespace FortyLife.Core
                 // Each slice can only represent 50% of a wheel, so render the other half
                 pieHtml += $"<div class=\"pie__segment\" style=\"--offset: 0; --value: 50; --bg: {WubrgHtmlColors["Colorless"]}\"></div>\r\n";
                 pieHtml += $"<div class=\"pie__segment\" style=\"--offset: 50; --value: 50; --bg: {WubrgHtmlColors["Colorless"]}\"></div>\r\n";
-                pieHtml += "</div>\r\n";
+                pieHtml += "</div></div>\r\n";
 
                 return pieHtml;
             }
@@ -250,7 +250,7 @@ namespace FortyLife.Core
                 }
             }
 
-            pieHtml += "</div>\r\n";
+            pieHtml += "</div></div>\r\n";
 
             return pieHtml;
         }

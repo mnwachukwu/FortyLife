@@ -1,10 +1,5 @@
 ﻿<ul class="navbar-nav mr-auto">
     <li>
-        @*@using (Html.BeginForm("Search", "Results", null, FormMethod.Get, new { @class = "form-inline" }))
-            {
-                @Html.TextBoxFor(i => i.)
-            }*@
-
         <form action="/Search/Results" class="form-inline">
             <input name="cardName" class="form-control mr-sm-2 border border-success bg-secondary text-white" type="text" placeholder="Card Name" aria-label="Card Name">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

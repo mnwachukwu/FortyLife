@@ -3,6 +3,8 @@
 
 @{
     ViewBag.Title = "Results";
+    bool alternater = false;
+    string rowClass = "";
 }
 
 <div>
@@ -10,30 +12,34 @@
         <i>Searching card names for "@Model.NameSearch" yielded @Model.Results.TotalCards results.</i>
     </p>
 
-    <table>
+    <table class="table table-hover">
         <thead>
-            <tr>
+            <tr class="bg-primary">
                 <th>Name</th>
                 <th>Mana Cost</th>
-                <th>Color</th>
-                <th>Color Identity</th>
+                <th class="text-center">Color</th>
+                <th class="text-center">Color Identity</th>
                 <th>Type</th>
-                <th>Rarity</th>
+                <th class="text-center">Rarity</th>
                 <th>Latest Set</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var cardResult in Model.Results.Data)
             {
-                <tr>
+                rowClass = alternater ? "bg-active" : "table-default";
+
+                <tr class="@rowClass">
                     <td>@cardResult.Name</td>
                     <td>@Html.Raw(CardParsingEngine.RenderManaSymbols(cardResult.ManaCost))</td>
                     <td>@Html.Raw(CardParsingEngine.RenderColorWheel(cardResult.Colors))</td>
                     <td>@Html.Raw(CardParsingEngine.RenderColorWheel(cardResult.ColorIdentity))</td>
                     <td>@Html.Raw(CardParsingEngine.RenderCardType(cardResult.TypeLine))</td>
-                    <td>@Html.Raw(CardParsingEngine.RenderSetSymbol(cardResult.Set, cardResult.Rarity))</td>
+                    <td class="text-center">@Html.Raw(CardParsingEngine.RenderSetSymbol(cardResult.Set, cardResult.Rarity))</td>
                     <td>@cardResult.SetName</td>
                 </tr>
+
+                alternater = !alternater;
             }
         </tbody>
     </table>
