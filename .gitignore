@@ -2,8 +2,19 @@
 \.vs/
 
 packages/
-FortyLife/bin
-FortyLife/obj
-FortyLife/App_Data/aspnet-FortyLife-20190112092055\.mdf
-FortyLife/App_Data/aspnet-FortyLife-20190112092055_log\.ldf
 FortyLife/Properties/PublishProfiles
+
+FortyLife\.Core/bin/
+FortyLife\.Core/obj/
+
+FortyLife\.Data/bin/
+FortyLife\.Data/obj/
+
+FortyLife\.App/bin/
+FortyLife\.App/obj/
+
+FortyLife\.Data/App_Data/
+
+FortyLife\.Database/bin/
+
+FortyLife\.Database/obj/
