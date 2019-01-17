@@ -211,8 +211,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\ColorPie.css" />
+    <Content Include="Content\keyrune.min.css" />
     <Content Include="Content\mana.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="Fonts\keyrune.svg" />
     <Content Include="Fonts\mana.svg" />
     <Content Include="Fonts\mplantin.svg" />
     <Content Include="Global.asax" />
@@ -250,6 +252,10 @@
     <Content Include="Fonts\mplantin.eot" />
     <Content Include="Fonts\mplantin.ttf" />
     <Content Include="Fonts\mplantin.woff" />
+    <Content Include="Fonts\keyrune.eot" />
+    <Content Include="Fonts\keyrune.ttf" />
+    <Content Include="Fonts\keyrune.woff" />
+    <Content Include="Fonts\keyrune.woff2" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

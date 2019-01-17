@@ -18,8 +18,8 @@
                 <th>Color</th>
                 <th>Color Identity</th>
                 <th>Type</th>
-                <th>Latest Set</th>
                 <th>Rarity</th>
+                <th>Latest Set</th>
             </tr>
         </thead>
         <tbody>
@@ -27,12 +27,12 @@
             {
                 <tr>
                     <td>@cardResult.Name</td>
-                    <td>@Html.Raw(CardDataFormatter.RenderSymbols(cardResult.ManaCost))</td>
-                    <td>@Html.Raw(CardDataFormatter.RenderColorWheel(cardResult.Colors))</td>
-                    <td>@Html.Raw(CardDataFormatter.RenderColorWheel(cardResult.ColorIdentity))</td>
-                    <td>@Html.Raw(CardDataFormatter.CardType(cardResult.TypeLine))</td>
+                    <td>@Html.Raw(CardParsingEngine.RenderManaSymbols(cardResult.ManaCost))</td>
+                    <td>@Html.Raw(CardParsingEngine.RenderColorWheel(cardResult.Colors))</td>
+                    <td>@Html.Raw(CardParsingEngine.RenderColorWheel(cardResult.ColorIdentity))</td>
+                    <td>@Html.Raw(CardParsingEngine.RenderCardType(cardResult.TypeLine))</td>
+                    <td>@Html.Raw(CardParsingEngine.RenderSetSymbol(cardResult.Set, cardResult.Rarity))</td>
                     <td>@cardResult.SetName</td>
-                    <td>@cardResult.Rarity</td>
                 </tr>
             }
         </tbody>

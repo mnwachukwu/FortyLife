@@ -44,4 +44,6 @@ Because we're bound to need one eventually. Being developers, We like long, desc
 
 [TCGPlayer API: Card Price Data](https://docs.tcgplayer.com/v1.20.0/reference) - Do you trust anyone else for pricing up cards? Exactly. Thanks you!
 
-[Mana Symbol Font](https://andrewgioia.github.io/Mana/index.html) - Beautiful FontAwesome style fonts that makes our website look like Magic! They're beautiful... Thank you!
+[Mana: Mana Symbol Font](https://andrewgioia.github.io/Mana/index.html) - A beautiful FontAwesome style font that makes our website look like Magic! They're beautiful... Thank you!
+
+[Keyrune: Set Symbol Font](https://andrewgioia.github.io/Keyrune/index.html) - Another FontAwesome style font that help make our site prettier! [Andrew Gioia](http://andrewgioia.com/), you rock!
