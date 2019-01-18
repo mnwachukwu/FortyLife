@@ -13,10 +13,6 @@ namespace FortyLife.Data
         // Returns JSON string
         internal string Get(string url)
         {
-            // try to delay the request time by 200 ms, so that in perfect sequece we can only pull off 5 requests per second
-            // scryfall will ban this IP if their endpoints are abused and they would like us to limit our requests to 10 per second
-            Thread.Sleep(200); // TODO: better way to rate limit without shutting the thread down entirely
-
             var request = (HttpWebRequest)WebRequest.Create(url);
             try
             {
@@ -41,7 +37,7 @@ namespace FortyLife.Data
                     // log errorText
                 }
 
-                return JsonConvert.SerializeObject(new ScryfallList());
+                return string.Empty;
             }
         }
 
