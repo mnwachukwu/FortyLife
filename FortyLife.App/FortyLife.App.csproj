@@ -323,6 +323,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Search\Results.cshtml" />
     <Content Include="Views\Shared\_Search.cshtml" />
+    <Content Include="Views\Search\_ResultsTable.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -77,7 +77,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CardEngine.cs" />
     <Compile Include="ScryfallRequestEngine.cs" />
     <Compile Include="Scryfall\Card.cs" />
     <Compile Include="IdentityModels.cs" />
