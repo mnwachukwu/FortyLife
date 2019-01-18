@@ -16,8 +16,14 @@ namespace FortyLife.Data
 
         public ScryfallList Request(string requestUri)
         {
+            // https://scryfall.com/docs/api#type-error (see: "Rate Limits and Good Citizenship")
+            // try to delay the request time by 200 ms, so that in perfect sequence we can only hope to pull off 5 requests per second
+            // scryfall will ban this IP if their endpoints are abused and they would like us to limit our requests to 10 per second, anyway
+            Thread.Sleep(200); // TODO: better way to rate limit without shutting the thread down entirely
+            // TODO: handle the 429 status code (if we ever even get it back) from scryfall
+
             var jsonResult = Get(BaseSearchUri + requestUri).Replace("_", string.Empty);
-            return JsonConvert.DeserializeObject<ScryfallList>(jsonResult);
+            return !string.IsNullOrEmpty(jsonResult) ? JsonConvert.DeserializeObject<ScryfallList>(jsonResult) : new ScryfallList();
         }
 
         public ScryfallList CardSearchRequest(string cardName)

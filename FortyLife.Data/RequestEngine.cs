@@ -1,5 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
+using FortyLife.Data.Scryfall;
+using Newtonsoft.Json;
 
 namespace FortyLife.Data
 {
@@ -14,7 +19,11 @@ namespace FortyLife.Data
                 var response = request.GetResponse();
                 using (var responseStream = response.GetResponseStream())
                 {
+                    if (responseStream == null)
+                        return JsonConvert.SerializeObject(new ScryfallList());
+
                     var reader = new StreamReader(responseStream, System.Text.Encoding.UTF8);
+
                     return reader.ReadToEnd();
                 }
             }
@@ -27,7 +36,8 @@ namespace FortyLife.Data
                     var errorText = reader.ReadToEnd();
                     // log errorText
                 }
-                throw;
+
+                return string.Empty;
             }
         }
 

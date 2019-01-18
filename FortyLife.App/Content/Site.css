@@ -48,3 +48,8 @@ textarea {
 .ss-mythic {
     color: #b2441c;
 }
+
+/* Also override the size to make it look better */
+.ss {
+    font-size: 1.4em;
+}
