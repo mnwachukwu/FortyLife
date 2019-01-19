@@ -1,11 +1,13 @@
-﻿@using System.Runtime.InteropServices
-@using FortyLife.Core
+﻿@using FortyLife.Core
 @model FortyLife.Models.SearchResultsViewMovel
 
 @{
     var alternater = false;
-    string TransformIconName(string name) => $"<span class=\"oi oi-loop-square\" data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"{name}\"></span>";
-    string TransformIconMana(string costHtml) => $"<span class=\"oi oi-loop-square\" data-toggle=\"tooltip\" data-placement=\"bottom\" data-html=\"true\" title=\"{costHtml}\"></span>";
+
+    // we need to escape around the title so that " and ' can be distinguished and our HTML in the title attribute can be rendered in the tooltips
+    string TransformIconName(string name) => $"<span class='oi oi-loop-square' data-toggle='tooltip' data-placement='left' title=\"{name}\"></span>";
+    string TransformIconMana(string costHtml) => $"<span class='oi oi-loop-square' data-toggle='tooltip' data-placement='left' data-html='true' title=\"{costHtml}\"></span>";
+    string TransFormIconType(string type) => $"<span class='oi oi-loop-square' data-toggle='tooltip' data-placement='left' data-html='true' title=\"{type}\"></span>";
 }
 
 <table class="table table-hover">
@@ -24,23 +26,13 @@
         @foreach (var cardResult in Model.Results.Data)
         {
             var rowClass = alternater ? "bg-active" : "table-default";
-            var cardColors = new List<string>();
-
-            if (cardResult.IsDoubleFaced && cardResult.Colors == null)
-            {
-                cardResult.CardFaces.ForEach(i => cardColors.AddRange(i.Colors));
-            }
-            else
-            {
-                cardColors = cardResult.Colors;
-            }
 
             <tr class="@rowClass">
                 <td>@Html.Raw(cardResult.IsDoubleFaced ? $"{cardResult.CardFaces[0].Name} {TransformIconName(cardResult.CardFaces[1].Name)}" : cardResult.Name)</td>
                 <td>@Html.Raw(cardResult.IsDoubleFaced ? $"{CardParsingEngine.RenderManaSymbols(cardResult.CardFaces[0].ManaCost)} {(!string.IsNullOrEmpty(cardResult.CardFaces[1].ManaCost) ? TransformIconMana(CardParsingEngine.RenderManaSymbols(cardResult.CardFaces[1].ManaCost)) : string.Empty)}" : CardParsingEngine.RenderManaSymbols(cardResult.ManaCost))</td>
-                <td>@Html.Raw(CardParsingEngine.RenderColorWheel(cardColors))</td>
+                <td>@Html.Raw(CardParsingEngine.RenderColorWheel(CardParsingEngine.DeduceCardColor(cardResult)))</td>
                 <td>@Html.Raw(CardParsingEngine.RenderColorWheel(cardResult.ColorIdentity))</td>
-                <td>@Html.Raw(CardParsingEngine.RenderCardType(cardResult.TypeLine))</td>
+                <td>@Html.Raw(cardResult.IsDoubleFaced ? $"{CardParsingEngine.RenderCardType(cardResult.CardFaces[0].TypeLine)} {TransFormIconType(CardParsingEngine.RenderCardType(cardResult.CardFaces[1].TypeLine))}" : CardParsingEngine.RenderCardType(cardResult.TypeLine))</td>
                 <td class="text-center">@Html.Raw(CardParsingEngine.RenderSetSymbol(cardResult.Set, cardResult.Rarity))</td>
                 <td>@cardResult.SetName</td>
             </tr>

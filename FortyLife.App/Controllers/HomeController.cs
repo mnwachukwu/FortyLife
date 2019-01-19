@@ -24,5 +24,10 @@ namespace FortyLife.Controllers
 
         //    return View();
         //}
+
+        public ActionResult Help()
+        {
+            return View();
+        }
     }
 }
