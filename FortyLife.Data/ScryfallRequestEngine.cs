@@ -22,7 +22,7 @@ namespace FortyLife.Data
             Thread.Sleep(200); // TODO: better way to rate limit without shutting the thread down entirely
             // TODO: handle the 429 status code (if we ever even get it back) from scryfall
 
-            var jsonResult = Get(BaseSearchUri + requestUri).Replace("_", string.Empty);
+            var jsonResult = Get(BaseSearchUri + requestUri).Replace("_", string.Empty).Replace("1v1", "_1v1"); // variables don't start with numbers, so replace the json
             return !string.IsNullOrEmpty(jsonResult) ? JsonConvert.DeserializeObject<ScryfallList>(jsonResult) : new ScryfallList();
         }
 

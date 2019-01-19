@@ -20,10 +20,14 @@ namespace FortyLife
                 "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                "~/Scripts/bootstrap.js"));
+                "~/Scripts/bootstrap.bundle.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/sitejs").Include(
+                "~/Scripts/EnableTooltip.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                "~/Content/bootstrap.css",
+                "~/Content/Bootstrap/bootstrap.min.css",
+                "~/Content/open-iconic-bootstrap.min.css",
                 "~/Content/mana.min.css",
                 "~/Content/keyrune.min.css",
                 "~/Content/site.css",

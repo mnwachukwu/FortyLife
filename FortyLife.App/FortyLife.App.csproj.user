@@ -13,7 +13,7 @@
     <ProjectView>ProjectFiles</ProjectView>
     <WebStackScaffolding_ViewDialogWidth>600</WebStackScaffolding_ViewDialogWidth>
     <WebStackScaffolding_IsLayoutPageSelected>False</WebStackScaffolding_IsLayoutPageSelected>
-    <WebStackScaffolding_IsPartialViewSelected>True</WebStackScaffolding_IsPartialViewSelected>
+    <WebStackScaffolding_IsPartialViewSelected>False</WebStackScaffolding_IsPartialViewSelected>
     <WebStackScaffolding_IsReferencingScriptLibrariesSelected>False</WebStackScaffolding_IsReferencingScriptLibrariesSelected>
     <WebStackScaffolding_LayoutPageFile />
     <Controller_SelectedScaffolderID>MvcControllerEmptyScaffolder</Controller_SelectedScaffolderID>
@@ -27,14 +27,15 @@
         <WebProjectProperties>
           <StartPageUrl>
           </StartPageUrl>
-          <StartAction>URL</StartAction>
+          <StartAction>CurrentPage</StartAction>
           <AspNetDebugging>True</AspNetDebugging>
           <SilverlightDebugging>False</SilverlightDebugging>
           <NativeDebugging>False</NativeDebugging>
           <SQLDebugging>False</SQLDebugging>
           <ExternalProgram>
           </ExternalProgram>
-          <StartExternalURL>http://localhost:61507/</StartExternalURL>
+          <StartExternalURL>
+          </StartExternalURL>
           <StartCmdLineArguments>
           </StartCmdLineArguments>
           <StartWorkingDirectory>

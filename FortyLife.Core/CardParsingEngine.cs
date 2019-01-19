@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FortyLife.Data.Scryfall;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -194,9 +195,10 @@ namespace FortyLife.Core
 
         public static string RenderColorWheel(List<string> colors)
         {
-            var pieHtml = $"<div class=\"d-flex justify-content-center\"> <div class=\"pie pie-icon-size\" title=\"{FormatColor(colors)}\">\r\n";
             var offset = 0;
             int step;
+
+            var pieHtml = $"<div class=\"d-flex justify-content-center\"> <div class=\"pie pie-icon-size\" title=\"{FormatColor(colors)}\">\r\n";
 
             if (colors == null || colors.Count == 0)
             {

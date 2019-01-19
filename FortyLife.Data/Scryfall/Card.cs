@@ -3,10 +3,8 @@ using System.Collections.Generic;
 
 namespace FortyLife.Data.Scryfall
 {
-    public class Card
+    public class Card : CardFace
     {
-        public string Object { get; set; }
-
         public string Id { get; set; }
 
         public string OracleId { get; set; }
@@ -18,8 +16,6 @@ namespace FortyLife.Data.Scryfall
         public int MtgoFoilId { get; set; }
 
         public int TcgPlayerId { get; set; }
-
-        public string Name { get; set; }
 
         public string Lang { get; set; }
 
@@ -33,21 +29,7 @@ namespace FortyLife.Data.Scryfall
 
         public bool HiResImage { get; set; }
 
-        public ImageUris ImageUris { get; set; }
-
-        public string ManaCost { get; set; }
-
         public double Cmc { get; set; }
-
-        public string TypeLine { get; set; }
-
-        public string OracleText { get; set; }
-
-        public string Power { get; set; }
-
-        public string Toughness { get; set; }
-
-        public List<string> Colors { get; set; }
 
         public List<string> ColorIdentity { get; set; }
 
@@ -89,12 +71,6 @@ namespace FortyLife.Data.Scryfall
 
         public string Watermark { get; set; }
 
-        public string FlavorText { get; set; }
-
-        public string IllustrationId { get; set; }
-
-        public string Artist { get; set; }
-
         public string BorderColor { get; set; }
 
         public string Frame { get; set; }
@@ -116,6 +92,11 @@ namespace FortyLife.Data.Scryfall
         public RelatedUris RelatedUris { get; set; }
 
         public PurchaseUris PurchaseUris { get; set; }
+
+        public List<CardFace> CardFaces { get; set; }
+
+        // Non-Scryfall data
+        public bool IsDoubleFaced => CardFaces != null;
     }
 
     public class ImageUris
@@ -178,5 +159,32 @@ namespace FortyLife.Data.Scryfall
         public string CardMarket { get; set; }
 
         public string CardHoarder { get; set; }
+    }
+
+    public class CardFace
+    {
+        public string Object { get; set; }
+
+        public string Name { get; set; }
+
+        public string ManaCost { get; set; }
+
+        public string TypeLine { get; set; }
+
+        public string OracleText { get; set; }
+
+        public List<string> Colors { get; set; }
+
+        public string Power { get; set; }
+
+        public string Toughness { get; set; }
+
+        public string FlavorText { get; set; }
+
+        public string Artist { get; set; }
+
+        public string IllustrationId { get; set; }
+
+        public ImageUris ImageUris { get; set; }
     }
 }
