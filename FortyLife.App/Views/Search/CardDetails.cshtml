@@ -58,11 +58,15 @@
                             <a class="dropdown-item" href="#">Dropdown link</a>
                             <a class="dropdown-item" href="#">Dropdown link</a>
                         </div>
-                    </div> 
-                    
+                    </div>
+
                     <br />
 
-                    <span class="text-center">@Model.Rarity, #@Model.CollectorNumber/@(new ScryfallRequestEngine().SetCardCount(Model.SetUri))</span>
+                    @{
+                        var rarity = Model.Rarity == "rare" ? "Rare" : Model.Rarity.Replace(Model.Rarity[0].ToString(), Model.Rarity[0].ToString().ToUpper());
+                    }
+
+                    @rarity, #@Model.CollectorNumber/@(new ScryfallRequestEngine().SetCardCount(Model.SetUri))
 
                     <span class="float-right"><i class="ms ms-artist-nib"></i> @Model.Artist</span>
                 </p>
