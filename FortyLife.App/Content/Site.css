@@ -24,7 +24,7 @@ textarea {
 
 /* Override the table highlighting */
 .table-hover > tbody > tr:hover {
-    background-color: rgba(255, 255, 255, .4); 
+    background-color: rgba(255, 255, 255, .4);
 }
 
 /* not included in bootstrap or the bootstrap theme we're using */
@@ -52,4 +52,12 @@ textarea {
 /* Also override the size to make it look better */
 .ss {
     font-size: 1.4em;
+}
+
+.tooltip.show {
+    opacity: 1;
+}
+
+.tooltip-inner {
+    max-width: 100%;
 }

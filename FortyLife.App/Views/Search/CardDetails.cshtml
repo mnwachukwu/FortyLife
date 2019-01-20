@@ -1,0 +1,94 @@
+﻿@using FortyLife.Core
+@using FortyLife.Data
+@model FortyLife.Data.Scryfall.Card
+
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<div class="row">
+    <div class="col-md-6">
+        @if (Model.ImageUris != null)
+        {
+            <img src="@Model.ImageUris.Normal" alt="@Model.Name" />
+        }
+    </div>
+
+    <div class="col-md-6">
+        <div class="card border-primary">
+            <div class="card-header">
+                <span class="oi oi-magnifying-glass"></span> @Model.Name <span class="float-right">@Html.Raw(CardParsingEngine.RenderManaSymbols(Model.ManaCost))</span> <br />
+            </div>
+            <div class="card-header">
+                <span class="badge badge-pill @(Model.Legalities.Commander == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Commander.Replace("not", "not ")">Commander</span>
+                <span class="badge badge-pill @(Model.Legalities._1V1 == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities._1V1.Replace("not", "not ")">1v1 Commander</span>
+                <span class="badge badge-pill @(Model.Legalities.Brawl == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Brawl.Replace("not", "not ")">Brawl</span>
+                <span class="badge badge-pill @(Model.Legalities.Standard == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Standard.Replace("not", "not ")">Standard</span>
+                <span class="badge badge-pill @(Model.Legalities.Modern == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Modern.Replace("not", "not ")">Modern</span>
+                <span class="badge badge-pill @(Model.Legalities.Legacy == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Legacy.Replace("not", "not ")">Legacy</span>
+                <span class="badge badge-pill @(Model.Legalities.Vintage == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Vintage.Replace("not", "not ")">Vintage</span>
+                <span class="badge badge-pill @(Model.Legalities.Frontier == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Frontier.Replace("not", "not ")">Frontier</span>
+                <span class="badge badge-pill @(Model.Legalities.Pauper == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Pauper.Replace("not", "not ")">Pauper</span>
+                <span class="badge badge-pill @(Model.Legalities.Penny == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Penny.Replace("not", "not ")">Penny</span>
+            </div>
+            <div class="card-body pb-1">
+                <p class="card-text">@Model.TypeLine</p>
+                <p class="card-text">@Html.Raw(CardParsingEngine.RenderLineBreaks(CardParsingEngine.RenderSymbols(Model.OracleText.Replace("(", "<i>(").Replace(")", ")</i>"))))</p>
+                <p class="card-text"><i>@Model.FlavorText</i></p>
+
+                @if (!string.IsNullOrEmpty(Model.Power) || !string.IsNullOrEmpty(Model.Toughness))
+                {
+                    <p>
+                        <span class="float-right"><i class="ms ms-power"></i> @Model.Power / <i class="ms ms-toughness"></i> @Model.Toughness</span>
+                    </p>
+                }
+
+                @if (!string.IsNullOrEmpty(Model.Loyalty))
+                {
+                    <p>
+                        <span class="float-right lead"><i class="ms ms-loyalty-start ms-loyalty-@Model.Loyalty"></i></span>
+                    </p>
+                }
+            </div>
+            <div class="card-body pt-1 pb-2">
+                <p>
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown">@Html.Raw($"<span class='lead'> {CardParsingEngine.RenderSetSymbol(Model.Set, Model.Rarity)}</span>") @Model.SetName</button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Dropdown link</a>
+                            <a class="dropdown-item" href="#">Dropdown link</a>
+                        </div>
+                    </div> 
+                    
+                    <br />
+
+                    <span class="text-center">@Model.Rarity, #@Model.CollectorNumber/@(new ScryfallRequestEngine().SetCardCount(Model.SetUri))</span>
+
+                    <span class="float-right"><i class="ms ms-artist-nib"></i> @Model.Artist</span>
+                </p>
+            </div>
+        </div>
+
+        <p />
+
+        <div class="card border-success">
+            <div class="card-header"><span class="oi oi-dollar"></span> TCG Player <span class="float-right"><a href="#"><span class="oi oi-cart"></span> Purchase</a></span></div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 text-center">
+                        Low <br />
+                        <span class="text-muted small">$0.00</span>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        Mid <br />
+                        <span class="text-success lead">$0.00</span>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        High <br />
+                        <span class="text-danger">$0.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

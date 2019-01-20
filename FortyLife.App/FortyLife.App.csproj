@@ -332,6 +332,8 @@
     <Content Include="Views\Shared\_Search.cshtml" />
     <Content Include="Views\Search\_ResultsTable.cshtml" />
     <Content Include="Views\Home\Help.cshtml" />
+    <Content Include="Views\Search\CardDetails.cshtml" />
+    <Content Include="Views\Shared\CardNotFound.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -13,8 +13,9 @@ namespace FortyLife.Data
     public class ScryfallRequestEngine : RequestEngine
     {
         private const string BaseSearchUri = "https://api.scryfall.com/cards/search";
+        private const string SetSearchUri = "https://scryfall.com/set/";
 
-        public ScryfallList Request(string requestUri)
+        private T Request<T>(string requestUri) where T : new()
         {
             // https://scryfall.com/docs/api#type-error (see: "Rate Limits and Good Citizenship")
             // try to delay the request time by 200 ms, so that in perfect sequence we can only hope to pull off 5 requests per second
@@ -22,20 +23,33 @@ namespace FortyLife.Data
             Thread.Sleep(200); // TODO: better way to rate limit without shutting the thread down entirely
             // TODO: handle the 429 status code (if we ever even get it back) from scryfall
 
-            var jsonResult = Get(BaseSearchUri + requestUri).Replace("_", string.Empty).Replace("1v1", "_1v1"); // variables don't start with numbers, so replace the json
-            return !string.IsNullOrEmpty(jsonResult) ? JsonConvert.DeserializeObject<ScryfallList>(jsonResult) : new ScryfallList();
+            var jsonResult = Get(requestUri).Replace("_", string.Empty);
+
+            if (typeof(T) == typeof(ScryfallList))
+                jsonResult = jsonResult.Replace("1v1", "_1v1"); // variables don't start with numbers, so replace the json
+
+            return !string.IsNullOrEmpty(jsonResult) ? JsonConvert.DeserializeObject<T>(jsonResult) : new T();
         }
 
         public ScryfallList CardSearchRequest(string cardName)
         {
-            return Request($"?q=name={cardName}");
+            return Request<ScryfallList>($"{BaseSearchUri}?q=name={cardName}");
         }
 
         public Card FirstCardFromSearch(string cardName)
         {
             var searchResultList = CardSearchRequest(cardName);
-            //TODO: Make sure we're returning a valid card or else return null
-            return searchResultList.Data.FirstOrDefault();
+            return searchResultList.Data?.FirstOrDefault();
+        }
+
+        public Set CardSetRequest(string setUri)
+        {
+            return Request<Set>(setUri);
+        }
+
+        public int SetCardCount(string setUri)
+        {
+            return CardSetRequest(setUri).CardCount;
         }
     }
 }

@@ -21,5 +21,12 @@ namespace FortyLife.Controllers
                     Results = requestEngine.CardSearchRequest(cardName)
                 });
         }
+
+        public ActionResult CardDetails(string cardName)
+        {
+            var requestEngine = new ScryfallRequestEngine();
+            var card = requestEngine.FirstCardFromSearch(cardName);
+            return card != null ? View("CardDetails", card) : View("~/Views/Shared/CardNotFound.cshtml", null, cardName);
+        }
     }
 }

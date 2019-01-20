@@ -186,5 +186,7 @@ namespace FortyLife.Data.Scryfall
         public string IllustrationId { get; set; }
 
         public ImageUris ImageUris { get; set; }
+        
+        public string Loyalty { get; set; }
     }
 }

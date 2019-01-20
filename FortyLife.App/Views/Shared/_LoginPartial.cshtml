@@ -10,7 +10,7 @@
                 @Html.ActionLink("Manage", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage", @class = "nav-link" }) @*"Hello " + User.Identity.GetUserName() + "!"*@
             </li>
             <li><a class="nav-link" href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-            <li><a class="oi oi-question-mark nav-link" href="/Home/Help"></a></li>
+            <li><a class="oi oi-question-mark nav-link" href="/Home/Help" title="Need help?"></a></li>
         </ul>
     }
 }
@@ -18,6 +18,6 @@ else
 {
     <ul class="nav navbar-nav navbar-right">
         <li>@Html.ActionLink("Log in / Register", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>
-        <li><a class="oi oi-question-mark nav-link" href="/Home/Help"></a></li>
+        <li><a class="oi oi-question-mark nav-link" href="/Home/Help" title="Need help?"></a></li>
     </ul>
 }

@@ -59,6 +59,5 @@
     <Folder Include="Properties" />
     <Folder Include="Comparisons" />
     <Folder Include="Tables" />
-    <Folder Include="NewFolder1\" />
   </ItemGroup>
 </Project>

@@ -18,8 +18,78 @@ namespace FortyLife.Core
             {"Black", "#3b373d"},
             {"Red", "#ff5050"},
             {"Green", "#69e569"},
-            {"Colorless", "#6d6b72" } // #d2d7dd <-- old color backup
+            {"Colorless", "#d2d7dd" } // #6d6b72<-- new color backup, old color is active
         };
+
+        public enum CardSize
+        {
+            Small,
+            Normal,
+            Large,
+            ArtCrop
+        }
+
+        public static string RenderImage(Card cardResult, CardSize size, int scale = 0, bool reverseSide = false)
+        {
+            string img;
+            string alt;
+            var renderSize = "";
+
+            if (cardResult.ImageUris != null)
+            {
+                switch (size)
+                {
+                    default:
+                        img = cardResult.ImageUris.Normal;
+                        break;
+
+                    case CardSize.Small:
+                        img = cardResult.ImageUris.Small;
+                        break;
+
+                    case CardSize.Large:
+                        img = cardResult.ImageUris.Large;
+                        break;
+
+                    case CardSize.ArtCrop:
+                        img = cardResult.ImageUris.ArtCrop;
+                        break;
+                }
+
+                alt = cardResult.Name;
+            }
+            else
+            {
+                var cardFace = cardResult.CardFaces[reverseSide ? 1 : 0];
+                switch (size)
+                {
+                    default:
+                        img = cardFace.ImageUris.Normal;
+                        break;
+
+                    case CardSize.Small:
+                        img = cardFace.ImageUris.Small;
+                        break;
+
+                    case CardSize.Large:
+                        img = cardFace.ImageUris.Large;
+                        break;
+
+                    case CardSize.ArtCrop:
+                        img = cardFace.ImageUris.ArtCrop;
+                        break;
+                }
+
+                alt = cardFace.Name;
+            }
+
+            if (scale > 0 && size > CardSize.Small)
+            {
+                renderSize = $"width='{scale}%'";
+            }
+
+            return $"<img src='{img}' alt='{alt}' {renderSize}>";
+        }
 
         /// <summary>
         /// Safely deduce a card's color in cases of double-faced cards.
@@ -163,12 +233,27 @@ namespace FortyLife.Core
             if (originalText == null)
                 return string.Empty;
 
+            // various card sumbols
             var newText = originalText.Replace("{T}", "<i class='ms ms-tap-alt ms-cost ms-shadow' title='tap this permanent'></i>"); // tap
-            newText = newText.Replace("{U}", "<i class='ms ms-untap ms-cost ms-shadow' title='untap this permanent'></i>"); // untap
+            newText = newText.Replace("{Q}", "<i class='ms ms-untap ms-cost ms-shadow' title='untap this permanent'></i>"); // untap
             newText = newText.Replace("{E}", "<i class='ms ms-e' title='an energy counter'></i>"); // energy
             newText = newText.Replace("{P}", "<i class='ms ms-p' title='one colored mana or 2 life'></i>"); // phyrexian color
             newText = newText.Replace("{S}", "<i class='ms ms-s ms-cost ms-shadow' title='one snow mana'></i>"); // snow
 
+            // loyalty up/down/zero
+            newText = newText.Replace("0:", "<span class='lead'><i class='ms ms-loyalty-zero ms-loyalty-0' title='remove zero loyalty counters'></i></span>:");
+
+            for (var i = 1; i < 21; i++)
+            {
+                newText = newText.Replace($"+{i}:", $"<span class='lead'><i class='ms ms-loyalty-up ms-loyalty-{i}' title='add {(i == 1 ? "one" : i.ToString())} loyalty counter{(i > 1 ? "s" : string.Empty)}'></i></span>:");
+            }
+
+            for (var i = 1; i < 21; i++)
+            {
+                newText = newText.Replace($"−{i}:", $"<span class='lead'><i class='ms ms-loyalty-down ms-loyalty-{i}' title='remove {(i == 1 ? "one" : i.ToString())} loyalty counter{(i > 1 ? "s" : string.Empty)}'></i></span>:");
+            }
+
+            // mana symbols
             newText = RenderManaSymbols(newText);
 
             return newText;
@@ -221,7 +306,7 @@ namespace FortyLife.Core
             {
                 typeIcon += $"<i class='ms ms-{superTypes[1]}' title='{superTypes[1]}'></i> ";
             }
-            
+
             return typeIcon + typeText;
         }
 
