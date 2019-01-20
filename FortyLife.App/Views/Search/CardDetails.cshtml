@@ -46,7 +46,7 @@
                 @if (!string.IsNullOrEmpty(Model.Loyalty))
                 {
                     <p>
-                        <span class="float-right lead"><i class="ms ms-loyalty-start ms-loyalty-@Model.Loyalty"></i></span>
+                        <span class="float-right lead"><i class="ms ms-loyalty-start ms-loyalty-@Model.Loyalty" title="enters the battlefield with @(Model.Loyalty == "1" ? "one" : Model.Loyalty) loyalty counter@(Model.Loyalty == "1" ? string.Empty : "s")"></i></span>
                     </p>
                 }
             </div>
