@@ -204,19 +204,22 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-grid.css" />
-    <Content Include="Content\bootstrap-grid.min.css" />
-    <Content Include="Content\bootstrap-reboot.css" />
-    <Content Include="Content\bootstrap-reboot.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\BlackLotus.css" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.css" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.css" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap.css" />
+    <Content Include="Content\Bootstrap\bootstrap.min.css" />
     <Content Include="Content\ColorPie.css" />
     <Content Include="Content\keyrune.min.css" />
     <Content Include="Content\mana.min.css" />
+    <Content Include="Content\open-iconic-bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Fonts\keyrune.svg" />
     <Content Include="Fonts\mana.svg" />
     <Content Include="Fonts\mplantin.svg" />
+    <Content Include="Fonts\open-iconic.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="ApplicationInsights.config">
@@ -231,12 +234,13 @@
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-reboot.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-grid.css.map" />
+    <Content Include="Scripts\EnableTooltip.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -256,6 +260,10 @@
     <Content Include="Fonts\keyrune.ttf" />
     <Content Include="Fonts\keyrune.woff" />
     <Content Include="Fonts\keyrune.woff2" />
+    <Content Include="Fonts\open-iconic.eot" />
+    <Content Include="Fonts\open-iconic.otf" />
+    <Content Include="Fonts\open-iconic.ttf" />
+    <Content Include="Fonts\open-iconic.woff" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -324,6 +332,10 @@
     <Content Include="Views\Search\Results.cshtml" />
     <Content Include="Views\Shared\_Search.cshtml" />
     <Content Include="Views\Search\_ResultsTable.cshtml" />
+    <Content Include="Views\Home\Help.cshtml" />
+    <Content Include="Views\Search\CardDetails.cshtml" />
+    <Content Include="Views\Shared\CardNotFound.cshtml" />
+    <Content Include="Views\Shared\_Modal.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

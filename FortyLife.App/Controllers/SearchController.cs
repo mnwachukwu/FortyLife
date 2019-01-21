@@ -12,14 +12,32 @@ namespace FortyLife.Controllers
     {
         public ActionResult Results(string cardName)
         {
-            var requestEngine = new ScryfallRequestEngine();
+            if (cardName.Length > 2)
+            {
+                var requestEngine = new ScryfallRequestEngine();
+                var results = requestEngine.CardSearchRequest(cardName);
 
-            return View("Results",
-                new SearchResultsViewMovel
+                if (results.TotalCards == 1)
                 {
-                    NameSearch = cardName,
-                    Results = requestEngine.CardSearchRequest(cardName)
-                });
+                    return RedirectToAction("CardDetails", "Search", new { cardName = results.Data[0].Name });
+                }
+
+                return View("Results",
+                    new SearchResultsViewMovel
+                    {
+                        NameSearch = cardName,
+                        Results = results
+                    });
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult CardDetails(string cardName)
+        {
+            var requestEngine = new ScryfallRequestEngine();
+            var card = requestEngine.FirstCardFromSearch(cardName);
+            return card != null ? View("CardDetails", card) : View("~/Views/Shared/CardNotFound.cshtml", null, cardName);
         }
     }
 }

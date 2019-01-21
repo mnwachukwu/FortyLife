@@ -20,7 +20,7 @@ namespace FortyLife.Data
                 using (var responseStream = response.GetResponseStream())
                 {
                     if (responseStream == null)
-                        return JsonConvert.SerializeObject(new ScryfallList());
+                        return "{ }"; // return an empty object
 
                     var reader = new StreamReader(responseStream, System.Text.Encoding.UTF8);
 

@@ -6,11 +6,9 @@
     <title>@ViewBag.Title - Forty Life</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <a class="navbar-brand" href="/">
@@ -26,11 +24,14 @@
     </nav>
 
     <div class="container body-content pt-3">
+        @Html.Partial("_Modal")
         @RenderBody()
-        <hr />
+        <hr class="bg-secondary" />
 
         <footer>
             <p>&copy; 2016 - @DateTime.Now.Year Studio TM14 <span class="float-right">Forty Life is an <a href="https://git.tm14.net/mattn/FortyLife">open-source</a> project.</span></p>
+
+            <p>Magic: The Gathering is &trade; & &copy; 1993 - @DateTime.Now.Year Wizards of the Coast, Inc, a subsidiary of Hasbro, Inc. All rights reserved. This site is unaffiliated. Comments are user-submitted and do not represent official endorsements of this site.</p>
         </footer>
     </div>
 
