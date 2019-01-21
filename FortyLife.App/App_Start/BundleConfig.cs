@@ -30,8 +30,9 @@ namespace FortyLife
                 "~/Content/open-iconic-bootstrap.min.css",
                 "~/Content/mana.min.css",
                 "~/Content/keyrune.min.css",
-                "~/Content/site.css",
-                "~/Content/ColorPie.css"));
+                "~/Content/Site.css",
+                "~/Content/ColorPie.css",
+                "~/Content/BlackLotus.css"));
         }
     }
 }

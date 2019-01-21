@@ -24,8 +24,9 @@
     </nav>
 
     <div class="container body-content pt-3">
+        @Html.Partial("_Modal")
         @RenderBody()
-        <hr class="bg-secondary"/>
+        <hr class="bg-secondary" />
 
         <footer>
             <p>&copy; 2016 - @DateTime.Now.Year Studio TM14 <span class="float-right">Forty Life is an <a href="https://git.tm14.net/mattn/FortyLife">open-source</a> project.</span></p>
