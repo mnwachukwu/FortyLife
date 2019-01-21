@@ -54,6 +54,7 @@ textarea {
     font-size: 1.4em;
 }
 
+/* tooltip */
 .tooltip.show {
     opacity: 1;
 }
@@ -61,3 +62,48 @@ textarea {
 .tooltip-inner {
     max-width: 100%;
 }
+
+/* card shadows */
+img.card-shadow {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border: 0;
+}
+
+/* Styles borrowed from Scryfall's site for card display */
+img.card {
+    -webkit-border-radius: 4.75% / 3.5%;
+    border-radius: 4.75% / 3.5%;
+    background-image: -webkit-repeating-linear-gradient(145deg, #DDD, #DDD 5px, #CCC 5px, #CCC 10px);
+    background-image: -o-repeating-linear-gradient(145deg, #DDD, #DDD 5px, #CCC 5px, #CCC 10px);
+    background-image: repeating-linear-gradient(-55deg, #DDD, #DDD 5px, #CCC 5px, #CCC 10px);
+    color: #000;
+    display: block;
+    font-size: 0;
+    overflow: hidden;
+    text-align: center;
+    border: 0;
+}
+
+img.card-tooltip {
+    width: 290px;
+}
+
+.card-image {
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: -webkit-transform 200ms;
+    transition: -webkit-transform 200ms;
+    -o-transition: -o-transform 200ms;
+    transition: transform 200ms;
+    transition: transform 200ms, -webkit-transform 200ms, -o-transform 200ms;
+    border: 0;
+}
+
+    .card-image .card {
+        -webkit-transition: -webkit-transform 200ms;
+        transition: -webkit-transform 200ms;
+        -o-transition: -o-transform 200ms;
+        transition: transform 200ms;
+        transition: transform 200ms, -webkit-transform 200ms, -o-transform 200ms;
+        border: 0;
+    }

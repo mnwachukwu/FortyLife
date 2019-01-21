@@ -25,15 +25,15 @@ namespace FortyLife.Data
 
             var jsonResult = Get(requestUri).Replace("_", string.Empty);
 
-            if (typeof(T) == typeof(ScryfallList))
+            if (typeof(T) == typeof(ScryfallList<Card>))
                 jsonResult = jsonResult.Replace("1v1", "_1v1"); // variables don't start with numbers, so replace the json
 
             return !string.IsNullOrEmpty(jsonResult) ? JsonConvert.DeserializeObject<T>(jsonResult) : new T();
         }
 
-        public ScryfallList CardSearchRequest(string cardName)
+        public ScryfallList<Card> CardSearchRequest(string cardName)
         {
-            return Request<ScryfallList>($"{BaseSearchUri}?q=name={cardName}");
+            return Request<ScryfallList<Card>>($"{BaseSearchUri}?q=name={cardName}");
         }
 
         public Card FirstCardFromSearch(string cardName)
@@ -50,6 +50,11 @@ namespace FortyLife.Data
         public int SetCardCount(string setUri)
         {
             return CardSetRequest(setUri).CardCount;
+        }
+
+        public ScryfallList<Ruling> RulingsRequest(string rulingsUri)
+        {
+            return Request<ScryfallList<Ruling>>(rulingsUri);
         }
     }
 }

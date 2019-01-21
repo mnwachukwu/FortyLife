@@ -13,13 +13,21 @@ namespace FortyLife.Controllers
         public ActionResult Results(string cardName)
         {
             var requestEngine = new ScryfallRequestEngine();
+            var results = requestEngine.CardSearchRequest(cardName);
 
-            return View("Results",
-                new SearchResultsViewMovel
-                {
-                    NameSearch = cardName,
-                    Results = requestEngine.CardSearchRequest(cardName)
-                });
+            if (results.TotalCards == 1)
+            {
+                return RedirectToAction("CardDetails", "Search", new { cardName = results.Data[0].Name });
+            }
+            else
+            {
+                return View("Results",
+                    new SearchResultsViewMovel
+                    {
+                        NameSearch = cardName,
+                        Results = results
+                    });
+            }
         }
 
         public ActionResult CardDetails(string cardName)

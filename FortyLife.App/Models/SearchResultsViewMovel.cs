@@ -8,7 +8,7 @@ namespace FortyLife.Models
 {
     public class SearchResultsViewMovel
     {
-        public ScryfallList Results { get; set; }
+        public ScryfallList<Card> Results { get; set; }
         public string NameSearch { get; set; }
     }
 }

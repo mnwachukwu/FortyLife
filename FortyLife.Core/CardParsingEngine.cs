@@ -29,7 +29,7 @@ namespace FortyLife.Core
             ArtCrop
         }
 
-        public static string RenderImage(Card cardResult, CardSize size, int scale = 0, bool reverseSide = false)
+        public static string RenderImage(Card cardResult, CardSize size, int scale = 0, bool isTooltip = false, bool reverseSide = false)
         {
             string img;
             string alt;
@@ -88,7 +88,8 @@ namespace FortyLife.Core
                 renderSize = $"width='{scale}%'";
             }
 
-            return $"<img src='{img}' alt='{alt}' {renderSize}>";
+            return
+                $"<span class='card-image'><img class='card {(isTooltip ? "card-tooltip" : string.Empty)} {(size != CardSize.ArtCrop ? "card-shadow" : string.Empty)}' src='{img}' alt='{alt}' {renderSize}></span>";
         }
 
         /// <summary>
@@ -132,6 +133,8 @@ namespace FortyLife.Core
         {
             if (colors == null || colors.Count == 0)
                 return "Colorless";
+
+
 
             var sb = new StringBuilder();
             var sortedColors = colors.OrderBy(i => WubrgOrder.IndexOf(i, StringComparison.Ordinal));
