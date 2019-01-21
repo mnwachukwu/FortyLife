@@ -44,5 +44,11 @@
     <Compile Include="CardParsingEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FortyLife.Data\FortyLife.Data.csproj">
+      <Project>{B464A41B-D8F6-45A5-8D92-F6F8FF9E0367}</Project>
+      <Name>FortyLife.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

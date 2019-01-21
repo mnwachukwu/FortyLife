@@ -2,7 +2,7 @@
 
 namespace FortyLife.Data.Scryfall
 {
-    public class ScryfallList
+    public class ScryfallList<T>
     {
         public string Object { get; set; }
 
@@ -10,6 +10,6 @@ namespace FortyLife.Data.Scryfall
 
         public bool HasMore { get; set; }
 
-        public List<Card> Data { get; set; }
+        public List<T> Data { get; set; }
     }
 }
