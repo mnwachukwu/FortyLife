@@ -1,18 +1,4 @@
-﻿.lotus-container body, html {
-    height: 100%;
-}
-
-.lotus-container body {
-    -webkit-perspective: 1000px;
-    perspective: 1000px;
-}
-
-.lotus-container body, div, ul, li {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-}
-
-.lotus-container div, ul, li, svg {
+﻿.lotus-container div, ul, li, svg {
     will-change: transform;
     -webkit-transform-style: preserve-3d;
     transform-style: preserve-3d;

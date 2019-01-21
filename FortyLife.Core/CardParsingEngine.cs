@@ -378,8 +378,8 @@ namespace FortyLife.Core
 
         public static string ReplaceSupertypes(this string type)
         {
-            return type.Replace("Legendary", string.Empty).Replace("Basic", string.Empty).Replace("Snow", string.Empty)
-                .Replace("World", string.Empty).Replace("Host", string.Empty);
+            return type.Replace("Legendary ", string.Empty).Replace("Basic ", string.Empty).Replace("Snow ", string.Empty)
+                .Replace("World ", string.Empty).Replace("Host ", string.Empty);
         }
     }
 }

@@ -10,14 +10,14 @@
     var rulings = new ScryfallRequestEngine().RulingsRequest(Model.RulingsUri);
     var notes = $"This card's converted mana cost is {Model.Cmc.ToString(CultureInfo.InvariantCulture).Replace(".0", string.Empty)}, ";
     notes += Model.Colors != null && Model.Colors.Count > 0 ? $"its Color{(Model.Colors.Count > 1 ? $"s are {CardParsingEngine.FormatColor(Model.Colors)}, " : $" is {CardParsingEngine.FormatColor(Model.Colors)}, ")}" : "it is Colorless, ";
-    notes += Model.ColorIdentity != null && Model.ColorIdentity.Count > 0 ? $"and its Color {(Model.ColorIdentity.Count > 1 ? $"Identities are {CardParsingEngine.FormatColor(Model.ColorIdentity)}. " : $"Identity is {CardParsingEngine.FormatColor(Model.ColorIdentity)}. ")}" : "and its Color identity is Colorless. ";
+    notes += Model.ColorIdentity != null && Model.ColorIdentity.Count > 0 ? $"and its Color Identity is {CardParsingEngine.FormatColor(Model.ColorIdentity)}. " : "and its Color Identity is Colorless. ";
     if (Model.Reserved)
     {
         notes += "This card is on the <a href='https://magic.wizards.com/en/articles/archive/official-reprint-policy-2010-03-10'>Reserved List</a>. 💔 ";
     }
-    if ((Model.TypeLine.Contains("Legendary Creature") || Model.OracleText.Contains("can be your commander")) && Model.Legalities.Commander != "banned")
+    if ((Model.TypeLine.Contains("Legendary") && Model.TypeLine.Contains("Creature") || Model.OracleText.Contains("can be your commander")) && Model.Legalities.Commander != "banned")
     {
-        notes += "This card can be your Commander. 🛡";
+        notes += "This card can be your <A href='https://magic.wizards.com/en/content/commander-format'>Commander</a>. 🛡";
     }
     rulings.Data.Insert(0, new Ruling
     {
@@ -143,7 +143,7 @@
 <!-- Notes and rulings -->
 <div class="pt-2" style="width: 100%;">
     <div class="card border-dark">
-        <div class="card-header"><span class="oi oi-book"></span>Notes & Rulings</div>
+        <div class="card-header"><span class="oi oi-book"></span> Notes & Rulings</div>
         <div class="card-body">
             @if (rulings.Data.Count > 1)
             {
