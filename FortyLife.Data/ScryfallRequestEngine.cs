@@ -42,6 +42,30 @@ namespace FortyLife.Data
             return searchResultList.Data?.FirstOrDefault();
         }
 
+        public ScryfallList<Card> CardPrintingsRequest(string cardName)
+        {
+            return Request<ScryfallList<Card>>($"{BaseSearchUri}?q=name={cardName}&unique=prints");
+        }
+
+        public List<SetName> CardPrintingsSetNames(string cardName)
+        {
+            var setNames = new List<SetName>();
+
+            foreach (var printing in CardPrintingsRequest(cardName).Data)
+            {
+                if (printing.Name == cardName)
+                {
+                    setNames.Add(new SetName
+                    {
+                        Code = printing.Set,
+                        Name = printing.SetName
+                    });
+                }
+            }
+
+            return setNames;
+        }
+
         public Set CardSetRequest(string setUri)
         {
             return Request<Set>(setUri);

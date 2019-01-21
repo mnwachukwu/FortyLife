@@ -6,10 +6,11 @@
 
 @{
     ViewBag.Title = Model.Name;
+    var rarity = Model.Rarity == "rare" ? "Rare" : Model.Rarity.Replace(Model.Rarity[0].ToString(), Model.Rarity[0].ToString().ToUpper());
     var rulings = new ScryfallRequestEngine().RulingsRequest(Model.RulingsUri);
-    var notes = $"This card's converted mana cost is {Model.Cmc.ToString(CultureInfo.InvariantCulture).Replace(".0", string.Empty)}. ";
-    notes += Model.Colors != null && Model.Colors.Count > 0 ? $"This card's Color{(Model.Colors.Count > 1 ? $"s are {CardParsingEngine.FormatColor(Model.Colors)}. " : $" is {CardParsingEngine.FormatColor(Model.Colors)}. ")}" : "This card is Colorless. ";
-    notes += Model.ColorIdentity != null && Model.ColorIdentity.Count > 0 ? $"This card's Color {(Model.ColorIdentity.Count > 1 ? $"Identities are {CardParsingEngine.FormatColor(Model.ColorIdentity)}. " : $"Identity is {CardParsingEngine.FormatColor(Model.ColorIdentity)}. ")}" : "This card's Color identity is Colorless. ";
+    var notes = $"This card's converted mana cost is {Model.Cmc.ToString(CultureInfo.InvariantCulture).Replace(".0", string.Empty)}, ";
+    notes += Model.Colors != null && Model.Colors.Count > 0 ? $"its Color{(Model.Colors.Count > 1 ? $"s are {CardParsingEngine.FormatColor(Model.Colors)}, " : $" is {CardParsingEngine.FormatColor(Model.Colors)}, ")}" : "it is Colorless, ";
+    notes += Model.ColorIdentity != null && Model.ColorIdentity.Count > 0 ? $"and its Color {(Model.ColorIdentity.Count > 1 ? $"Identities are {CardParsingEngine.FormatColor(Model.ColorIdentity)}. " : $"Identity is {CardParsingEngine.FormatColor(Model.ColorIdentity)}. ")}" : "and its Color identity is Colorless. ";
     if (Model.Reserved)
     {
         notes += "This card is on the <a href='https://magic.wizards.com/en/articles/archive/official-reprint-policy-2010-03-10'>Reserved List</a>. 💔 ";
@@ -18,16 +19,20 @@
     {
         notes += "This card can be your Commander. 🛡";
     }
-
     rulings.Data.Insert(0, new Ruling
     {
         Comment = notes,
         PublishedAt = Model.ReleasedAt
     });
+    var halfRulingsCount = Math.Ceiling(rulings.Data.Count / 2.0);
+    var requestEngine = new ScryfallRequestEngine();
+    var printings = requestEngine.CardPrintingsSetNames(Model.Name);
 }
 
+<!-- Card profile -->
 <div class="pb-2">
     <div class="row">
+        <!-- Card image -->
         <div class="col-md-6">
             @if (Model.ImageUris != null)
             {
@@ -39,6 +44,7 @@
             }
         </div>
 
+        <!-- Card text-->
         <div class="col-md-6">
             <div class="card border-primary">
                 <div class="card-header">
@@ -65,25 +71,35 @@
                 </div>
                 <div class="card-body pt-1 pb-2">
                     <p>
+                        <!-- Card printings button -->
                         <div class="dropdown">
                             <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown">@Html.Raw($"<span class='lead'> {CardParsingEngine.RenderSetSymbol(Model.Set, Model.Rarity)}</span>") @Model.SetName [@Model.Set.ToUpper()]</button>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Dropdown link</a>
-                                <a class="dropdown-item" href="#">Dropdown link</a>
+                                @if (printings.Count > 1)
+                                {
+                                    foreach (var printing in printings)
+                                    {
+                                        if (printing.Code != Model.Set)
+                                        {
+                                            <!-- TODO: make the set symbols for each printing rely on that printing's rarity -->
+                                            <a class="dropdown-item" href="#">@Html.Raw($"<span class='lead'> {CardParsingEngine.RenderSetSymbol(printing.Code, Model.Rarity)}</span>") @printing.Name [@printing.Code.ToUpper()]</a>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="dropdown-item" href="#">No other printings.</span>
+                                }
                             </div>
                         </div>
 
                         <br />
 
-                        @{
-                            var rarity = Model.Rarity == "rare" ? "Rare" : Model.Rarity.Replace(Model.Rarity[0].ToString(), Model.Rarity[0].ToString().ToUpper());
-                        }
-
-                        @rarity, #@Model.CollectorNumber/@(new ScryfallRequestEngine().SetCardCount(Model.SetUri))
-
-                        <span class="float-right"><i class="ms ms-artist-nib"></i> @Model.Artist</span>
+                        @rarity, #@Model.CollectorNumber/@(requestEngine.SetCardCount(Model.SetUri)) <span class="float-right"><i class="ms ms-artist-nib"></i> @Model.Artist</span>
                     </p>
                 </div>
+
+                <!-- legatlities -->
                 <div class="card-header">
                     <span class="badge badge-pill @(Model.Legalities.Commander == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Commander.Replace("notlegal", "banned")">Commander</span>
                     <span class="badge badge-pill @(Model.Legalities._1V1 == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities._1V1.Replace("notlegal", "banned")">1v1 Commander</span>
@@ -100,6 +116,7 @@
 
             <p />
 
+            <!-- TCG Player pricing -->
             <div class="card border-success">
                 <div class="card-header"><span class="oi oi-dollar"></span> TCG Player <span class="float-right"><a href="#"><span class="oi oi-cart"></span> Purchase</a></span></div>
                 <div class="card-body">
@@ -123,14 +140,37 @@
     </div>
 </div>
 
+<!-- Notes and rulings -->
 <div class="pt-2" style="width: 100%;">
     <div class="card border-dark">
         <div class="card-header"><span class="oi oi-book"></span>Notes & Rulings</div>
         <div class="card-body">
-            @foreach (var ruling in rulings.Data)
+            @if (rulings.Data.Count > 1)
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        @for (var i = 0; i < halfRulingsCount; i++)
+                        {
+                            <p>
+                                @Html.Raw(CardParsingEngine.RenderSymbols(rulings.Data[i].Comment)) <i class="text-muted small"><br />@(rulings.Data[i].PublishedAt.HasValue ? rulings.Data[i].PublishedAt.Value.ToString("MMMM d yyyy") : string.Empty)</i>
+                            </p>
+                        }
+                    </div>
+
+                    <div class="col-md-6">
+                        @for (var i = (int)halfRulingsCount; i < rulings.Data.Count; i++)
+                        {
+                            <p>
+                                @Html.Raw(CardParsingEngine.RenderSymbols(rulings.Data[i].Comment)) <i class="text-muted small"><br />@(rulings.Data[i].PublishedAt.HasValue ? rulings.Data[i].PublishedAt.Value.ToString("MMMM d yyyy") : string.Empty)</i>
+                            </p>
+                        }
+                    </div>
+                </div>
+            }
+            else
             {
                 <p>
-                    @Html.Raw(ruling.Comment) <i class="text-muted small"><br />@(ruling.PublishedAt.HasValue ? ruling.PublishedAt.Value.ToString("MMMM d yyyy") : string.Empty)</i>
+                    @Html.Raw(CardParsingEngine.RenderSymbols(rulings.Data[0].Comment)) <i class="text-muted small"><br />@(rulings.Data[0].PublishedAt.HasValue ? rulings.Data[0].PublishedAt.Value.ToString("MMMM d yyyy") : string.Empty)</i>
                 </p>
             }
         </div>

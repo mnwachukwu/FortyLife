@@ -42,4 +42,11 @@ namespace FortyLife.Data.Scryfall
 
         public string IconSvgUri { get; set; }
     }
+
+    public class SetName
+    {
+        public string Code { get; set; }
+
+        public string Name { get; set; }
+    }
 }
