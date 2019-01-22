@@ -335,7 +335,7 @@
     <Content Include="Views\Home\Help.cshtml" />
     <Content Include="Views\Search\CardDetails.cshtml" />
     <Content Include="Views\Shared\CardNotFound.cshtml" />
-    <Content Include="Views\Shared\_Modal.cshtml" />
+    <Content Include="Views\Shared\_LotusModal.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

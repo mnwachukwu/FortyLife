@@ -39,7 +39,7 @@ namespace FortyLife.Data
         public Card FirstCardFromSearch(string cardName)
         {
             var searchResultList = CardSearchRequest(cardName);
-            return searchResultList.Data?.FirstOrDefault();
+            return searchResultList.Data?.FirstOrDefault(i => i.Name == cardName);
         }
 
         public ScryfallList<Card> CardPrintingsRequest(string cardName)
@@ -53,7 +53,7 @@ namespace FortyLife.Data
 
             foreach (var printing in CardPrintingsRequest(cardName).Data)
             {
-                if (printing.Name == cardName)
+                if (printing.Name == cardName && !printing.Digital) // uninclude any digital-only printings
                 {
                     setNames.Add(new SetName
                     {

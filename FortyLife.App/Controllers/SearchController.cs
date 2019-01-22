@@ -12,25 +12,24 @@ namespace FortyLife.Controllers
     {
         public ActionResult Results(string cardName)
         {
-            if (cardName.Length > 2)
+            cardName = cardName.Trim();
+
+            if (cardName.Length <= 2) return RedirectToAction("Index", "Home");
+
+            var requestEngine = new ScryfallRequestEngine();
+            var results = requestEngine.CardSearchRequest(cardName);
+
+            if (results.TotalCards == 1)
             {
-                var requestEngine = new ScryfallRequestEngine();
-                var results = requestEngine.CardSearchRequest(cardName);
-
-                if (results.TotalCards == 1)
-                {
-                    return RedirectToAction("CardDetails", "Search", new { cardName = results.Data[0].Name });
-                }
-
-                return View("Results",
-                    new SearchResultsViewMovel
-                    {
-                        NameSearch = cardName,
-                        Results = results
-                    });
+                return RedirectToAction("CardDetails", "Search", new { cardName = results.Data[0].Name });
             }
 
-            return RedirectToAction("Index", "Home");
+            return View("Results",
+                new SearchResultsViewMovel
+                {
+                    NameSearch = cardName,
+                    Results = results
+                });
         }
 
         public ActionResult CardDetails(string cardName)
