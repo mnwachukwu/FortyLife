@@ -28,10 +28,11 @@
             // custom stripping of the table TODO: would we just want to edit the css and custom strip every table this way?
             var rowClass = alternater ? "bg-active" : "table-default";
 
-            <!-- manually encode our apostrophe in card names (' = %27) TODO: this might not be the best way to handle this -->
+            <!-- manually encode our reserved characters in the param for card names (' = %27), (/ = %2F) from https://www.url-encode-decode.com/
+            TODO: this might not be the best way to handle this -->
             <tr id="card-tooltip" class="@rowClass" data-toggle="tooltip" data-placement="bottom"
                 data-html="true" title="@CardParsingEngine.RenderImage(cardResult, CardParsingEngine.CardSize.Normal, 60, true)"
-                onclick="window.location.assign('/Search/CardDetails?cardName=@cardResult.Name.Replace("// ", string.Empty).Replace("'", "%27")'); $('#lotus-modal').modal();">
+                onclick="window.location.assign('/Search/CardDetails?cardName=@cardResult.Name.Replace("//", "%2F%2F").Replace("'", "%27")'); $('#lotus-modal').modal();">
                 <td>@Html.Raw(cardResult.IsDoubleFaced ? $"{cardResult.CardFaces[0].Name} {TransformIconName(cardResult.CardFaces[1].Name)}" : cardResult.Name)</td>
                 <td>@Html.Raw(cardResult.IsDoubleFaced ? $"{CardParsingEngine.RenderManaSymbols(cardResult.CardFaces[0].ManaCost)} {(!string.IsNullOrEmpty(cardResult.CardFaces[1].ManaCost) ? TransformIconMana(CardParsingEngine.RenderManaSymbols(cardResult.CardFaces[1].ManaCost)) : string.Empty)}" : CardParsingEngine.RenderManaSymbols(cardResult.ManaCost))</td>
                 <td>@Html.Raw(CardParsingEngine.RenderColorWheel(CardParsingEngine.DeduceCardColor(cardResult)))</td>

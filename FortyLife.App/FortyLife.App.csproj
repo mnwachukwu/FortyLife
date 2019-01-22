@@ -336,6 +336,8 @@
     <Content Include="Views\Search\CardDetails.cshtml" />
     <Content Include="Views\Shared\CardNotFound.cshtml" />
     <Content Include="Views\Shared\_LotusModal.cshtml" />
+    <Content Include="Views\Search\_SingleFaceCardDetails.cshtml" />
+    <Content Include="Views\Search\_DoubleFaceCardDetails.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
