@@ -1,8 +1,8 @@
-﻿@using System.Globalization
-@using FortyLife.Core
-@using FortyLife.Data
-@using FortyLife.Data.Scryfall
-@model Card
+﻿@model FortyLife.Data.Scryfall.Card
+
+@{
+    ViewBag.Title = Model.Name;
+}
 
 @if (Model.IsDoubleFaced)
 {

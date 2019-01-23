@@ -1,0 +1,79 @@
+﻿@using System.Globalization
+@using FortyLife.Core
+@using FortyLife.Data
+@using FortyLife.Data.Scryfall
+@model Card
+
+@{
+    bool canBeYourCommander;
+    var rulings = new ScryfallRequestEngine().RulingsRequest(Model.RulingsUri);
+    var notes = $"This card's converted mana cost is {Model.Cmc.ToString(CultureInfo.InvariantCulture).Replace(".0", string.Empty)}, ";
+    if (Model.IsDoubleFaced)
+    {
+        var colors = CardParsingEngine.DeduceCardColor(Model);
+        notes += colors.Count > 0 ? $"its Color{(colors.Count > 1 ? $"s are {CardParsingEngine.FormatColor(colors)}, " : $" is {CardParsingEngine.FormatColor(colors)}, ")}" : "it is Colorless, ";
+    }
+    else
+    {
+        notes += Model.Colors != null ? $"its Color{(Model.Colors.Count > 1 ? $"s are {CardParsingEngine.FormatColor(Model.Colors)}, " : $" is {CardParsingEngine.FormatColor(Model.Colors)}, ")}" : "it is Colorless, ";
+    }
+    notes += Model.ColorIdentity != null ? $"and its Color Identity is {CardParsingEngine.FormatColor(Model.ColorIdentity)}. " : "and its Color Identity is Colorless. ";
+    if (Model.Reserved)
+    {
+        notes += "This card is on the <a href='https://magic.wizards.com/en/articles/archive/official-reprint-policy-2010-03-10'>Reserved List</a>. 💔 ";
+    }
+    if (Model.IsDoubleFaced)
+    {
+        canBeYourCommander = Model.CardFaces[0].OracleText.Contains("can be your commander") || Model.CardFaces[1].OracleText.Contains("can be your commander");
+    }
+    else
+    {
+        canBeYourCommander = Model.OracleText.Contains("can be your commander");
+    }
+    if ((Model.TypeLine.Contains("Legendary") && Model.TypeLine.Contains("Creature") || canBeYourCommander) && Model.Legalities.Commander != "banned" && !string.IsNullOrEmpty(Model.ManaCost))
+    {
+        notes += "This card can be your <A href='https://magic.wizards.com/en/content/commander-format'>Commander</a>. 🛡";
+    }
+    rulings.Data.Insert(0, new Ruling
+    {
+        Comment = notes,
+        PublishedAt = Model.ReleasedAt
+    });
+    var halfRulingsCount = Math.Ceiling(rulings.Data.Count / 2.0);
+}
+
+<div class="pt-2" style="width: 100%;">
+    <div class="card border-dark">
+        <div class="card-header"><span class="oi oi-book"></span> Notes & Rulings</div>
+        <div class="card-body">
+            @if (rulings.Data.Count > 1)
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        @for (var i = 0; i < halfRulingsCount; i++)
+                        {
+                            <p>
+                                @Html.Raw(CardParsingEngine.RenderSymbols(rulings.Data[i].Comment)) <i class="text-muted small"><br />@(rulings.Data[i].PublishedAt.HasValue ? rulings.Data[i].PublishedAt.Value.ToString("MMMM d yyyy") : string.Empty)</i>
+                            </p>
+                        }
+                    </div>
+
+                    <div class="col-md-6">
+                        @for (var i = (int)halfRulingsCount; i < rulings.Data.Count; i++)
+                        {
+                            <p>
+                                @Html.Raw(CardParsingEngine.RenderSymbols(rulings.Data[i].Comment)) <i class="text-muted small"><br />@(rulings.Data[i].PublishedAt.HasValue ? rulings.Data[i].PublishedAt.Value.ToString("MMMM d yyyy") : string.Empty)</i>
+                            </p>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <p>
+                    @Html.Raw(CardParsingEngine.RenderSymbols(rulings.Data[0].Comment)) <i class="text-muted small"><br />@(rulings.Data[0].PublishedAt.HasValue ? rulings.Data[0].PublishedAt.Value.ToString("MMMM d yyyy") : string.Empty)</i>
+                </p>
+            }
+        </div>
+    </div>
+</div>
