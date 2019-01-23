@@ -87,6 +87,7 @@
     <Compile Include="RequestEngine.cs" />
     <Compile Include="Scryfall\ScryfallCache.cs" />
     <Compile Include="Scryfall\Set.cs" />
+    <Compile Include="TcgPlayerRequestEngine.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -112,6 +113,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TCGPlayer\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

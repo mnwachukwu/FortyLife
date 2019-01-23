@@ -32,7 +32,8 @@ namespace FortyLife
                 "~/Content/keyrune.min.css",
                 "~/Content/Site.css",
                 "~/Content/ColorPie.css",
-                "~/Content/BlackLotus.css"));
+                "~/Content/BlackLotus.css",
+                "~/Content/CardFlip.css"));
         }
     }
 }

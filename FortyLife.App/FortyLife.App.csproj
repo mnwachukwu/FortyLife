@@ -211,6 +211,7 @@
     <Content Include="Content\Bootstrap\bootstrap-reboot.min.css" />
     <Content Include="Content\Bootstrap\bootstrap.css" />
     <Content Include="Content\Bootstrap\bootstrap.min.css" />
+    <Content Include="Content\CardFlip.css" />
     <Content Include="Content\ColorPie.css" />
     <Content Include="Content\keyrune.min.css" />
     <Content Include="Content\mana.min.css" />
@@ -336,6 +337,10 @@
     <Content Include="Views\Search\CardDetails.cshtml" />
     <Content Include="Views\Shared\CardNotFound.cshtml" />
     <Content Include="Views\Shared\_LotusModal.cshtml" />
+    <Content Include="Views\Search\_SingleFaceCardDetails.cshtml" />
+    <Content Include="Views\Search\_DoubleFaceCardDetails.cshtml" />
+    <Content Include="Views\Search\_TCGPlayerPricing.cshtml" />
+    <Content Include="Views\Search\_NotesAndRulings.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

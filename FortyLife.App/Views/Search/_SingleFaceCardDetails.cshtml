@@ -1,0 +1,107 @@
+﻿@using System.Globalization
+@using FortyLife.Core
+@using FortyLife.Data
+@using FortyLife.Data.Scryfall
+@model Card
+
+@{
+    var rarity = Model.Rarity == "rare" ? "Rare" : Model.Rarity.Replace(Model.Rarity[0].ToString(), Model.Rarity[0].ToString().ToUpper());
+    var requestEngine = new ScryfallRequestEngine();
+    var printings = requestEngine.CardPrintingsSetNames(Model.Name);
+}
+
+<!-- Card profile -->
+<div class="pb-2">
+    <div class="row">
+        <!-- Card image -->
+        <div class="col-md-6">
+            @if (Model.ImageUris != null)
+            {
+                <div class='d-flex justify-content-center'>
+                    <div class="card-image">
+                        <img class="card card-shadow" src="@Model.ImageUris.Normal" alt="@Model.Name" title="@Model.Name [@Model.Set.ToUpper()]" />
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Card text-->
+        <div class="col-md-6">
+            <div class="card border-primary">
+                <div class="card-header">
+                    <span class="oi oi-magnifying-glass"></span> @Model.Name <span class="float-right">@Html.Raw(CardParsingEngine.RenderManaSymbols(Model.ManaCost))</span> <br />
+                </div>
+                <div class="card-body pb-1">
+                    <p class="card-text">@Model.TypeLine</p>
+                    <p class="card-text">@Html.Raw(CardParsingEngine.RenderLineBreaks(CardParsingEngine.RenderSymbols(Model.OracleText.Replace("(", "<i>(").Replace(")", ")</i>"))))</p>
+                    <p class="card-text"><i>@Model.FlavorText</i></p>
+
+                    @if (!string.IsNullOrEmpty(Model.Power) || !string.IsNullOrEmpty(Model.Toughness))
+                    {
+                        <p>
+                            <span class="float-right">@Model.Power <i class="ms ms-power" title="Power"></i> / @Model.Toughness <i class="ms ms-toughness" title="Toughness"></i></span>
+                        </p>
+                    }
+
+                    @if (!string.IsNullOrEmpty(Model.Loyalty))
+                    {
+                        <p>
+                            <span class="float-right lead"><i class="ms ms-loyalty-start ms-loyalty-@Model.Loyalty" title="enters the battlefield with @(Model.Loyalty == "1" ? "one" : Model.Loyalty) loyalty counter@(Model.Loyalty == "1" ? string.Empty : "s")"></i></span>
+                        </p>
+                    }
+                </div>
+                <div class="card-body pt-1 pb-2">
+                    <p>
+                        <!-- Card printings button -->
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown">@Html.Raw($"<span class='lead'> {CardParsingEngine.RenderSetSymbol(Model.Set, Model.Rarity)}</span>") @Model.SetName [@Model.Set.ToUpper()]</button>
+                            <div class="dropdown-menu">
+                                @if (printings.Count > 1)
+                                {
+                                    foreach (var printing in printings)
+                                    {
+                                        if (printing.Code != Model.Set)
+                                        {
+                                            <!-- TODO: make the set symbols for each printing rely on that printing's rarity -->
+                                            <a class="dropdown-item" href="#">@Html.Raw($"<span class='lead'> {CardParsingEngine.RenderSetSymbol(printing.Code, Model.Rarity)}</span>") @printing.Name [@printing.Code.ToUpper()]</a>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="dropdown-item" href="#">No other printings.</span>
+                                }
+                            </div>
+                        </div>
+
+                        <br />
+
+                        @rarity, #@Model.CollectorNumber/@(requestEngine.SetCardCount(Model.SetUri)) <span class="float-right"><i class="ms ms-artist-nib"></i> @Model.Artist</span>
+                    </p>
+                </div>
+
+                <!-- legatlities -->
+                <div class="card-footer">
+                    <span class="badge badge-pill @(Model.Legalities.Commander == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Commander.Replace("notlegal", "banned")">Commander</span>
+                    <span class="badge badge-pill @(Model.Legalities._1V1 == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities._1V1.Replace("notlegal", "banned")">1v1 Commander</span>
+                    <span class="badge badge-pill @(Model.Legalities.Brawl == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Brawl.Replace("notlegal", "banned")">Brawl</span>
+                    <span class="badge badge-pill @(Model.Legalities.Standard == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Standard.Replace("notlegal", "banned")">Standard</span>
+                    <span class="badge badge-pill @(Model.Legalities.Modern == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Modern.Replace("notlegal", "banned")">Modern</span>
+                    <span class="badge badge-pill @(Model.Legalities.Legacy == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Legacy.Replace("notlegal", "banned")">Legacy</span>
+                    <span class="badge badge-pill @(Model.Legalities.Vintage == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Vintage.Replace("notlegal", "banned")">Vintage</span>
+                    <span class="badge badge-pill @(Model.Legalities.Frontier == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Frontier.Replace("notlegal", "banned")">Frontier</span>
+                    <span class="badge badge-pill @(Model.Legalities.Pauper == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Pauper.Replace("notlegal", "banned")">Pauper</span>
+                    <span class="badge badge-pill @(Model.Legalities.Penny == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Penny.Replace("notlegal", "banned")">Penny</span>
+                </div>
+            </div>
+
+            <p />
+
+            <!-- TCG Player pricing -->
+            @Html.Partial("_TCGPlayerPricing", Model)
+        </div>
+    </div>
+</div>
+
+<!-- Notes and rulings -->
+@Html.Partial("_NotesAndRulings", Model)
