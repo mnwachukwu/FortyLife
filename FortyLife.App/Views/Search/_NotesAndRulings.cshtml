@@ -30,9 +30,19 @@
     {
         canBeYourCommander = Model.OracleText.Contains("can be your commander");
     }
-    if ((Model.TypeLine.Contains("Legendary") && Model.TypeLine.Contains("Creature") || canBeYourCommander) && Model.Legalities.Commander != "banned" && !string.IsNullOrEmpty(Model.ManaCost))
+    if (Model.IsDoubleFaced)
     {
-        notes += "This card can be your <A href='https://magic.wizards.com/en/content/commander-format'>Commander</a>. 🛡";
+        if ((Model.CardFaces[0].TypeLine.Contains("Legendary") && Model.CardFaces[0].TypeLine.Contains("Creature") || canBeYourCommander) && Model.Legalities.Commander != "banned" && !string.IsNullOrEmpty(Model.ManaCost))
+        {
+            notes += "This card can be your <A href='https://magic.wizards.com/en/content/commander-format'>Commander</a>. 🛡";
+        }
+    }
+    else
+    {
+        if ((Model.TypeLine.Contains("Legendary") && Model.TypeLine.Contains("Creature") || canBeYourCommander) && Model.Legalities.Commander != "banned" && !string.IsNullOrEmpty(Model.ManaCost))
+        {
+            notes += "This card can be your <A href='https://magic.wizards.com/en/content/commander-format'>Commander</a>. 🛡";
+        }
     }
     rulings.Data.Insert(0, new Ruling
     {
