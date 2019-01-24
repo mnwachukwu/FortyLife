@@ -22,8 +22,11 @@ namespace FortyLife
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                 "~/Scripts/bootstrap.bundle.min.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/sitejs").Include(
+            bundles.Add(new ScriptBundle("~/bundles/tooltipjs").Include(
                 "~/Scripts/EnableTooltip.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/sitejs").Include(
+                "~/Scripts/Site.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/Bootstrap/bootstrap.min.css",

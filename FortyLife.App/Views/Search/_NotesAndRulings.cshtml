@@ -32,7 +32,7 @@
     }
     if (Model.IsDoubleFaced)
     {
-        if ((Model.CardFaces[0].TypeLine.Contains("Legendary") && Model.CardFaces[0].TypeLine.Contains("Creature") || canBeYourCommander) && Model.Legalities.Commander != "banned" && !string.IsNullOrEmpty(Model.ManaCost))
+        if ((Model.CardFaces[0].TypeLine.Contains("Legendary") && Model.CardFaces[0].TypeLine.Contains("Creature") || canBeYourCommander) && Model.Legalities.Commander != "banned" && !string.IsNullOrEmpty(Model.CardFaces[0].ManaCost))
         {
             notes += "This card can be your <A href='https://magic.wizards.com/en/content/commander-format'>Commander</a>. 🛡";
         }
