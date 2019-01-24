@@ -88,6 +88,9 @@
     <Compile Include="Scryfall\ScryfallCache.cs" />
     <Compile Include="Scryfall\Set.cs" />
     <Compile Include="TcgPlayerRequestEngine.cs" />
+    <Compile Include="TCGPlayer\AccessToken.cs" />
+    <Compile Include="TCGPlayer\CategoryProductsResult.cs" />
+    <Compile Include="TCGPlayer\MarketPriceResults.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -114,8 +117,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TCGPlayer\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
