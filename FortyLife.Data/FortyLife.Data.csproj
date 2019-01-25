@@ -66,6 +66,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc">
       <HintPath>..\FortyLife.App\Bin\System.Web.Mvc.dll</HintPath>
     </Reference>
@@ -90,7 +91,9 @@
     <Compile Include="TcgPlayerRequestEngine.cs" />
     <Compile Include="TCGPlayer\AccessToken.cs" />
     <Compile Include="TCGPlayer\CategoryProductsResult.cs" />
+    <Compile Include="TCGPlayer\CategoryProductsSearchBody.cs" />
     <Compile Include="TCGPlayer\MarketPriceResults.cs" />
+    <Compile Include="TCGPlayer\ProductDetailsResults.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

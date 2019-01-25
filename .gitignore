@@ -18,3 +18,7 @@ FortyLife\.Data/App_Data/
 FortyLife\.Database/bin/
 
 FortyLife\.Database/obj/
+
+FortyLife\.App/App_Data/access-token\.txt
+
+FortyLife\.App/App_Data/private-key\.txt
