@@ -30,9 +30,19 @@
     {
         canBeYourCommander = Model.OracleText.Contains("can be your commander");
     }
-    if ((Model.TypeLine.Contains("Legendary") && Model.TypeLine.Contains("Creature") || canBeYourCommander) && Model.Legalities.Commander != "banned" && !string.IsNullOrEmpty(Model.ManaCost))
+    if (Model.IsDoubleFaced)
     {
-        notes += "This card can be your <A href='https://magic.wizards.com/en/content/commander-format'>Commander</a>. 🛡";
+        if ((Model.CardFaces[0].TypeLine.Contains("Legendary") && Model.CardFaces[0].TypeLine.Contains("Creature") || canBeYourCommander) && Model.Legalities.Commander != "banned" && !string.IsNullOrEmpty(Model.CardFaces[0].ManaCost))
+        {
+            notes += "This card can be your <A href='https://magic.wizards.com/en/content/commander-format'>Commander</a>. 🛡";
+        }
+    }
+    else
+    {
+        if ((Model.TypeLine.Contains("Legendary") && Model.TypeLine.Contains("Creature") || canBeYourCommander) && Model.Legalities.Commander != "banned" && !string.IsNullOrEmpty(Model.ManaCost))
+        {
+            notes += "This card can be your <A href='https://magic.wizards.com/en/content/commander-format'>Commander</a>. 🛡";
+        }
     }
     rulings.Data.Insert(0, new Ruling
     {
@@ -42,7 +52,7 @@
     var halfRulingsCount = Math.Ceiling(rulings.Data.Count / 2.0);
 }
 
-<div class="pt-2" style="width: 100%;">
+<div class="pt-2">
     <div class="card border-dark">
         <div class="card-header"><span class="oi oi-book"></span> Notes & Rulings</div>
         <div class="card-body">

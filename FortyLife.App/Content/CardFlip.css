@@ -13,8 +13,8 @@
     transform-style: preserve-3d;
 }
 
-/* Do an horizontal flip when you move the mouse over the flip box container */
-.flip-card:hover .flip-card-inner {
+/* Do an horizontal flip when the button click adds the is-flipped class */
+.is-flipped .flip-card-inner {
     transform: rotateY(180deg);
 }
 
@@ -22,6 +22,7 @@
 .flip-card-front, .flip-card-back {
     position: absolute;
     backface-visibility: hidden;
+    left: 26px;
 }
 
 /* Style the back side */

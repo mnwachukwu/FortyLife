@@ -25,22 +25,11 @@
             }
             else
             {
-                @*<div class="card border-light">
-                        <div class="card-header"><span class="float-right"><span class="oi oi-loop" data-toggle="tooltip" data-placement="top" title="See the other side."></span></span></div>
-                        <div class="card-body">
-                            <div class='d-flex justify-content-center'>
-                                <div class="card-image">
-                                    <img id="front" class="card card-shadow" src="@Model.CardFaces[0].ImageUris.Normal" alt="@Model.Name" title="@Model.Name [@Model.Set.ToUpper()]" />
-                                    <img id="back" class="card card-shadow d-none" src="@Model.CardFaces[1].ImageUris.Normal" alt="@Model.Name" title="@Model.Name [@Model.Set.ToUpper()]" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>*@
+                <div class='d-flex justify-content-center'>
+                    <span id="which-face" class="small text-muted">Front</span>
+                </div>
 
-                @*<img id="front" class="card card-shadow" src="@Model.CardFaces[0].ImageUris.Normal" alt="@Model.Name" title="@Model.Name [@Model.Set.ToUpper()]" />
-                    <img id="back" class="card card-shadow" src="@Model.CardFaces[1].ImageUris.Normal" alt="@Model.Name" title="@Model.Name [@Model.Set.ToUpper()]" />*@
-
-                <div class="flip-card">
+                <div id="card-image" class="flip-card">
                     <div class="flip-card-inner">
                         <div class="flip-card-front">
                             <img id="front" class="card card-shadow" src="@Model.CardFaces[0].ImageUris.Normal" alt="@Model.Name" title="@Model.Name [@Model.Set.ToUpper()]" />
@@ -51,8 +40,8 @@
                     </div>
                 </div>
 
-                <div class='d-flex justify-content-center'>
-                    <a href="#" class="btn btn-outline-info">Flip</a>
+                <div id="flip-button" class='d-flex justify-content-center'>
+                    <button class="btn btn-outline-info"><span class="oi oi-loop"></span> Flip</button>
                 </div>
             }
         </div>
@@ -108,7 +97,7 @@
                     }
                     @if (!string.IsNullOrEmpty(Model.CardFaces[1].Loyalty))
                     {
-                        <span class="float-right lead"><i class="ms ms-loyalty-start ms-loyalty-@Model.CardFaces[1].Loyalty" title="enters the battlefield with @(Model.CardFaces[1].Loyalty == "1" ? "one" : Model.Loyalty) loyalty counter@(Model.CardFaces[1].Loyalty == "1" ? string.Empty : "s")"></i></span>
+                        <span class="float-right lead"><i class="ms ms-loyalty-start ms-loyalty-@Model.CardFaces[1].Loyalty" title="enters the battlefield with @(Model.CardFaces[1].Loyalty == "1" ? "one" : Model.CardFaces[1].Loyalty) loyalty counter@(Model.CardFaces[1].Loyalty == "1" ? string.Empty : "s")"></i></span>
                     }
                 </div>
 

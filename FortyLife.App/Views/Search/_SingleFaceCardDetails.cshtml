@@ -81,7 +81,7 @@
                 </div>
 
                 <!-- legatlities -->
-                <div class="card-footer">
+                <div class="card-footer bg-active">
                     <span class="badge badge-pill @(Model.Legalities.Commander == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Commander.Replace("notlegal", "banned")">Commander</span>
                     <span class="badge badge-pill @(Model.Legalities._1V1 == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities._1V1.Replace("notlegal", "banned")">1v1 Commander</span>
                     <span class="badge badge-pill @(Model.Legalities.Brawl == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Brawl.Replace("notlegal", "banned")">Brawl</span>

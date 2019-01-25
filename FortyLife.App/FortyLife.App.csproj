@@ -216,6 +216,7 @@
     <Content Include="Content\keyrune.min.css" />
     <Content Include="Content\mana.min.css" />
     <Content Include="Content\open-iconic-bootstrap.min.css" />
+    <Content Include="Content\RainbowText.css" />
     <Content Include="favicon.ico" />
     <Content Include="Fonts\keyrune.svg" />
     <Content Include="Fonts\mana.svg" />
@@ -281,6 +282,8 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\RainbowText.js" />
+    <Content Include="Scripts\Site.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -342,7 +345,9 @@
     <Content Include="Views\Search\_TCGPlayerPricing.cshtml" />
     <Content Include="Views\Search\_NotesAndRulings.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />

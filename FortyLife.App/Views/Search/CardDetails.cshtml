@@ -4,6 +4,10 @@
     ViewBag.Title = Model.Name;
 }
 
+@section Scripts{
+    @Scripts.Render("~/bundles/rainbowtext")
+}
+
 @if (Model.IsDoubleFaced)
 {
     @Html.Partial("_DoubleFaceCardDetails", Model);
