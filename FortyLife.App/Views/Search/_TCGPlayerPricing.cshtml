@@ -22,7 +22,7 @@
 
 <div class="card border-success">
     <div class="card-header">
-        <span class="oi oi-dollar"></span> TCG Player <span class="float-right"><a href="@requestEngine.GetTcgPlayerUrl(Model.Name, Model.SetName)"><span class="oi oi-cart"></span> Purchase</a></span>
+        <span class="oi oi-dollar"></span> TCG Player <span class="float-right"><a href="@(!errorGettingPricing ? requestEngine.GetTcgPlayerUrl(Model.Name, Model.SetName) : "#")"><span class="oi oi-cart"></span> Purchase</a></span>
     </div>
 
     <div class="card-body">
