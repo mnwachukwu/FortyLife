@@ -60,7 +60,7 @@ namespace FortyLife.Data
         public ScryfallList<Card> CardPrintingsRequest(string cardName)
         {
             var results = Request<ScryfallList<Card>>($"{BaseSearchUri}?q=name={cardName}&unique=prints");
-            results.Data = results.Data.Where(i => i.Digital == false).ToList();
+            results.Data = results.Data.Where(i => i.Digital == false && i.Name == cardName).ToList();
 
             return results;
         }
