@@ -22,26 +22,40 @@
 
 <div class="card border-success">
     <div class="card-header">
-        <span class="oi oi-dollar"></span> TCG Player <span class="float-right"><a href="@requestEngine.GetTcgPlayerUrl(Model.Name, Model.SetName)"><span class="oi oi-cart"></span> Purchase</a></span>
+        <span class="oi oi-dollar"></span> TCG Player
+
+        @if (!errorGettingPricing)
+        {
+            <span class="float-right"><a href="@requestEngine.GetTcgPlayerUrl(Model.Name, Model.SetName)"><span class="oi oi-cart"></span> Purchase</a></span>
+        }
     </div>
 
     <div class="card-body">
         @if (!errorGettingPricing)
         {
-            <div id="price">
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    Low
+                </div>
+                <div class="col-md-4 text-center">
+                    Mid
+                </div>
+                <div class="col-md-4 text-center">
+                    High
+                </div>
+            </div>
+
+            <div>
                 @if (price.LowPrice.HasValue || price.MidPrice.HasValue || price.HighPrice.HasValue)
                 {
                     <div class="row">
                         <div class="col-md-4 text-center">
-                            Low <br />
-                            <span class="text-muted small">@(price.LowPrice.HasValue ? price.LowPrice.Value.ToString("C") : "-")</span>
+                            <span class="text-muted">@(price.LowPrice.HasValue ? price.LowPrice.Value.ToString("C") : "-")</span>
                         </div>
                         <div class="col-md-4 text-center">
-                            Mid <br />
                             <span class="text-success lead">@(price.MidPrice.HasValue ? price.MidPrice.Value.ToString("C") : "-")</span>
                         </div>
                         <div class="col-md-4 text-center">
-                            High <br />
                             <span class="text-danger">@(price.HighPrice.HasValue ? price.HighPrice.Value.ToString("C") : "-")</span>
                         </div>
                     </div>
@@ -52,29 +66,24 @@
                         This card has no pricing data for non-foil printings from this set.
                     </div>
                 }
-            </div>
 
-            <div id="foil-price" class="d-none">
                 @if (foilPrice.LowPrice.HasValue || foilPrice.MidPrice.HasValue || foilPrice.HighPrice.HasValue)
                 {
-                    <div class="row">
+                    <div class="row small color-text-flow">
                         <div class="col-md-4 text-center">
-                            Low <br />
-                            <span class="text-muted small">@(foilPrice.LowPrice.HasValue ? foilPrice.LowPrice.Value.ToString("C") : "-")</span>
+                            <span class="rainbow-text">@(foilPrice.LowPrice.HasValue ? foilPrice.LowPrice.Value.ToString("C") : "-")</span>
                         </div>
                         <div class="col-md-4 text-center">
-                            Mid <br />
-                            <span class="text-success lead">@(foilPrice.MidPrice.HasValue ? foilPrice.MidPrice.Value.ToString("C") : "-")</span>
+                            <span class="rainbow-text">@(foilPrice.MidPrice.HasValue ? foilPrice.MidPrice.Value.ToString("C") : "-")</span>
                         </div>
                         <div class="col-md-4 text-center">
-                            High <br />
-                            <span class="text-danger">@(foilPrice.HighPrice.HasValue ? foilPrice.HighPrice.Value.ToString("C") : "-")</span>
+                            <span class="rainbow-text">@(foilPrice.HighPrice.HasValue ? foilPrice.HighPrice.Value.ToString("C") : "-")</span>
                         </div>
                     </div>
                 }
                 else
                 {
-                    <div class="text-center text-muted">
+                    <div class="text-center text-muted small">
                         This card has no pricing data for foil printings from this set.
                     </div>
                 }
@@ -91,9 +100,8 @@
     @if (!errorGettingPricing)
     {
         <div class="card-footer bg-active">
-            <span class="custom-switch float-right">
-                <input type="checkbox" class="custom-control-input" id="show-foil">
-                <label id="foil-text" class="small custom-control-label text-muted" for="show-foil"><i class="ss ss-htr"></i> Foil</label>
+            <span class="small color-text-flow float-right" data-toggle="tooltip" data-placement="top" title="Foil prices are highlighted in rainbow.">
+                <i class="ss ss-htr"></i> <span class="ranbow-text">Foil</span>
             </span>
         </div>
     }
