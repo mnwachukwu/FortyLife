@@ -1,0 +1,30 @@
+﻿@using FortyLife.Core
+@using FortyLife.Data
+@model FortyLife.Data.Scryfall.Card
+
+@{
+    var requestEngine = new ScryfallRequestEngine();
+    var printings = requestEngine.CardPrintingsSetNames(Model.Name);
+}
+
+<div class="dropdown">
+    <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown">@Html.Raw($"<span class='lead'> {CardParsingEngine.RenderSetSymbol(Model.Set, Model.Rarity)}</span>") @Model.SetName [@Model.Set.ToUpper()]</button>
+    <div class="dropdown-menu">
+        @if (printings.Count > 1)
+        {
+            foreach (var printing in printings)
+            {
+                if (printing.Code != Model.Set)
+                {
+                    <a class="dropdown-item printings-button" href="/Search/CardDetails?cardName=@Model.Name&setCode=@printing.Code">
+                        @Html.Raw($"<span class='lead'> {CardParsingEngine.RenderSetSymbol(printing.Code, printing.Rarity)}</span>") @printing.Name [@printing.Code.ToUpper()]
+                    </a>
+                }
+            }
+        }
+        else
+        {
+            <span class="dropdown-item" href="#">No other printings.</span>
+        }
+    </div>
+</div>

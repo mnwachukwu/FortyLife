@@ -7,7 +7,6 @@
 @{
     var rarity = Model.Rarity == "rare" ? "Rare" : Model.Rarity.Replace(Model.Rarity[0].ToString(), Model.Rarity[0].ToString().ToUpper());
     var requestEngine = new ScryfallRequestEngine();
-    var printings = requestEngine.CardPrintingsSetNames(Model.Name);
 }
 
 <!-- Card profile -->
@@ -104,26 +103,7 @@
                 <div class="card-body pt-1 pb-2">
                     <p>
                         <!-- Card printings button -->
-                        <div class="dropdown">
-                            <button type="button" class="btn btn-outline-warning dropdown-toggle" data-toggle="dropdown">@Html.Raw($"<span class='lead'> {CardParsingEngine.RenderSetSymbol(Model.Set, Model.Rarity)}</span>") @Model.SetName [@Model.Set.ToUpper()]</button>
-                            <div class="dropdown-menu">
-                                @if (printings.Count > 1)
-                                {
-                                    foreach (var printing in printings)
-                                    {
-                                        if (printing.Code != Model.Set)
-                                        {
-                                            <!-- TODO: make the set symbols for each printing rely on that printing's rarity -->
-                                            <a class="dropdown-item" href="#">@Html.Raw($"<span class='lead'> {CardParsingEngine.RenderSetSymbol(printing.Code, Model.Rarity)}</span>") @printing.Name [@printing.Code.ToUpper()]</a>
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    <span class="dropdown-item" href="#">No other printings.</span>
-                                }
-                            </div>
-                        </div>
+                        @Html.Partial("_PrintingsButton", Model)
 
                         <br />
 

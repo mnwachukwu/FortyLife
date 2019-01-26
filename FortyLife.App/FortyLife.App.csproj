@@ -344,6 +344,7 @@
     <Content Include="Views\Search\_DoubleFaceCardDetails.cshtml" />
     <Content Include="Views\Search\_TCGPlayerPricing.cshtml" />
     <Content Include="Views\Search\_NotesAndRulings.cshtml" />
+    <Content Include="Views\Search\_PrintingsButton.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

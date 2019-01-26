@@ -12,3 +12,9 @@
         }
     });
 });
+
+$(document).ready(function () {
+    $(".printings-button").click(function () {
+        $("#lotus-modal").modal();
+    });
+});
