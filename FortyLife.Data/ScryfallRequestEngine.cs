@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 using FortyLife.Data.Scryfall;
 using Newtonsoft.Json;
 using static System.String;

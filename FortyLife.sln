@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FortyLife.Data", "FortyLife.Data\FortyLife.Data.csproj", "{B464A41B-D8F6-45A5-8D92-F6F8FF9E0367}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FortyLife.DataAccess", "FortyLife.Data\FortyLife.DataAccess.csproj", "{B464A41B-D8F6-45A5-8D92-F6F8FF9E0367}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FortyLife.Core", "FortyLife.Core\FortyLife.Core.csproj", "{87443316-78EF-4681-AAAA-AC5D518E7F52}"
 EndProject
