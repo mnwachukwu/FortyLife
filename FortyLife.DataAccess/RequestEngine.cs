@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Net;
 
-namespace FortyLife.Data
+namespace FortyLife.DataAccess
 {
     public class RequestEngine
     {

@@ -1,8 +1,7 @@
 ﻿@using System.Globalization
 @using FortyLife.Core
-@using FortyLife.Data
-@using FortyLife.Data.Scryfall
-@model Card
+@using FortyLife.DataAccess
+@model FortyLife.DataAccess.Scryfall.Card
 
 @{
     var rarity = Model.Rarity == "rare" ? "Rare" : Model.Rarity.Replace(Model.Rarity[0].ToString(), Model.Rarity[0].ToString().ToUpper());

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FortyLife.Data.Scryfall
+namespace FortyLife.DataAccess.Scryfall
 {
     public class Ruling
     {

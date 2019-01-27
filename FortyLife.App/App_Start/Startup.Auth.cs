@@ -1,5 +1,5 @@
 ﻿using System;
-using FortyLife.Data;
+using FortyLife.DataAccess;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;

@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using FortyLife.Data.Scryfall;
+using FortyLife.DataAccess.Scryfall;
 using Newtonsoft.Json;
-using static System.String;
 
-namespace FortyLife.Data
+namespace FortyLife.DataAccess
 {
     public class ScryfallRequestEngine : RequestEngine
     {
@@ -21,12 +20,12 @@ namespace FortyLife.Data
             Thread.Sleep(200); // TODO: better way to rate limit without shutting the thread down entirely
             // TODO: handle the 429 status code (if we ever even get it back) from scryfall
 
-            var jsonResult = Get(requestUri).Replace("_", Empty);
+            var jsonResult = Get(requestUri).Replace("_", String.Empty);
 
             if (typeof(T) == typeof(ScryfallList<Card>))
                 jsonResult = jsonResult.Replace("1v1", "_1v1"); // variables don't start with numbers, so replace the json
 
-            return !IsNullOrEmpty(jsonResult) ? JsonConvert.DeserializeObject<T>(jsonResult) : new T();
+            return !String.IsNullOrEmpty(jsonResult) ? JsonConvert.DeserializeObject<T>(jsonResult) : new T();
         }
 
         public ScryfallList<Card> CardSearchRequest(string cardName)
@@ -48,7 +47,7 @@ namespace FortyLife.Data
         {
             var searchResultList = CardPrintingsRequest(cardName);
 
-            return !IsNullOrEmpty(setCode)
+            return !String.IsNullOrEmpty(setCode)
                 ? searchResultList.Data?.FirstOrDefault(i =>
                     i.Name == cardName && string.Equals(i.Set, setCode, StringComparison.CurrentCultureIgnoreCase))
                 : searchResultList.Data?.FirstOrDefault(i => i.Name == cardName);

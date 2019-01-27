@@ -1,4 +1,4 @@
-﻿using FortyLife.Data.Scryfall;
+﻿using FortyLife.DataAccess.Scryfall;
 using System;
 using System.Collections.Generic;
 using System.Linq;

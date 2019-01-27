@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FortyLife.Data.Scryfall
+namespace FortyLife.DataAccess.Scryfall
 {
     public class Card : CardFace
     {

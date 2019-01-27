@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using FortyLife.Data;
+using FortyLife.DataAccess;
 using FortyLife.Models;
 
 namespace FortyLife.Controllers

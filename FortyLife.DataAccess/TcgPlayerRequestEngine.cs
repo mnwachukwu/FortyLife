@@ -4,10 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Web;
-using FortyLife.Data.TCGPlayer;
+using FortyLife.DataAccess.TCGPlayer;
 using Newtonsoft.Json;
 
-namespace FortyLife.Data
+namespace FortyLife.DataAccess
 {
     public class TcgPlayerRequestEngine : RequestEngine
     {

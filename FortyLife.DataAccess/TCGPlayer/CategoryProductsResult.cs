@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FortyLife.Data.TCGPlayer
+namespace FortyLife.DataAccess.TCGPlayer
 {
     public class CategoryProductsResult
     {
