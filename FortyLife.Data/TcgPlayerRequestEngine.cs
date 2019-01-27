@@ -129,7 +129,7 @@ namespace FortyLife.Data
             var body = JsonConvert.SerializeObject(searchCriteria);
             var jsonResult = Post(CategoryProductSearchUri, body, RequestBodyType.Json, ReadAccessToken());
 
-            return JsonConvert.DeserializeObject<CategoryProductsResult>(jsonResult).Results.FirstOrDefault();
+            return JsonConvert.DeserializeObject<CategoryProductsResult>(jsonResult).Results.OrderBy(i => i).FirstOrDefault();
         }
 
         public MarketPriceResults CardPriceRequest(string cardName, string setName)
