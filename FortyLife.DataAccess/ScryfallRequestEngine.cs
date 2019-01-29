@@ -20,23 +20,26 @@ namespace FortyLife.DataAccess
             Thread.Sleep(200); // TODO: better way to rate limit without shutting the thread down entirely
             // TODO: handle the 429 status code (if we ever even get it back) from scryfall
 
-            var jsonResult = Get(requestUri).Replace("_", String.Empty);
+            var jsonResult = Get(requestUri).Replace("_", string.Empty);
 
             if (typeof(T) == typeof(ScryfallList<Card>))
                 jsonResult = jsonResult.Replace("1v1", "_1v1"); // variables don't start with numbers, so replace the json
 
-            return !String.IsNullOrEmpty(jsonResult) ? JsonConvert.DeserializeObject<T>(jsonResult) : new T();
+            return !string.IsNullOrEmpty(jsonResult) ? JsonConvert.DeserializeObject<T>(jsonResult) : new T();
         }
 
         public ScryfallList<Card> CardSearchRequest(string cardName)
         {
             var request = Request<ScryfallList<Card>>($"{BaseSearchUri}?q=name={cardName}");
 
-            for (var i = 0; i < request.Data.Count; i++)
+            if (request.Data != null)
             {
-                if (request.Data[i].Digital)
+                for (var i = 0; i < request.Data.Count; i++)
                 {
-                    request.Data[i] = FirstCardFromSearch(request.Data[i].Name);
+                    if (request.Data[i].Digital)
+                    {
+                        request.Data[i] = FirstCardFromSearch(request.Data[i].Name);
+                    }
                 }
             }
 
@@ -47,7 +50,7 @@ namespace FortyLife.DataAccess
         {
             var searchResultList = CardPrintingsRequest(cardName);
 
-            return !String.IsNullOrEmpty(setCode)
+            return !string.IsNullOrEmpty(setCode)
                 ? searchResultList.Data?.FirstOrDefault(i =>
                     i.Name == cardName && string.Equals(i.Set, setCode, StringComparison.CurrentCultureIgnoreCase))
                 : searchResultList.Data?.FirstOrDefault(i => i.Name == cardName);
