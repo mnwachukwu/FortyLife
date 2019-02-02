@@ -22,9 +22,6 @@ namespace FortyLife.DataAccess
 
             var jsonResult = Get(requestUri).Replace("_", string.Empty);
 
-            if (typeof(T) == typeof(ScryfallList<Card>))
-                jsonResult = jsonResult.Replace("1v1", "_1v1"); // variables don't start with numbers, so replace the json
-
             return !string.IsNullOrEmpty(jsonResult) ? JsonConvert.DeserializeObject<T>(jsonResult) : new T();
         }
 

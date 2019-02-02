@@ -134,11 +134,9 @@ namespace FortyLife.DataAccess.Scryfall
 
         public string Commander { get; set; }
 
-        public string _1V1 { get; set; }
-
         public string Duel { get; set; }
 
-        public string Brawl { get; set; }
+        public string OldSchool { get; set; }
     }
 
     public class RelatedUris

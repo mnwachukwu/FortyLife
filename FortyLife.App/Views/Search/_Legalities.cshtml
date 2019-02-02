@@ -1,0 +1,15 @@
+﻿@model FortyLife.DataAccess.Scryfall.Card
+
+<div class="card-footer bg-active">
+    <span class="badge badge-pill @(Model.Legalities.Commander == "legal" ? "badge-success" : Model.Legalities.Commander == "restricted" ? "badge-warning" : "badge-danger")" title="@Model.Legalities.Commander.Replace("notlegal", "banned")">Commander</span>
+    <span class="badge badge-pill @(Model.Legalities.Duel == "legal" ? "badge-success" : Model.Legalities.Duel == "restricted" ? "badge-warning" : "badge-danger")" title="@Model.Legalities.Duel.Replace("notlegal", "banned")">Duel Commander</span>
+    <span class="badge badge-pill @(Model.Legalities.Standard == "legal" ? "badge-success" : Model.Legalities.Standard == "restricted" ? "badge-warning" : "badge-danger")" title="@Model.Legalities.Standard.Replace("notlegal", "banned")">Standard</span>
+    <span class="badge badge-pill @(Model.Legalities.Modern == "legal" ? "badge-success" : Model.Legalities.Modern == "restricted" ? "badge-warning" : "badge-danger")" title="@Model.Legalities.Modern.Replace("notlegal", "banned")">Modern</span>
+    <span class="badge badge-pill @(Model.Legalities.Legacy == "legal" ? "badge-success" : Model.Legalities.Legacy == "restricted" ? "badge-warning" : "badge-danger")" title="@Model.Legalities.Legacy.Replace("notlegal", "banned")">Legacy</span>
+    <span class="badge badge-pill @(Model.Legalities.Vintage == "legal" ? "badge-success" : Model.Legalities.Vintage == "restricted" ? "badge-warning" : "badge-danger")" title="@Model.Legalities.Vintage.Replace("notlegal", "banned")">Vintage</span>
+    <span class="badge badge-pill @(Model.Legalities.Frontier == "legal" ? "badge-success" : Model.Legalities.Frontier == "restricted" ? "badge-warning" : "badge-danger")" title="@Model.Legalities.Frontier.Replace("notlegal", "banned")">Frontier</span>
+    <span class="badge badge-pill @(Model.Legalities.Pauper == "legal" ? "badge-success" : Model.Legalities.Pauper == "restricted" ? "badge-warning" : "badge-danger")" title="@Model.Legalities.Pauper.Replace("notlegal", "banned")">Pauper</span>
+    <span class="badge badge-pill @(Model.Legalities.Penny == "legal" ? "badge-success" : Model.Legalities.Penny == "restricted" ? "badge-warning" : "badge-danger")" title="@Model.Legalities.Penny.Replace("notlegal", "banned")">Penny</span>
+    <span class="badge badge-pill @(Model.Legalities.OldSchool == "legal" ? "badge-success" : Model.Legalities.OldSchool == "restricted" ? "badge-warning" : "badge-danger")" title="@Model.Legalities.OldSchool.Replace("notlegal", "banned")">Old School</span>
+    <span class="badge badge-pill @(Model.Legalities.Future == "legal" ? "badge-success" : Model.Legalities.Future == "restricted" ? "badge-warning" : "badge-danger")" title="@Model.Legalities.Future.Replace("notlegal", "banned")">Future</span>
+</div>
