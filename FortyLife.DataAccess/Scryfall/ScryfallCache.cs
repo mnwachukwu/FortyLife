@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace FortyLife.Data.Scryfall
+namespace FortyLife.DataAccess.Scryfall
 {
     public static class ScryfallCache
     {

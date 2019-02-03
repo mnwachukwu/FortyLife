@@ -1,12 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
-using FortyLife.Data.Scryfall;
-using Newtonsoft.Json;
 
-namespace FortyLife.Data
+namespace FortyLife.DataAccess
 {
     public class RequestEngine
     {

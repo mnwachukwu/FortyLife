@@ -1,24 +1,17 @@
-
 \.vs/
-
 packages/
 FortyLife/Properties/PublishProfiles
 
 FortyLife\.Core/bin/
 FortyLife\.Core/obj/
 
-FortyLife\.Data/bin/
-FortyLife\.Data/obj/
+FortyLife\.DataAccess/bin/
+FortyLife\.DataAccess/obj/
+FortyLife\.DataAccess/App_Data/
 
 FortyLife\.App/bin/
 FortyLife\.App/obj/
-
-FortyLife\.Data/App_Data/
+FortyLife\.App/App_Data/
 
 FortyLife\.Database/bin/
-
 FortyLife\.Database/obj/
-
-FortyLife\.App/App_Data/access-token\.txt
-
-FortyLife\.App/App_Data/private-key\.txt

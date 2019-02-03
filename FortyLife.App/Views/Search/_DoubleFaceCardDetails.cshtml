@@ -1,8 +1,7 @@
 ﻿@using System.Globalization
 @using FortyLife.Core
-@using FortyLife.Data
-@using FortyLife.Data.Scryfall
-@model Card
+@using FortyLife.DataAccess
+@model FortyLife.DataAccess.Scryfall.Card
 
 @{
     var rarity = Model.Rarity == "rare" ? "Rare" : Model.Rarity.Replace(Model.Rarity[0].ToString(), Model.Rarity[0].ToString().ToUpper());
@@ -112,18 +111,7 @@
                 </div>
 
                 <!-- legatlities -->
-                <div class="card-footer">
-                    <span class="badge badge-pill @(Model.Legalities.Commander == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Commander.Replace("notlegal", "banned")">Commander</span>
-                    <span class="badge badge-pill @(Model.Legalities._1V1 == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities._1V1.Replace("notlegal", "banned")">1v1 Commander</span>
-                    <span class="badge badge-pill @(Model.Legalities.Brawl == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Brawl.Replace("notlegal", "banned")">Brawl</span>
-                    <span class="badge badge-pill @(Model.Legalities.Standard == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Standard.Replace("notlegal", "banned")">Standard</span>
-                    <span class="badge badge-pill @(Model.Legalities.Modern == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Modern.Replace("notlegal", "banned")">Modern</span>
-                    <span class="badge badge-pill @(Model.Legalities.Legacy == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Legacy.Replace("notlegal", "banned")">Legacy</span>
-                    <span class="badge badge-pill @(Model.Legalities.Vintage == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Vintage.Replace("notlegal", "banned")">Vintage</span>
-                    <span class="badge badge-pill @(Model.Legalities.Frontier == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Frontier.Replace("notlegal", "banned")">Frontier</span>
-                    <span class="badge badge-pill @(Model.Legalities.Pauper == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Pauper.Replace("notlegal", "banned")">Pauper</span>
-                    <span class="badge badge-pill @(Model.Legalities.Penny == "legal" ? "badge-success" : "badge-danger")" title="@Model.Legalities.Penny.Replace("notlegal", "banned")">Penny</span>
-                </div>
+                @Html.Partial("_Legalities", Model)
             </div>
 
             <p />

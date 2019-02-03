@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using FortyLife.Data;
+﻿using System.Web.Mvc;
+using FortyLife.DataAccess;
 using FortyLife.Models;
 
 namespace FortyLife.Controllers
@@ -31,13 +27,6 @@ namespace FortyLife.Controllers
                     Results = results
                 });
         }
-
-        //public ActionResult CardDetails(string cardName)
-        //{
-        //    var requestEngine = new ScryfallRequestEngine();
-        //    var card = requestEngine.FirstCardFromSearch(cardName);
-        //    return card != null ? View("CardDetails", card) : View("~/Views/Shared/CardNotFound.cshtml", null, cardName);
-        //}
 
         public ActionResult CardDetails(string cardName, string setCode)
         {

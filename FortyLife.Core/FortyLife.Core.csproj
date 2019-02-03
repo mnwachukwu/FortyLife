@@ -45,9 +45,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FortyLife.Data\FortyLife.Data.csproj">
-      <Project>{B464A41B-D8F6-45A5-8D92-F6F8FF9E0367}</Project>
-      <Name>FortyLife.Data</Name>
+    <ProjectReference Include="..\FortyLife.DataAccess\FortyLife.DataAccess.csproj">
+      <Project>{b464a41b-d8f6-45a5-8d92-f6f8ff9e0367}</Project>
+      <Name>FortyLife.DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

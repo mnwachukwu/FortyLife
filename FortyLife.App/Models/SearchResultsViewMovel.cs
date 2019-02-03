@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using FortyLife.Data.Scryfall;
+using FortyLife.DataAccess.Scryfall;
 
 namespace FortyLife.Models
 {

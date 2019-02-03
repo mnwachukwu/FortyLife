@@ -345,6 +345,7 @@
     <Content Include="Views\Search\_TCGPlayerPricing.cshtml" />
     <Content Include="Views\Search\_NotesAndRulings.cshtml" />
     <Content Include="Views\Search\_PrintingsButton.cshtml" />
+    <Content Include="Views\Search\_Legalities.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -365,9 +366,9 @@
       <Project>{87443316-78ef-4681-aaaa-ac5d518e7f52}</Project>
       <Name>FortyLife.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FortyLife.Data\FortyLife.Data.csproj">
+    <ProjectReference Include="..\FortyLife.DataAccess\FortyLife.DataAccess.csproj">
       <Project>{b464a41b-d8f6-45a5-8d92-f6f8ff9e0367}</Project>
-      <Name>FortyLife.Data</Name>
+      <Name>FortyLife.DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
