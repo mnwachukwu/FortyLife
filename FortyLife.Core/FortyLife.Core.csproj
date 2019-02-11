@@ -44,6 +44,11 @@
     <Compile Include="CardParsingEngine.cs" />
     <Compile Include="Mailer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserAccount\ApplicationUser.cs" />
+    <Compile Include="UserAccount\Card.cs" />
+    <Compile Include="UserAccount\Collection.cs" />
+    <Compile Include="UserAccount\Deck.cs" />
+    <Compile Include="UserAccount\Suggestion.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FortyLife.DataAccess\FortyLife.DataAccess.csproj">
@@ -51,5 +56,6 @@
       <Name>FortyLife.DataAccess</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
