@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace FortyLife
+namespace FortyLife.App
 {
     public class BundleConfig
     {

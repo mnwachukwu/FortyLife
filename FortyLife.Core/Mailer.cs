@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Mail;
 
-namespace FortyLife
+namespace FortyLife.Core
 {
     public class Mailer
     {

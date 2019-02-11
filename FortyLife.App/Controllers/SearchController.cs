@@ -1,8 +1,8 @@
 ﻿using System.Web.Mvc;
+using FortyLife.App.Models;
 using FortyLife.DataAccess;
-using FortyLife.Models;
 
-namespace FortyLife.Controllers
+namespace FortyLife.App.Controllers
 {
     public class SearchController : Controller
     {

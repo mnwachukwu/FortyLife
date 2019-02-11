@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace FortyLife.Models
+namespace FortyLife.App.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
