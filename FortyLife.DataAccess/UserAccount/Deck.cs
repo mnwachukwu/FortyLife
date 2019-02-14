@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FortyLife.Core.UserAccount
+namespace FortyLife.DataAccess.UserAccount
 {
     public enum DeckFormat
     {
@@ -25,6 +25,9 @@ namespace FortyLife.Core.UserAccount
 
         public double AverageCmc { get; set; }
 
+        /// <summary>
+        /// Key = Cmc, Value = Number of cards with cmc
+        /// </summary>
         public Dictionary<int, int> CmcCount { get; set; }
 
         public DeckFormat Format { get; set; }

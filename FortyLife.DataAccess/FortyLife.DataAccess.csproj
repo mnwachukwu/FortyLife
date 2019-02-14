@@ -78,10 +78,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contexts\CardContext.cs" />
+    <Compile Include="Contexts\FortyLifeDbContext.cs" />
+    <Compile Include="Migrations\201902131230170_InitialCreate.cs" />
+    <Compile Include="Migrations\201902131230170_InitialCreate.Designer.cs">
+      <DependentUpon>201902131230170_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902140415176_CardsDbRename.cs" />
+    <Compile Include="Migrations\201902140415176_CardsDbRename.Designer.cs">
+      <DependentUpon>201902140415176_CardsDbRename.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ScryfallRequestEngine.cs" />
     <Compile Include="Scryfall\Card.cs" />
-    <Compile Include="IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scryfall\Ruling.cs" />
     <Compile Include="Scryfall\ScryfallList.cs" />
@@ -93,7 +101,14 @@
     <Compile Include="TCGPlayer\CategoryProductsResult.cs" />
     <Compile Include="TCGPlayer\CategoryProductsSearchBody.cs" />
     <Compile Include="TCGPlayer\MarketPriceResults.cs" />
+    <Compile Include="TCGPlayer\Price.cs" />
+    <Compile Include="TCGPlayer\ProductDetail.cs" />
     <Compile Include="TCGPlayer\ProductDetailsResults.cs" />
+    <Compile Include="UserAccount\ApplicationUser.cs" />
+    <Compile Include="UserAccount\Card.cs" />
+    <Compile Include="UserAccount\Collection.cs" />
+    <Compile Include="UserAccount\Deck.cs" />
+    <Compile Include="UserAccount\Suggestion.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -113,6 +128,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201902131230170_InitialCreate.resx">
+      <DependentUpon>201902131230170_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902140415176_CardsDbRename.resx">
+      <DependentUpon>201902140415176_CardsDbRename.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace FortyLife.Core.UserAccount
+namespace FortyLife.DataAccess.UserAccount
 {
     public class ApplicationUser
     {
+        public int Id { get; set; }
+
         public string Email { get; set; }
 
         public string PasswordHash { get; set; }

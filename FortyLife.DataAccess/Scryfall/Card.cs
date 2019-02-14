@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FortyLife.DataAccess.Scryfall
 {
     public class Card : CardFace
     {
-        public string Id { get; set; }
-
         public string OracleId { get; set; }
 
         public List<int> MultiverseIds { get; set; }
@@ -152,15 +152,18 @@ namespace FortyLife.DataAccess.Scryfall
 
     public class PurchaseUris
     {
-        public string TcpPlayer { get; set; }
+        public string TcgPlayer { get; set; }
 
         public string CardMarket { get; set; }
 
         public string CardHoarder { get; set; }
     }
 
+    [Table("Cards")]
     public class CardFace
     {
+        public string Id { get; set; }
+
         public string Object { get; set; }
 
         public string Name { get; set; }

@@ -45,12 +45,38 @@ namespace FortyLife.DataAccess
 
         public Card FirstCardFromSearch(string cardName, string setCode = "")
         {
-            var searchResultList = CardPrintingsRequest(cardName);
+            using (var db = new Contexts.FortyLifeDbContext())
+            {
+                if (!string.IsNullOrEmpty(setCode))
+                {
+                    if (db.Cards.Any(i => i.Name == cardName && i.Set == setCode))
+                    {
+                        return db.Cards.FirstOrDefault(i => i.Name == cardName && i.Set == setCode);
+                    }
+                }
+                else
+                {
+                    if (db.Cards.Any(i => i.Name == cardName))
+                    {
+                        return db.Cards.FirstOrDefault(i => i.Name == cardName);
+                    }
+                }
 
-            return !string.IsNullOrEmpty(setCode)
-                ? searchResultList.Data?.FirstOrDefault(i =>
-                    i.Name == cardName && string.Equals(i.Set, setCode, StringComparison.CurrentCultureIgnoreCase))
-                : searchResultList.Data?.FirstOrDefault(i => i.Name == cardName);
+                var searchResultList = CardPrintingsRequest(cardName);
+                var card = !string.IsNullOrEmpty(setCode)
+                    ? searchResultList.Data?.FirstOrDefault(i =>
+                        i.Name == cardName &&
+                        string.Equals(i.Set, setCode, StringComparison.CurrentCultureIgnoreCase))
+                    : searchResultList.Data?.FirstOrDefault(i => i.Name == cardName);
+
+                if (card != null)
+                {
+                    db.Cards.Add(card);
+                    db.SaveChanges();
+                }
+
+                return card;
+            }
         }
 
         public ScryfallList<Card> CardPrintingsRequest(string cardName)

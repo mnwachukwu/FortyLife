@@ -1,20 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace FortyLife.Core.UserAccount
+namespace FortyLife.DataAccess.UserAccount
 {
     public class Collection
     {
         public int CardCount => CardList?.Count ?? 0;
 
-        public int Id { get; set; }
+        public int CollectionId { get; set; }
 
         public string Name { get; set; }
 
-        public List<Card> CardList { get; set; }
+        public List<CollectionCard> CardList { get; set; }
 
         public double TcgMidValue { get; set; }
 

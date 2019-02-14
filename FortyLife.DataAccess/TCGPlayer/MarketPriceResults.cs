@@ -14,21 +14,4 @@ namespace FortyLife.DataAccess.TCGPlayer
 
         public List<Price> Results { get; set; }
     }
-
-    public class Price
-    {
-        public int ProductId { get; set; }
-
-        public double? LowPrice { get; set; }
-
-        public double? MidPrice { get; set; }
-
-        public double? HighPrice { get; set; }
-
-        public double? MarketPrice { get; set; }
-
-        public double? DirectLowPrice { get; set; }
-
-        public string SubTypeName { get; set; }
-    }
 }

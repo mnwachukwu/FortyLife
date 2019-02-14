@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace FortyLife.Core.UserAccount
+namespace FortyLife.DataAccess.UserAccount
 {
     public class Suggestion
     {
+        public int SuggestionId { get; set; }
+
         public string SuggesterName { get; set; }
 
         public string Text { get; set; }

@@ -1,6 +1,6 @@
-[Production Site](https://forty.life/) - forty.life
+[Production Site](https://forty.life/) - forty.life (Latest STABLE version of the site)
 
-[Development Site](https://dev.forty.life/) - dev.forty.life (Not a working site yet; working on it!)
+[Development Site](https://dev.forty.life/) - dev.forty.life (Latest version of the site; unstable and unfit for production use)
 
 *Note: There is no automatic deployment pipeline in place quite yet. That will be set up eventually and the Development Site will enjoy automatic nightly builds while the Production Site will have one click deployments set up.*
 

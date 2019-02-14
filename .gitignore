@@ -15,3 +15,5 @@ FortyLife\.App/App_Data/
 
 FortyLife\.Database/bin/
 FortyLife\.Database/obj/
+
+FortyLife\.App/Web\.Release\.config
