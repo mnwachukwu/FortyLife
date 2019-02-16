@@ -8,6 +8,8 @@ namespace FortyLife.DataAccess.TCGPlayer
 {
     public class ProductDetail
     {
+        public int ProductDetailId { get; set; }
+
         public int ProductId { get; set; }
 
         public string Name { get; set; }
@@ -23,5 +25,7 @@ namespace FortyLife.DataAccess.TCGPlayer
         public string Url { get; set; }
 
         public DateTime ModifiedOn { get; set; }
+
+        public DateTime CacheDate { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Threading;
 using FortyLife.DataAccess.Scryfall;
@@ -45,18 +47,18 @@ namespace FortyLife.DataAccess
 
         public Card FirstCardFromSearch(string cardName, string setCode = "")
         {
-            using (var db = new Contexts.FortyLifeDbContext())
+            using (var db = new FortyLifeDbContext())
             {
                 if (!string.IsNullOrEmpty(setCode))
                 {
-                    if (db.Cards.Any(i => i.Name == cardName && i.Set == setCode))
+                    if (db.Cards.Any(i => i.Name == cardName && i.Set == setCode && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 7))
                     {
                         return db.Cards.FirstOrDefault(i => i.Name == cardName && i.Set == setCode);
                     }
                 }
                 else
                 {
-                    if (db.Cards.Any(i => i.Name == cardName))
+                    if (db.Cards.Any(i => i.Name == cardName && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 7))
                     {
                         return db.Cards.FirstOrDefault(i => i.Name == cardName);
                     }
@@ -71,7 +73,8 @@ namespace FortyLife.DataAccess
 
                 if (card != null)
                 {
-                    db.Cards.Add(card);
+                    card.CacheDate = DateTime.Now;
+                    db.Cards.AddOrUpdate(card);
                     db.SaveChanges();
                 }
 

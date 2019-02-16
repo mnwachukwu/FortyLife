@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Web;
+using System.Web.WebSockets;
 using FortyLife.DataAccess.TCGPlayer;
 using Newtonsoft.Json;
 
@@ -93,68 +96,140 @@ namespace FortyLife.DataAccess
 
         public int ProductIdRequest(string cardName, string setName)
         {
-            // Rate limit to be a good samaritan
-            Thread.Sleep(200); // TODO: find a better way to do this without shutting down the thread
-
             setName = SanitizeSetName(setName);
 
-            // when searching for products in the TCG Player API, it only accepts the name of the front face of double faced cards
-            if (cardName.Contains("//"))
+            using (var db = new FortyLifeDbContext())
             {
-                cardName = cardName.Split(new[] { "//" }, StringSplitOptions.RemoveEmptyEntries)[0].Trim();
-            }
-
-            var searchCriteria = new CategoryProductsSearchBody
-            {
-                Sort = "name",
-                Limit = 5,
-                Offset = 0,
-                Filters = new List<Filter>
+                if (db.CardProductIds.Any(i => i.CardName == cardName && i.SetName == setName && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 7))
                 {
-                    new Filter
+                    return db.CardProductIds.First(i => i.CardName == cardName && i.SetName == setName).ProductId;
+                }
+
+                // Rate limit to be a good samaritan
+                Thread.Sleep(200); // TODO: find a better way to do this without shutting down the thread
+
+                // when searching for products in the TCG Player API, it only accepts the name of the front face of double faced cards
+                if (cardName.Contains("//"))
+                {
+                    cardName = cardName.Split(new[] { "//" }, StringSplitOptions.RemoveEmptyEntries)[0].Trim();
+                }
+
+                var searchCriteria = new CategoryProductsSearchBody
+                {
+                    Sort = "name",
+                    Limit = 5,
+                    Offset = 0,
+                    Filters = new List<Filter>
                     {
-                        Name = Filter.FilterName.ProductName.ToString(),
-                        Values = new List<string> {cardName}
-                    },
-                    new Filter
+                        new Filter
+                        {
+                            Name = Filter.FilterName.ProductName.ToString(),
+                            Values = new List<string> {cardName}
+                        },
+                        new Filter
+                        {
+                            Name = Filter.FilterName.SetName.ToString(),
+                            Values = new List<string> {setName}
+                        }
+                    }
+                };
+
+                var body = JsonConvert.SerializeObject(searchCriteria);
+                var jsonResult = Post(CategoryProductSearchUri, body, RequestBodyType.Json, ReadAccessToken());
+
+                if (!string.IsNullOrEmpty(jsonResult))
+                {
+                    var productIdResult = JsonConvert.DeserializeObject<CategoryProductsResult>(jsonResult).Results
+                        .OrderBy(i => i).FirstOrDefault();
+
+                    if (productIdResult > 0)
                     {
-                        Name = Filter.FilterName.SetName.ToString(),
-                        Values = new List<string> {setName}
+                        var newProductId = new CardProductId
+                        {
+                            CardName = cardName,
+                            SetName = setName,
+                            ProductId = productIdResult,
+                            CacheDate = DateTime.Now
+                        };
+
+                        db.CardProductIds.AddOrUpdate(newProductId);
+                        db.SaveChanges();
+
+                        return productIdResult;
                     }
                 }
-            };
 
-            var body = JsonConvert.SerializeObject(searchCriteria);
-            var jsonResult = Post(CategoryProductSearchUri, body, RequestBodyType.Json, ReadAccessToken());
-
-            return string.IsNullOrEmpty(jsonResult) ? 0 : JsonConvert.DeserializeObject<CategoryProductsResult>(jsonResult).Results.OrderBy(i => i).FirstOrDefault();
+                return 0;
+            }
         }
 
-        public MarketPriceResults CardPriceRequest(string cardName, string setName)
+        public List<Price> CardPriceRequest(string cardName, string setName)
         {
-            // Rate limit to be a good samaritan
-            Thread.Sleep(200); // TODO: find a better way to do this without shutting down the thread
+            using (var db = new FortyLifeDbContext())
+            {
+                var productId = ProductIdRequest(cardName, setName);
 
-            var productId = ProductIdRequest(cardName, setName);
-            var jsonResult = Get($"{MarketPriceRequestUri}{productId}", ReadAccessToken());
-            return JsonConvert.DeserializeObject<MarketPriceResults>(jsonResult);
+                if (db.Prices.Any(i => i.ProductId == productId && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 1))
+                {
+                    return db.Prices.Where(i => i.ProductId == productId).ToList();
+                }
+
+                // Rate limit to be a good samaritan
+                Thread.Sleep(200); // TODO: find a better way to do this without shutting down the thread
+
+                var jsonResult = Get($"{MarketPriceRequestUri}{productId}", ReadAccessToken());
+                var prices = JsonConvert.DeserializeObject<MarketPriceResults>(jsonResult).Results;
+
+                if (prices != null)
+                {
+                    foreach (var price in prices)
+                    {
+                        price.CacheDate = DateTime.Now;
+                        db.Prices.AddOrUpdate(price);
+                        db.SaveChanges();
+                    }
+
+                    return prices;
+                }
+
+                return null;
+            }
         }
 
-        public ProductDetailsResults CardDetailsRequest(int productId)
+        public ProductDetail CardDetailsRequest(int productId)
         {
-            // Rate limit to be a good samaritan
-            Thread.Sleep(200); // TODO: find a better way to do this without shutting down the thread
+            using (var db = new FortyLifeDbContext())
+            {
+                if (db.ProductDetails.Any(i => i.ProductId == productId && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 7))
+                {
+                    return db.ProductDetails.FirstOrDefault(i => i.ProductId == productId);
+                }
 
-            var jsonResult = Get($"{ProductDetailsRequestUri}{productId}", ReadAccessToken());
-            return JsonConvert.DeserializeObject<ProductDetailsResults>(jsonResult);
+                // Rate limit to be a good samaritan
+                Thread.Sleep(200); // TODO: find a better way to do this without shutting down the thread
+
+                var jsonResult = Get($"{ProductDetailsRequestUri}{productId}", ReadAccessToken());
+                var productDetail = JsonConvert.DeserializeObject<ProductDetailsResults>(jsonResult).Results.First();
+
+                if (productDetail != null)
+                {
+                    productDetail.CacheDate = DateTime.Now;
+                    db.ProductDetails.AddOrUpdate(productDetail);
+                    db.SaveChanges();
+
+                    return productDetail;
+                }
+
+                return null;
+            }
         }
 
         public string GetTcgPlayerUrl(string cardName, string setName)
         {
             var productId = ProductIdRequest(cardName, setName);
-            var productDetailsResults = CardDetailsRequest(productId).Results;
+            var productDetailsResult = CardDetailsRequest(productId);
 
-            return productDetailsResults != null ? productDetailsResults.FirstOrDefault()?.Url : "#";
+            return productDetailsResult != null ? productDetailsResult.Url : "#";
         }
     }
 }

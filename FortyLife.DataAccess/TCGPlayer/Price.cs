@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace FortyLife.DataAccess.TCGPlayer
 {
@@ -19,5 +20,7 @@ namespace FortyLife.DataAccess.TCGPlayer
         public double? DirectLowPrice { get; set; }
 
         public string SubTypeName { get; set; }
+
+        public DateTime CacheDate { get; set; }
     }
 }

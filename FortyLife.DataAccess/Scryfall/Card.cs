@@ -189,5 +189,7 @@ namespace FortyLife.DataAccess.Scryfall
         public ImageUris ImageUris { get; set; }
         
         public string Loyalty { get; set; }
+
+        public DateTime CacheDate { get; set; }
     }
 }

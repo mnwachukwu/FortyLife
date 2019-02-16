@@ -78,7 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contexts\FortyLifeDbContext.cs" />
+    <Compile Include="FortyLifeDbContext.cs" />
     <Compile Include="Migrations\201902131230170_InitialCreate.cs" />
     <Compile Include="Migrations\201902131230170_InitialCreate.Designer.cs">
       <DependentUpon>201902131230170_InitialCreate.cs</DependentUpon>
@@ -86,6 +86,14 @@
     <Compile Include="Migrations\201902140415176_CardsDbRename.cs" />
     <Compile Include="Migrations\201902140415176_CardsDbRename.Designer.cs">
       <DependentUpon>201902140415176_CardsDbRename.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902161625102_AddCacheDate.cs" />
+    <Compile Include="Migrations\201902161625102_AddCacheDate.Designer.cs">
+      <DependentUpon>201902161625102_AddCacheDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902161846225_AddLocalDataStore.cs" />
+    <Compile Include="Migrations\201902161846225_AddLocalDataStore.Designer.cs">
+      <DependentUpon>201902161846225_AddLocalDataStore.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ScryfallRequestEngine.cs" />
@@ -98,6 +106,7 @@
     <Compile Include="Scryfall\Set.cs" />
     <Compile Include="TcgPlayerRequestEngine.cs" />
     <Compile Include="TCGPlayer\AccessToken.cs" />
+    <Compile Include="TCGPlayer\CardProductId.cs" />
     <Compile Include="TCGPlayer\CategoryProductsResult.cs" />
     <Compile Include="TCGPlayer\CategoryProductsSearchBody.cs" />
     <Compile Include="TCGPlayer\MarketPriceResults.cs" />
@@ -136,6 +145,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902140415176_CardsDbRename.resx">
       <DependentUpon>201902140415176_CardsDbRename.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902161625102_AddCacheDate.resx">
+      <DependentUpon>201902161625102_AddCacheDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902161846225_AddLocalDataStore.resx">
+      <DependentUpon>201902161846225_AddLocalDataStore.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

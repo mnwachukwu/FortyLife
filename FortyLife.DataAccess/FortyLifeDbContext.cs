@@ -2,7 +2,7 @@
 using FortyLife.DataAccess.TCGPlayer;
 using FortyLife.DataAccess.UserAccount;
 
-namespace FortyLife.DataAccess.Contexts
+namespace FortyLife.DataAccess
 {
     public class FortyLifeDbContext : DbContext
     {
@@ -25,5 +25,15 @@ namespace FortyLife.DataAccess.Contexts
         /// Db Context for the TCGPlayer Price objects.
         /// </summary>
         public DbSet<Price> Prices { get; set; }
+
+        /// <summary>
+        /// Db Context for the TCGPlayer Product Ids objects.
+        /// </summary>
+        public DbSet<CardProductId> CardProductIds { get; set; }
+
+        /// <summary>
+        /// Db Context for the TCGPlayer Product Details objects.
+        /// </summary>
+        public DbSet<ProductDetail> ProductDetails { get; set; }
     }
 }
