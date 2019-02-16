@@ -105,10 +105,11 @@
     <Compile Include="TCGPlayer\ProductDetail.cs" />
     <Compile Include="TCGPlayer\ProductDetailsResults.cs" />
     <Compile Include="UserAccount\ApplicationUser.cs" />
-    <Compile Include="UserAccount\Card.cs" />
+    <Compile Include="UserAccount\CollectionCard.cs" />
     <Compile Include="UserAccount\Collection.cs" />
     <Compile Include="UserAccount\Deck.cs" />
     <Compile Include="UserAccount\Suggestion.cs" />
+    <Compile Include="UserAuthenticator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
