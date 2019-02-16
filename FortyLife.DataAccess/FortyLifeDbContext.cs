@@ -23,6 +23,11 @@ namespace FortyLife.DataAccess
         public DbSet<Card> Cards { get; set; }
 
         /// <summary>
+        /// Db Context for the Scryfall Card Face objects.
+        /// </summary>
+        public DbSet<CardFace> CardFaces { get; set; }
+
+        /// <summary>
         /// Db Context for the Scryfall Ruling objects.
         /// </summary>
         public DbSet<Ruling> Rulings { get; set; }

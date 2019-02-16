@@ -10,7 +10,7 @@ namespace FortyLife.DataAccess.Scryfall
     {
         public int RulingId { get; set; }
 
-        public string RulingUri { get; set; }
+        public string RulingsUri { get; set; }
 
         public string Object { get; set; }
 

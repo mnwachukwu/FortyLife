@@ -178,15 +178,20 @@ namespace FortyLife.DataAccess
                 Thread.Sleep(200); // TODO: find a better way to do this without shutting down the thread
 
                 var jsonResult = Get($"{MarketPriceRequestUri}{productId}", ReadAccessToken());
-                var prices = JsonConvert.DeserializeObject<MarketPriceResults>(jsonResult).Results;
 
-                if (prices != null)
+                if (!string.IsNullOrEmpty(jsonResult))
                 {
-                    foreach (var price in prices)
+                    var prices = JsonConvert.DeserializeObject<MarketPriceResults>(jsonResult).Results;
+
+
+                    if (prices != null)
                     {
-                        price.CacheDate = DateTime.Now;
-                        db.Prices.AddOrUpdate(price);
-                        db.SaveChanges();
+                        foreach (var price in prices)
+                        {
+                            price.CacheDate = DateTime.Now;
+                            db.Prices.AddOrUpdate(price);
+                            db.SaveChanges();
+                        }
                     }
 
                     return prices;
@@ -216,11 +221,9 @@ namespace FortyLife.DataAccess
                     productDetail.CacheDate = DateTime.Now;
                     db.ProductDetails.AddOrUpdate(productDetail);
                     db.SaveChanges();
-
-                    return productDetail;
                 }
 
-                return null;
+                return productDetail;
             }
         }
 

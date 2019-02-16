@@ -95,10 +95,23 @@
     <Compile Include="Migrations\201902161846225_AddLocalDataStore.Designer.cs">
       <DependentUpon>201902161846225_AddLocalDataStore.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902162051269_AddRulings.cs" />
+    <Compile Include="Migrations\201902162051269_AddRulings.Designer.cs">
+      <DependentUpon>201902162051269_AddRulings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902162058160_UpdateRulings.cs" />
+    <Compile Include="Migrations\201902162058160_UpdateRulings.Designer.cs">
+      <DependentUpon>201902162058160_UpdateRulings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902162242497_AddCardFace.cs" />
+    <Compile Include="Migrations\201902162242497_AddCardFace.Designer.cs">
+      <DependentUpon>201902162242497_AddCardFace.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ScryfallRequestEngine.cs" />
     <Compile Include="Scryfall\Card.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scryfall\CardFace.cs" />
     <Compile Include="Scryfall\Ruling.cs" />
     <Compile Include="Scryfall\ScryfallList.cs" />
     <Compile Include="RequestEngine.cs" />
@@ -151,6 +164,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902161846225_AddLocalDataStore.resx">
       <DependentUpon>201902161846225_AddLocalDataStore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902162051269_AddRulings.resx">
+      <DependentUpon>201902162051269_AddRulings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902162058160_UpdateRulings.resx">
+      <DependentUpon>201902162058160_UpdateRulings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902162242497_AddCardFace.resx">
+      <DependentUpon>201902162242497_AddCardFace.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

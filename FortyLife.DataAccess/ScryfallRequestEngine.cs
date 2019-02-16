@@ -121,12 +121,25 @@ namespace FortyLife.DataAccess
         {
             using (var db = new FortyLifeDbContext())
             {
-                if (db.Rulings.Any(i => i.RulingUri == rulingsUri && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 7))
+                if (db.Rulings.Any(i => i.RulingsUri == rulingsUri && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 7))
                 {
-                    return db.Rulings.Where(i => i.RulingUri == rulingsUri).ToList();
+                    return db.Rulings.Where(i => i.RulingsUri == rulingsUri).ToList();
                 }
 
-                return Request<ScryfallList<Ruling>>(rulingsUri).Data;
+                var rulings = Request<ScryfallList<Ruling>>(rulingsUri).Data;
+
+                if (rulings != null)
+                {
+                    foreach (var ruling in rulings)
+                    {
+                        ruling.RulingsUri = rulingsUri;
+                        ruling.CacheDate = DateTime.Now;
+                        db.Rulings.AddOrUpdate(ruling);
+                        db.SaveChanges();
+                    }
+                }
+
+                return rulings;
             }
         }
     }

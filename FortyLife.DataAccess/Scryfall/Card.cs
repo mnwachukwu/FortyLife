@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FortyLife.DataAccess.Scryfall
 {
-    public class Card : CardFace
+    public class Card
     {
         public string OracleId { get; set; }
 
@@ -92,8 +92,38 @@ namespace FortyLife.DataAccess.Scryfall
         public RelatedUris RelatedUris { get; set; }
 
         public PurchaseUris PurchaseUris { get; set; }
-
+        
         public List<CardFace> CardFaces { get; set; }
+
+        public string Id { get; set; }
+
+        public string Object { get; set; }
+
+        public string Name { get; set; }
+
+        public string ManaCost { get; set; }
+
+        public string TypeLine { get; set; }
+
+        public string OracleText { get; set; }
+
+        public List<string> Colors { get; set; }
+
+        public string Power { get; set; }
+
+        public string Toughness { get; set; }
+
+        public string FlavorText { get; set; }
+
+        public string Artist { get; set; }
+
+        public string IllustrationId { get; set; }
+
+        public ImageUris ImageUris { get; set; }
+
+        public string Loyalty { get; set; }
+
+        public DateTime CacheDate { get; set; }
 
         // Non-Scryfall data
         public bool IsDoubleFaced => CardFaces != null;
@@ -157,39 +187,5 @@ namespace FortyLife.DataAccess.Scryfall
         public string CardMarket { get; set; }
 
         public string CardHoarder { get; set; }
-    }
-
-    [Table("Cards")]
-    public class CardFace
-    {
-        public string Id { get; set; }
-
-        public string Object { get; set; }
-
-        public string Name { get; set; }
-
-        public string ManaCost { get; set; }
-
-        public string TypeLine { get; set; }
-
-        public string OracleText { get; set; }
-
-        public List<string> Colors { get; set; }
-
-        public string Power { get; set; }
-
-        public string Toughness { get; set; }
-
-        public string FlavorText { get; set; }
-
-        public string Artist { get; set; }
-
-        public string IllustrationId { get; set; }
-
-        public ImageUris ImageUris { get; set; }
-        
-        public string Loyalty { get; set; }
-
-        public DateTime CacheDate { get; set; }
     }
 }
