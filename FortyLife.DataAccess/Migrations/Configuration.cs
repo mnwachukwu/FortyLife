@@ -7,7 +7,7 @@ namespace FortyLife.DataAccess.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "FortyLife.DataAccess.Contexts.FortyLifeDbContext";
+            ContextKey = "FortyLife.DataAccess.FortyLifeDbContext";
         }
 
         protected override void Seed(FortyLifeDbContext context)
