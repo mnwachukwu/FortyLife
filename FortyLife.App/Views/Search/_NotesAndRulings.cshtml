@@ -44,35 +44,35 @@
             notes += "This card can be your <A href='https://magic.wizards.com/en/content/commander-format'>Commander</a>. 🛡";
         }
     }
-    rulings.Data.Insert(0, new Ruling
+    rulings.Insert(0, new Ruling
     {
         Comment = notes,
         PublishedAt = Model.ReleasedAt
     });
-    var halfRulingsCount = Math.Ceiling(rulings.Data.Count / 2.0);
+    var halfRulingsCount = Math.Ceiling(rulings.Count / 2.0);
 }
 
 <div class="pt-2">
     <div class="card border-dark">
         <div class="card-header"><span class="oi oi-book"></span> Notes & Rulings</div>
         <div class="card-body">
-            @if (rulings.Data.Count > 1)
+            @if (rulings.Count > 1)
             {
                 <div class="row">
                     <div class="col-md-6">
                         @for (var i = 0; i < halfRulingsCount; i++)
                         {
                             <p>
-                                @Html.Raw(CardParsingEngine.RenderSymbols(rulings.Data[i].Comment)) <i class="text-muted small"><br />@(rulings.Data[i].PublishedAt.HasValue ? rulings.Data[i].PublishedAt.Value.ToString("MMMM d yyyy") : string.Empty)</i>
+                                @Html.Raw(CardParsingEngine.RenderSymbols(rulings[i].Comment)) <i class="text-muted small"><br />@(rulings[i].PublishedAt.HasValue ? rulings[i].PublishedAt.Value.ToString("MMMM d yyyy") : string.Empty)</i>
                             </p>
                         }
                     </div>
 
                     <div class="col-md-6">
-                        @for (var i = (int)halfRulingsCount; i < rulings.Data.Count; i++)
+                        @for (var i = (int)halfRulingsCount; i < rulings.Count; i++)
                         {
                             <p>
-                                @Html.Raw(CardParsingEngine.RenderSymbols(rulings.Data[i].Comment)) <i class="text-muted small"><br />@(rulings.Data[i].PublishedAt.HasValue ? rulings.Data[i].PublishedAt.Value.ToString("MMMM d yyyy") : string.Empty)</i>
+                                @Html.Raw(CardParsingEngine.RenderSymbols(rulings[i].Comment)) <i class="text-muted small"><br />@(rulings[i].PublishedAt.HasValue ? rulings[i].PublishedAt.Value.ToString("MMMM d yyyy") : string.Empty)</i>
                             </p>
                         }
                     </div>
@@ -81,7 +81,7 @@
             else
             {
                 <p>
-                    @Html.Raw(CardParsingEngine.RenderSymbols(rulings.Data[0].Comment)) <i class="text-muted small"><br />@(rulings.Data[0].PublishedAt.HasValue ? rulings.Data[0].PublishedAt.Value.ToString("MMMM d yyyy") : string.Empty)</i>
+                    @Html.Raw(CardParsingEngine.RenderSymbols(rulings[0].Comment)) <i class="text-muted small"><br />@(rulings[0].PublishedAt.HasValue ? rulings[0].PublishedAt.Value.ToString("MMMM d yyyy") : string.Empty)</i>
                 </p>
             }
         </div>

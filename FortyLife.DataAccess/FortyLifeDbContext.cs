@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using FortyLife.DataAccess.Scryfall;
 using FortyLife.DataAccess.TCGPlayer;
 using FortyLife.DataAccess.UserAccount;
 
@@ -19,7 +20,12 @@ namespace FortyLife.DataAccess
         /// <summary>
         /// Db Context for the Scryfall Card objects.
         /// </summary>
-        public DbSet<Scryfall.Card> Cards { get; set; }
+        public DbSet<Card> Cards { get; set; }
+
+        /// <summary>
+        /// Db Context for the Scryfall Ruling objects.
+        /// </summary>
+        public DbSet<Ruling> Rulings { get; set; }
 
         /// <summary>
         /// Db Context for the TCGPlayer Price objects.
@@ -27,12 +33,12 @@ namespace FortyLife.DataAccess
         public DbSet<Price> Prices { get; set; }
 
         /// <summary>
-        /// Db Context for the TCGPlayer Product Ids objects.
+        /// Db Context for the TCGPlayer Product Id objects.
         /// </summary>
         public DbSet<CardProductId> CardProductIds { get; set; }
 
         /// <summary>
-        /// Db Context for the TCGPlayer Product Details objects.
+        /// Db Context for the TCGPlayer Product Detail objects.
         /// </summary>
         public DbSet<ProductDetail> ProductDetails { get; set; }
     }

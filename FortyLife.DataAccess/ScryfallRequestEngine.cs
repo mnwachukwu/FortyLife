@@ -117,9 +117,17 @@ namespace FortyLife.DataAccess
             return CardSetRequest(setUri).CardCount;
         }
 
-        public ScryfallList<Ruling> RulingsRequest(string rulingsUri)
+        public List<Ruling> RulingsRequest(string rulingsUri)
         {
-            return Request<ScryfallList<Ruling>>(rulingsUri);
+            using (var db = new FortyLifeDbContext())
+            {
+                if (db.Rulings.Any(i => i.RulingUri == rulingsUri && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 7))
+                {
+                    return db.Rulings.Where(i => i.RulingUri == rulingsUri).ToList();
+                }
+
+                return Request<ScryfallList<Ruling>>(rulingsUri).Data;
+            }
         }
     }
 }

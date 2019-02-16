@@ -8,6 +8,10 @@ namespace FortyLife.DataAccess.Scryfall
 {
     public class Ruling
     {
+        public int RulingId { get; set; }
+
+        public string RulingUri { get; set; }
+
         public string Object { get; set; }
 
         public string OracleId { get; set; }
@@ -17,5 +21,7 @@ namespace FortyLife.DataAccess.Scryfall
         public DateTime? PublishedAt { get; set; }
 
         public string Comment { get; set; }
+
+        public DateTime CacheDate { get; set; }
     }
 }
