@@ -9,7 +9,7 @@ namespace FortyLife.DataAccess.Contexts
         /// <summary>
         /// Db Context for the Forty Life ApplicationUser objects.
         /// </summary>
-        public DbSet<UserAccount.ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         /// <summary>
         /// Db Context for Forty Life Collection objects. Decks are Collections, too.

@@ -190,6 +190,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CustomAttributes.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
@@ -264,8 +265,8 @@
     <Content Include="Fonts\open-iconic.otf" />
     <Content Include="Fonts\open-iconic.ttf" />
     <Content Include="Fonts\open-iconic.woff" />
-    <None Include="Properties\PublishProfiles\DebugProfile.pubxml" />
-    <None Include="Properties\PublishProfiles\ReleaseProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\Dev.pubxml" />
+    <None Include="Properties\PublishProfiles\Prod.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

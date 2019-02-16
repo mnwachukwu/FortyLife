@@ -10,6 +10,7 @@ namespace FortyLife.App.Controllers
             return View();
         }
 
+        [RequireRequestValue("model")]
         public ActionResult Login(LoginViewModel model)
         {
             return View();
@@ -20,6 +21,7 @@ namespace FortyLife.App.Controllers
             return View();
         }
 
+        [RequireRequestValue("model")]
         public ActionResult Register(RegisterViewModel model) // TODO: Account creation
         {
             return View();
