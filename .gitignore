@@ -1,6 +1,6 @@
 \.vs/
 packages/
-FortyLife\.App/Properties/
+FortyLife\.App/Properties/PublishProfiles/
 
 FortyLife\.Core/bin/
 FortyLife\.Core/obj/
