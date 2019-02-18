@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Web;
-using System.Web.WebSockets;
 using FortyLife.DataAccess.TCGPlayer;
 using Newtonsoft.Json;
 
