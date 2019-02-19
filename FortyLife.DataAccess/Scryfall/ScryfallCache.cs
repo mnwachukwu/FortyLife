@@ -38,7 +38,7 @@ namespace FortyLife.DataAccess.Scryfall
                 var card = scryfallRequestEngine.FirstCardFromSearch(cardName);
                 // TODO: Make sure the card being added is legit
                 if (card != null)
-                    cache.Set($"{cardName}_card", card, DateTimeOffset.Now.AddDays(3));
+                    cache.Set($"{cardName}_card", card, DateTime.Now.AddDays(7));
             }
 
             return (Card)cache[key];

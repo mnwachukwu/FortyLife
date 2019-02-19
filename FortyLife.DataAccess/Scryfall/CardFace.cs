@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using FortyLife.DataAccess.UserAccount;
 
 namespace FortyLife.DataAccess.Scryfall
 {
     public class CardFace
     {
-        public string Id { get; set; }
+        public int CardFaceId { get; set; }
 
         public string Object { get; set; }
 
@@ -16,6 +19,8 @@ namespace FortyLife.DataAccess.Scryfall
         public string TypeLine { get; set; }
 
         public string OracleText { get; set; }
+
+        public string ColorsString { get; set; }
 
         public List<string> Colors { get; set; }
 

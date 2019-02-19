@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace FortyLife.DataAccess.Scryfall
 {
@@ -7,7 +9,9 @@ namespace FortyLife.DataAccess.Scryfall
     {
         public string OracleId { get; set; }
 
-        public List<int> MultiverseIds { get; set; }
+        public string MultiverseIdsString { get; set; }
+
+        public List<string> MultiverseIds { get; set; }
 
         public int MtgoId { get; set; }
 
@@ -29,9 +33,13 @@ namespace FortyLife.DataAccess.Scryfall
 
         public double Cmc { get; set; }
 
+        public string ColorIdentityString { get; set; }
+
         public List<string> ColorIdentity { get; set; }
 
         public Legalities Legalities { get; set; }
+
+        public string GamesString { get; set; }
 
         public List<string> Games { get; set; }
 
@@ -90,7 +98,7 @@ namespace FortyLife.DataAccess.Scryfall
         public RelatedUris RelatedUris { get; set; }
 
         public PurchaseUris PurchaseUris { get; set; }
-        
+
         public List<CardFace> CardFaces { get; set; }
 
         public string Id { get; set; }
@@ -104,6 +112,8 @@ namespace FortyLife.DataAccess.Scryfall
         public string TypeLine { get; set; }
 
         public string OracleText { get; set; }
+
+        public string ColorsString { get; set; }
 
         public List<string> Colors { get; set; }
 
@@ -123,8 +133,7 @@ namespace FortyLife.DataAccess.Scryfall
 
         public DateTime CacheDate { get; set; }
 
-        // Non-Scryfall data
-        public bool IsDoubleFaced => CardFaces != null;
+        public bool IsDoubleFaced => CardFaces != null && CardFaces?.Count > 0;
     }
 
     public class ImageUris

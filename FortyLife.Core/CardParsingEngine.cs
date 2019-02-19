@@ -103,11 +103,11 @@ namespace FortyLife.Core
             // Some just have Colors listed where some don't have a color attribute at all!
             var cardColors = new List<string>();
 
-            if (cardResult.IsDoubleFaced && cardResult.Colors == null)
+            if (cardResult.IsDoubleFaced)
             {
                 cardResult.CardFaces.ForEach(cardFace =>
                 {
-                    cardFace.Colors.ForEach(color =>
+                    cardFace.Colors?.ForEach(color =>
                     {
                         if (!cardColors.Contains(color))
                         {
@@ -133,8 +133,6 @@ namespace FortyLife.Core
         {
             if (colors == null || colors.Count == 0)
                 return "Colorless";
-
-
 
             var sb = new StringBuilder();
             var sortedColors = colors.OrderBy(i => WubrgOrder.IndexOf(i, StringComparison.Ordinal));

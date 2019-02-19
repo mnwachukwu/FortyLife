@@ -107,6 +107,58 @@
     <Compile Include="Migrations\201902162242497_AddCardFace.Designer.cs">
       <DependentUpon>201902162242497_AddCardFace.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902180505511_AddCardFaceRelationships.cs" />
+    <Compile Include="Migrations\201902180505511_AddCardFaceRelationships.Designer.cs">
+      <DependentUpon>201902180505511_AddCardFaceRelationships.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902181332250_UpdateRelationships.cs" />
+    <Compile Include="Migrations\201902181332250_UpdateRelationships.Designer.cs">
+      <DependentUpon>201902181332250_UpdateRelationships.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902181339093_UpdateRelationships1.cs" />
+    <Compile Include="Migrations\201902181339093_UpdateRelationships1.Designer.cs">
+      <DependentUpon>201902181339093_UpdateRelationships1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902181356010_UpdateRelationships2.cs" />
+    <Compile Include="Migrations\201902181356010_UpdateRelationships2.Designer.cs">
+      <DependentUpon>201902181356010_UpdateRelationships2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902181434064_UpdateRelationships3.cs" />
+    <Compile Include="Migrations\201902181434064_UpdateRelationships3.Designer.cs">
+      <DependentUpon>201902181434064_UpdateRelationships3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902181624507_UpdateRelationships4.cs" />
+    <Compile Include="Migrations\201902181624507_UpdateRelationships4.Designer.cs">
+      <DependentUpon>201902181624507_UpdateRelationships4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902181637172_UpdateCardFace.cs" />
+    <Compile Include="Migrations\201902181637172_UpdateCardFace.Designer.cs">
+      <DependentUpon>201902181637172_UpdateCardFace.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902181645135_UpdateCardFace1.cs" />
+    <Compile Include="Migrations\201902181645135_UpdateCardFace1.Designer.cs">
+      <DependentUpon>201902181645135_UpdateCardFace1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902181647421_UpdateCardFace2.cs" />
+    <Compile Include="Migrations\201902181647421_UpdateCardFace2.Designer.cs">
+      <DependentUpon>201902181647421_UpdateCardFace2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902181826402_UpdateCardFace3.cs" />
+    <Compile Include="Migrations\201902181826402_UpdateCardFace3.Designer.cs">
+      <DependentUpon>201902181826402_UpdateCardFace3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902181830260_UpdateCardFace4.cs" />
+    <Compile Include="Migrations\201902181830260_UpdateCardFace4.Designer.cs">
+      <DependentUpon>201902181830260_UpdateCardFace4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902190328397_UpdateCardFace5.cs" />
+    <Compile Include="Migrations\201902190328397_UpdateCardFace5.Designer.cs">
+      <DependentUpon>201902190328397_UpdateCardFace5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902190346331_UpdateEntities.cs" />
+    <Compile Include="Migrations\201902190346331_UpdateEntities.Designer.cs">
+      <DependentUpon>201902190346331_UpdateEntities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="ScryfallRequestEngine.cs" />
     <Compile Include="Scryfall\Card.cs" />
@@ -173,6 +225,45 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902162242497_AddCardFace.resx">
       <DependentUpon>201902162242497_AddCardFace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902180505511_AddCardFaceRelationships.resx">
+      <DependentUpon>201902180505511_AddCardFaceRelationships.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902181332250_UpdateRelationships.resx">
+      <DependentUpon>201902181332250_UpdateRelationships.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902181339093_UpdateRelationships1.resx">
+      <DependentUpon>201902181339093_UpdateRelationships1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902181356010_UpdateRelationships2.resx">
+      <DependentUpon>201902181356010_UpdateRelationships2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902181434064_UpdateRelationships3.resx">
+      <DependentUpon>201902181434064_UpdateRelationships3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902181624507_UpdateRelationships4.resx">
+      <DependentUpon>201902181624507_UpdateRelationships4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902181637172_UpdateCardFace.resx">
+      <DependentUpon>201902181637172_UpdateCardFace.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902181645135_UpdateCardFace1.resx">
+      <DependentUpon>201902181645135_UpdateCardFace1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902181647421_UpdateCardFace2.resx">
+      <DependentUpon>201902181647421_UpdateCardFace2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902181826402_UpdateCardFace3.resx">
+      <DependentUpon>201902181826402_UpdateCardFace3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902181830260_UpdateCardFace4.resx">
+      <DependentUpon>201902181830260_UpdateCardFace4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902190328397_UpdateCardFace5.resx">
+      <DependentUpon>201902190328397_UpdateCardFace5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902190346331_UpdateEntities.resx">
+      <DependentUpon>201902190346331_UpdateEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

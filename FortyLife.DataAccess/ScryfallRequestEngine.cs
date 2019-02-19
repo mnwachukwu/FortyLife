@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using FortyLife.DataAccess.Scryfall;
 using Newtonsoft.Json;
@@ -49,23 +52,47 @@ namespace FortyLife.DataAccess
         {
             using (var db = new FortyLifeDbContext())
             {
+                Card card;
+
                 if (!string.IsNullOrEmpty(setCode))
                 {
                     if (db.Cards.Any(i => i.Name == cardName && i.Set == setCode && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 7))
                     {
-                        return db.Cards.FirstOrDefault(i => i.Name == cardName && i.Set == setCode);
+                        var cards = db.Cards.Include(i => i.CardFaces);
+
+                        card = cards.FirstOrDefault(i => i.Name == cardName && i.Set == setCode);
+
+                        if (card != null)
+                        {
+                            foreach (var i in card.CardFaces)
+                            {
+                                if (i.ColorsString != null)
+                                {
+                                    i.Colors = i.ColorsString.Split(',').ToList();
+                                }
+                            }
+                            
+                            card.Colors = card.ColorsString?.Split(',').ToList();
+                            card.ColorIdentity = card.ColorIdentityString?.Split(',').ToList();
+                            card.Games = card.GamesString?.Split(',').ToList();
+                            card.MultiverseIds = card.MultiverseIdsString?.Split(',').ToList();
+
+                            return card;
+                        }
                     }
                 }
                 else
                 {
                     if (db.Cards.Any(i => i.Name == cardName && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 7))
                     {
-                        return db.Cards.FirstOrDefault(i => i.Name == cardName);
+                        var cards = db.Cards.Include(i => i.CardFaces);
+
+                        return cards.FirstOrDefault(i => i.Name == cardName);
                     }
                 }
 
                 var searchResultList = CardPrintingsRequest(cardName);
-                var card = !string.IsNullOrEmpty(setCode)
+                card = !string.IsNullOrEmpty(setCode)
                     ? searchResultList.Data?.FirstOrDefault(i =>
                         i.Name == cardName &&
                         string.Equals(i.Set, setCode, StringComparison.CurrentCultureIgnoreCase))
@@ -73,9 +100,99 @@ namespace FortyLife.DataAccess
 
                 if (card != null)
                 {
+                    var builder = new StringBuilder();
+
                     card.CacheDate = DateTime.Now;
+
+                    if (card.ImageUris == null)
+                        card.ImageUris = new ImageUris();
+
+                    if (card.IsDoubleFaced)
+                    {
+                        card.CardFaces[0].CacheDate = DateTime.Now;
+                        card.CardFaces[1].CacheDate = DateTime.Now;
+
+                        if (card.CardFaces[0].ImageUris == null)
+                            card.CardFaces[0].ImageUris = new ImageUris();
+
+                        if (card.CardFaces[1].ImageUris == null)
+                            card.CardFaces[1].ImageUris = new ImageUris();
+
+                        foreach (var i in card.CardFaces)
+                        {
+                            foreach (var c in i.Colors)
+                            {
+                                builder.Append($"{c},");
+                            }
+
+                            card.CardFaces[0].ColorsString = builder.ToString().Substring(0, builder.Length - 1);
+                        }
+                    }
+
+                    builder.Clear();
+                    if (card.Colors != null)
+                    {
+                        foreach (var c in card.Colors)
+                        {
+                            builder.Append($"{c},");
+                        }
+
+                        card.ColorsString = builder.ToString().Substring(0, builder.Length - 1);
+                    }
+
+                    builder.Clear();
+                    if (card.ColorIdentity != null)
+                    {
+                        foreach (var c in card.ColorIdentity)
+                        {
+                            builder.Append($"{c},");
+                        }
+
+                        card.ColorIdentityString = builder.ToString().Substring(0, builder.Length - 1);
+                    }
+
+                    builder.Clear();
+                    if (card.Games != null)
+                    {
+                        foreach (var g in card.Games)
+                        {
+                            builder.Append($"{g},");
+                        }
+
+                        card.GamesString = builder.ToString().Substring(0, builder.Length - 1);
+                    }
+
+                    builder.Clear();
+                    if (card.MultiverseIds != null)
+                    {
+                        foreach (var m in card.MultiverseIds)
+                        {
+                            builder.Append($"{m},");
+                        }
+
+                        card.MultiverseIdsString = builder.ToString().Substring(0, builder.Length - 1);
+                    }
+
                     db.Cards.AddOrUpdate(card);
-                    db.SaveChanges();
+
+                    try
+                    {
+                        db.SaveChanges();
+                    }
+                    catch (DbEntityValidationException dbEx)
+                    {
+                        foreach (var validationErrors in dbEx.EntityValidationErrors)
+                        {
+                            foreach (var validationError in validationErrors.ValidationErrors)
+                            {
+                                Trace.TraceInformation("Property: {0} Error: {1}",
+                                    validationError.PropertyName,
+                                    validationError.ErrorMessage);
+                            }
+                        }
+
+                        throw;
+                    }
                 }
 
                 return card;

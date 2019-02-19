@@ -17,7 +17,7 @@ namespace FortyLife.App.Controllers
 
             if (results.TotalCards == 1)
             {
-                return RedirectToAction("CardDetails", "Search", new { cardName = results.Data[0].Name });
+                return RedirectToAction("CardDetails", "Search", new { cardName = results.Data[0].Name, setCode = results.Data[0].Set });
             }
 
             return View("Results",

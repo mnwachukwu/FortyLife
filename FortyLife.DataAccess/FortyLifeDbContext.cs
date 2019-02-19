@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using FortyLife.DataAccess.Scryfall;
 using FortyLife.DataAccess.TCGPlayer;
 using FortyLife.DataAccess.UserAccount;
@@ -46,5 +47,19 @@ namespace FortyLife.DataAccess
         /// Db Context for the TCGPlayer Product Detail objects.
         /// </summary>
         public DbSet<ProductDetail> ProductDetails { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Card>()
+                .HasMany(i => i.CardFaces);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(i => i.Collections);
+
+            modelBuilder.Entity<Collection>()
+                .HasMany(i => i.CardList);
+        }
     }
 }
