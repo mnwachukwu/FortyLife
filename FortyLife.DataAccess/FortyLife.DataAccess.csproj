@@ -78,6 +78,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationUserEngine.cs" />
     <Compile Include="FortyLifeDbContext.cs" />
     <Compile Include="Migrations\201902131230170_InitialCreate.cs" />
     <Compile Include="Migrations\201902131230170_InitialCreate.Designer.cs">
@@ -160,6 +161,7 @@
       <DependentUpon>201902190346331_UpdateEntities.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="PrimitiveListHandler.cs" />
     <Compile Include="ScryfallRequestEngine.cs" />
     <Compile Include="Scryfall\Card.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

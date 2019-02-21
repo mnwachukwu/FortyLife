@@ -5,13 +5,13 @@ namespace FortyLife.DataAccess.UserAccount
 {
     public class Collection
     {
-        public int CardCount => CardList?.Count ?? 0;
+        public int CardCount => Cards?.Count ?? 0;
 
         public int CollectionId { get; set; }
 
         public string Name { get; set; }
 
-        public List<CollectionCard> CardList { get; set; }
+        public List<CollectionCard> Cards { get; set; }
 
         public double TcgMidValue { get; set; }
 

@@ -4,7 +4,7 @@
 }
 
 <h2>@ViewBag.Title</h2>
-<h4>Use your Forty Life account to log in, or <a href="/Account/Register">create an account for <i>free</i>!</a></h4>
+<h4>Use your Forty Life account to log in, or <a href="/Account/Register">create an account for <i>free</i></a>!</h4>
 <hr />
 
 <div class="row">
@@ -13,7 +13,6 @@
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
                     @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
@@ -54,7 +53,7 @@
 
         <ul>
             <li>Create an unlimited amount of lists to track both your collections and your decks!</li>
-            <li>Help users looking for feedback by providing your piece.</li>
+            <li>Help users looking for feedback by providing yours.</li>
             <li>Gather your own feedback from other registered users.</li>
         </ul>
     </div>

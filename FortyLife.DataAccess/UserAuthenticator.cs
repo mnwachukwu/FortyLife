@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FortyLife.DataAccess
 {
-    internal class UserAuthenticator
+    public static class UserAuthenticator
     {
         public static bool IsValid(string email, string rawPassword)
         {

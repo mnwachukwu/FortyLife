@@ -59,7 +59,7 @@ namespace FortyLife.DataAccess
                 .HasMany(i => i.Collections);
 
             modelBuilder.Entity<Collection>()
-                .HasMany(i => i.CardList);
+                .HasMany(i => i.Cards);
         }
     }
 }

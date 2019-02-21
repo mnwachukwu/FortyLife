@@ -185,6 +185,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\AppInitialization.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -339,6 +340,7 @@
     <Content Include="Views\Search\_NotesAndRulings.cshtml" />
     <Content Include="Views\Search\_PrintingsButton.cshtml" />
     <Content Include="Views\Search\_Legalities.cshtml" />
+    <Content Include="Views\Account\RegisterSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

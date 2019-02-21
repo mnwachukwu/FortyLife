@@ -64,6 +64,7 @@ namespace FortyLife.DataAccess
 
                         if (card != null)
                         {
+                            // prep list data by parsing string data from db
                             foreach (var i in card.CardFaces)
                             {
                                 if (i.ColorsString != null)
@@ -71,12 +72,13 @@ namespace FortyLife.DataAccess
                                     i.Colors = i.ColorsString.Split(',').ToList();
                                 }
                             }
-                            
+
                             card.Colors = card.ColorsString?.Split(',').ToList();
                             card.ColorIdentity = card.ColorIdentityString?.Split(',').ToList();
                             card.Games = card.GamesString?.Split(',').ToList();
                             card.MultiverseIds = card.MultiverseIdsString?.Split(',').ToList();
 
+                            // return prepped card
                             return card;
                         }
                     }
@@ -100,8 +102,6 @@ namespace FortyLife.DataAccess
 
                 if (card != null)
                 {
-                    var builder = new StringBuilder();
-
                     card.CacheDate = DateTime.Now;
 
                     if (card.ImageUris == null)
@@ -120,57 +120,31 @@ namespace FortyLife.DataAccess
 
                         foreach (var i in card.CardFaces)
                         {
-                            foreach (var c in i.Colors)
+                            if (i.Colors != null)
                             {
-                                builder.Append($"{c},");
+                                i.ColorsString = PrimitiveListHandler.ToString(i.Colors);
                             }
-
-                            card.CardFaces[0].ColorsString = builder.ToString().Substring(0, builder.Length - 1);
                         }
                     }
 
-                    builder.Clear();
                     if (card.Colors != null)
                     {
-                        foreach (var c in card.Colors)
-                        {
-                            builder.Append($"{c},");
-                        }
-
-                        card.ColorsString = builder.ToString().Substring(0, builder.Length - 1);
+                        card.ColorsString = PrimitiveListHandler.ToString(card.Colors);
                     }
 
-                    builder.Clear();
                     if (card.ColorIdentity != null)
                     {
-                        foreach (var c in card.ColorIdentity)
-                        {
-                            builder.Append($"{c},");
-                        }
-
-                        card.ColorIdentityString = builder.ToString().Substring(0, builder.Length - 1);
+                        card.ColorIdentityString = PrimitiveListHandler.ToString(card.ColorIdentity);
                     }
 
-                    builder.Clear();
                     if (card.Games != null)
                     {
-                        foreach (var g in card.Games)
-                        {
-                            builder.Append($"{g},");
-                        }
-
-                        card.GamesString = builder.ToString().Substring(0, builder.Length - 1);
+                        card.GamesString = PrimitiveListHandler.ToString(card.Games);
                     }
 
-                    builder.Clear();
                     if (card.MultiverseIds != null)
                     {
-                        foreach (var m in card.MultiverseIds)
-                        {
-                            builder.Append($"{m},");
-                        }
-
-                        card.MultiverseIdsString = builder.ToString().Substring(0, builder.Length - 1);
+                        card.MultiverseIdsString = PrimitiveListHandler.ToString(card.MultiverseIds);
                     }
 
                     db.Cards.AddOrUpdate(card);
