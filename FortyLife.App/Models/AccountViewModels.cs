@@ -3,28 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FortyLife.App.Models
 {
-    public class SendCodeViewModel
-    {
-        public string SelectedProvider { get; set; }
-        public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
-        public string ReturnUrl { get; set; }
-        public bool RememberMe { get; set; }
-    }
-
-    public class VerifyCodeViewModel
+    public class ActivateAccountViewModel
     {
         [Required]
-        public string Provider { get; set; }
+        public string Email { get; set; }
 
         [Required]
-        [Display(Name = "Code")]
-        public string Code { get; set; }
-        public string ReturnUrl { get; set; }
-
-        [Display(Name = "Remember this browser?")]
-        public bool RememberBrowser { get; set; }
-
-        public bool RememberMe { get; set; }
+        [Display(Name = "Activation Key")]
+        public string ActivationKey { get; set; }
     }
 
     public class ForgotViewModel
@@ -45,9 +31,6 @@ namespace FortyLife.App.Models
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
-
-        [Display(Name = "Remember me?")]
-        public bool RememberMe { get; set; }
     }
 
     public class RegisterViewModel

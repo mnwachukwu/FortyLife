@@ -1,7 +1,10 @@
-﻿using System.Net;
+﻿using System;
+using System.IO;
+using System.Net;
 using System.Net.Mail;
+using System.Web;
 
-namespace FortyLife.Core
+namespace FortyLife.DataAccess
 {
     public class Mailer
     {
@@ -9,7 +12,7 @@ namespace FortyLife.Core
 
         public Mailer()
         {
-            mailClient.Credentials = new NetworkCredential("SMTP_Injection", "acd0679101745638a5bd844adf6a3a2b2142080e");
+            mailClient.Credentials = new NetworkCredential("SMTP_Injection", GetSmtpPassword());
         }
 
         /// <summary>
@@ -32,6 +35,17 @@ namespace FortyLife.Core
             };
 
             mailClient.Send(mailMessage);
+        }
+
+        private static string GetSmtpPassword()
+        {
+            var path = HttpRuntime.AppDomainAppPath + @"\App_Data\smtp-pwd.txt";
+
+            if (File.Exists(path)) return File.ReadAllText(path);
+
+            // Didn't find a file, so make one - throw an error to inform the programmer/user
+            File.AppendAllText(path, "Replace the contents of this file with a password to access a db!");
+            throw new Exception("The password file dbpwd.txt in App_Data didn't exist, but now it does. Replace its contents with a db password (NO EXTRA WHITESPACE) and try running this web app again.");
         }
     }
 }

@@ -1,10 +1,11 @@
-﻿@model FortyLife.App.Models.RegisterViewModel
+﻿@using reCAPTCHA.MVC
+@model FortyLife.App.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
 }
 
 <h2>@ViewBag.Title</h2>
-<h4>Create a new Forty Life account for <i>free</i>, or <a href="/Account/Login">login</a>.</h4>
+<h4>Create a new Forty Life account for <i>free</i>, or <a href="/Account/Login">login using an existing account</a>.</h4>
 <hr />
 
 <div class="row">
@@ -37,6 +38,15 @@
                     I agree to adhere to the <a href="#">community guidelines</a>.
                 </div>
             </div>
+
+            <div class="form-group">
+                @Html.Label("reCAPTCHA", new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.Recaptcha()
+                    @Html.ValidationMessage("reCAPTCHA")
+                </div>
+            </div>
+
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" class="btn btn-outline-success" value="Register" />

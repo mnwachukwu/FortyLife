@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="ApplicationUserEngine.cs" />
     <Compile Include="FortyLifeDbContext.cs" />
+    <Compile Include="Mailer.cs" />
     <Compile Include="Migrations\201902131230170_InitialCreate.cs" />
     <Compile Include="Migrations\201902131230170_InitialCreate.Designer.cs">
       <DependentUpon>201902131230170_InitialCreate.cs</DependentUpon>
@@ -159,6 +160,10 @@
     <Compile Include="Migrations\201902190346331_UpdateEntities.cs" />
     <Compile Include="Migrations\201902190346331_UpdateEntities.Designer.cs">
       <DependentUpon>201902190346331_UpdateEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902231648461_UpdateApplicationUser.cs" />
+    <Compile Include="Migrations\201902231648461_UpdateApplicationUser.Designer.cs">
+      <DependentUpon>201902231648461_UpdateApplicationUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PrimitiveListHandler.cs" />
@@ -266,6 +271,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902190346331_UpdateEntities.resx">
       <DependentUpon>201902190346331_UpdateEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902231648461_UpdateApplicationUser.resx">
+      <DependentUpon>201902231648461_UpdateApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -4,7 +4,7 @@
 }
 
 <h2>@ViewBag.Title</h2>
-<h4>Use your Forty Life account to log in, or <a href="/Account/Register">create an account for <i>free</i></a>!</h4>
+<h4>Use an existing Forty Life account to log in, or <a href="/Account/Register">create an account for <i>free</i></a>!</h4>
 <hr />
 
 <div class="row">
@@ -30,21 +30,9 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
                         <input type="submit" value="Log in" class="btn btn-outline-success" />
                     </div>
                 </div>
-
-                <p>
-                    @*@Html.ActionLink("Forgot your password?", "ForgotPassword")*@
-                </p>
             }
         </section>
     </div>
@@ -55,6 +43,12 @@
             <li>Create an unlimited amount of lists to track both your collections and your decks!</li>
             <li>Help users looking for feedback by providing yours.</li>
             <li>Gather your own feedback from other registered users.</li>
+        </ul>
+
+        Need help accessing your account?
+        <ul>
+            <li><a href="#">Forgot your password?</a></li>
+            <li><a href="/Account/Activate">Need to activate your account?</a></li>
         </ul>
     </div>
 </div>
