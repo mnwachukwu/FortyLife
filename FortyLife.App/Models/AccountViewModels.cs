@@ -6,6 +6,7 @@ namespace FortyLife.App.Models
     public class ActivateAccountViewModel
     {
         [Required]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required]
@@ -13,10 +14,18 @@ namespace FortyLife.App.Models
         public string ActivationKey { get; set; }
     }
 
+    public class ResendActivationViewModel
+    {
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+    }
+
     public class ForgotViewModel
     {
         [Required]
         [Display(Name = "Email")]
+        [EmailAddress]
         public string Email { get; set; }
     }
 

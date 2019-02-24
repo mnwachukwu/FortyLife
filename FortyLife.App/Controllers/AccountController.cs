@@ -77,6 +77,12 @@ namespace FortyLife.App.Controllers
             return RedirectToAction("Index", "Home"); // auth succeed, take em home
         }
 
+        public ActionResult Logout()
+        {
+            HttpContext.GetOwinContext().Authentication.SignOut(new AuthenticationProperties { IsPersistent = false });
+            return RedirectToAction("Index", "Home");
+        }
+
         [HttpGet]
         public ActionResult Register()
         {
@@ -170,6 +176,46 @@ namespace FortyLife.App.Controllers
         public ActionResult Activate(string email, string activationKey)
         {
             return Activate(new ActivateAccountViewModel { Email = email, ActivationKey = activationKey });
+        }
+
+        [HttpGet]
+        public ActionResult ResendActivation()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ResendActivation(ResendActivationViewModel model)
+        {
+            if (!string.IsNullOrEmpty(model.Email))
+            {
+                var user = ApplicationUserEngine.GetApplicationUser(model.Email);
+                if (user != null)
+                {
+                    if (!string.IsNullOrEmpty(user.ActivationKey))
+                    {
+                        ApplicationUserEngine.ResendActivationEmail(user.Email);
+                        return View("ResendActivationSuccess", model: model.Email);
+                    }
+
+                    ModelState.AddModelError("", "This account has already been activated.");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "This email address is not registered for an account.");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Invalid email address.");
+            }
+
+            return View();
+        }
+
+        public ActionResult Manage()
+        {
+            return View();
         }
     }
 }

@@ -308,9 +308,6 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -347,6 +344,8 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Activate.cshtml" />
     <Content Include="Views\Account\ActivationSuccess.cshtml" />
+    <Content Include="Views\Account\ResendActivation.cshtml" />
+    <Content Include="Views\Account\ResendActivationSuccess.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,27 @@
+﻿@model FortyLife.App.Models.ResendActivationViewModel
+
+@{
+    ViewBag.Title = "Resend Activation";
+}
+
+<h2>@ViewBag.Title</h2>
+<h4>Use this form to request a new activation key, or <a href="/Account/Activate">use this form to activate your account.</a></h4>
+<hr />
+
+@using (Html.BeginForm("ResendActivation", "Account", new { }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Resend Activation" class="btn btn-outline-success" />
+        </div>
+    </div>
+}

@@ -21,11 +21,11 @@ namespace FortyLife.DataAccess
 
         private static readonly string AppDataPath = $"{HttpRuntime.AppDomainAppPath}App_Data\\";
         private const string TokenUri = "https://api.tcgplayer.com/token";
-        private readonly string CategoryProductSearchUri = $"http://api.tcgplayer.com/{ApiVersion}/catalog/categories/1/search";
-        private readonly string MarketPriceRequestUri = $"http://api.tcgplayer.com/{ApiVersion}/pricing/product/";
-        private readonly string ProductDetailsRequestUri = $"https://api.tcgplayer.com/{ApiVersion}/catalog/products/";
         private const string ApiVersion = "v1.19.0";
-        private const string PublicKey = "5E4802A2-D073-4B82-B3E9-6A1783F5A099";
+        private readonly string categoryProductSearchUri = $"http://api.tcgplayer.com/{ApiVersion}/catalog/categories/1/search";
+        private readonly string marketPriceRequestUri = $"http://api.tcgplayer.com/{ApiVersion}/pricing/product/";
+        private readonly string productDetailsRequestUri = $"https://api.tcgplayer.com/{ApiVersion}/catalog/products/";
+        private readonly string publicKey = System.Web.Configuration.WebConfigurationManager.AppSettings["tcgPlayerPublicKey"];
 
         private static string PrivateKey => File.ReadAllText(AppDataPath + "private-key.txt");
 
@@ -38,7 +38,7 @@ namespace FortyLife.DataAccess
             // Rate limit to be a good samaritan
             Thread.Sleep(200); // TODO: find a better way to do this without shutting down the thread
 
-            var body = $"grant_type=client_credentials&client_id={PublicKey}&client_secret={PrivateKey}";
+            var body = $"grant_type=client_credentials&client_id={publicKey}&client_secret={PrivateKey}";
             var jsonResult = Post(TokenUri, body, RequestBodyType.PlainText) // get the json token and sanitize it for newtonsoft deserialization
                 .Replace("access_token", "accessToken")
                 .Replace("token_type", "tokenType")
@@ -134,7 +134,7 @@ namespace FortyLife.DataAccess
                 };
 
                 var body = JsonConvert.SerializeObject(searchCriteria);
-                var jsonResult = Post(CategoryProductSearchUri, body, RequestBodyType.Json, ReadAccessToken());
+                var jsonResult = Post(categoryProductSearchUri, body, RequestBodyType.Json, ReadAccessToken());
 
                 if (!string.IsNullOrEmpty(jsonResult))
                 {
@@ -176,7 +176,7 @@ namespace FortyLife.DataAccess
                 // Rate limit to be a good samaritan
                 Thread.Sleep(200); // TODO: find a better way to do this without shutting down the thread
 
-                var jsonResult = Get($"{MarketPriceRequestUri}{productId}", ReadAccessToken());
+                var jsonResult = Get($"{marketPriceRequestUri}{productId}", ReadAccessToken());
 
                 if (!string.IsNullOrEmpty(jsonResult))
                 {
@@ -212,7 +212,7 @@ namespace FortyLife.DataAccess
                 // Rate limit to be a good samaritan
                 Thread.Sleep(200); // TODO: find a better way to do this without shutting down the thread
 
-                var jsonResult = Get($"{ProductDetailsRequestUri}{productId}", ReadAccessToken());
+                var jsonResult = Get($"{productDetailsRequestUri}{productId}", ReadAccessToken());
                 var productDetail = JsonConvert.DeserializeObject<ProductDetailsResults>(jsonResult).Results.First();
 
                 if (productDetail != null)

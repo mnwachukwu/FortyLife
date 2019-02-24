@@ -5,7 +5,7 @@
 }
 
 <h2>@ViewBag.Title</h2>
-<h4>Use this form to activate your account, or <a href="#">use this form to request a new activation code.</a></h4>
+<h4>Use this form to activate your account, or <a href="/Account/ResendActivation">use this form to request a new activation key.</a></h4>
 <hr />
 
 @using (Html.BeginForm("Activate", "Account", new { }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))

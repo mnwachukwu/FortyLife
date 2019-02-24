@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace FortyLife.DataAccess.UserAccount
 {
@@ -17,6 +18,8 @@ namespace FortyLife.DataAccess.UserAccount
         public string DisplayName { get; set; }
 
         public string AboutMe { get; set; }
+
+        public DateTime CreateDate { get; set; }
 
         public List<Collection> Collections { get; set; }
     }

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
 using System.Runtime.Caching;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using FortyLife.DataAccess.UserAccount;
 
@@ -36,27 +33,8 @@ namespace FortyLife.DataAccess
                 DisplayName = email.Split('@')[0],
                 PasswordHash = passwordHash,
                 PasswordSalt = salt,
-                ActivationKey = UserAuthenticator.GetHashString(DateTime.Now.ToString("G"))
-                    .Replace("/", string.Empty) // UGLY way to remove reserved and unsafe characters from the key (so it can be passed via url)
-                    .Replace("\\", string.Empty)
-                    .Replace("?", string.Empty)
-                    .Replace("&", string.Empty)
-                    .Replace("\"", string.Empty)
-                    .Replace("<", string.Empty)
-                    .Replace(">", string.Empty)
-                    .Replace(";", string.Empty)
-                    .Replace(":", string.Empty)
-                    .Replace("@", string.Empty)
-                    .Replace("=", string.Empty)
-                    .Replace("#", string.Empty)
-                    .Replace("%", string.Empty)
-                    .Replace("{", string.Empty)
-                    .Replace("}", string.Empty)
-                    .Replace("|", string.Empty)
-                    .Replace("^", string.Empty)
-                    .Replace("~", string.Empty)
-                    .Replace("[", string.Empty)
-                    .Replace("]", string.Empty)
+                CreateDate = DateTime.Now,
+                ActivationKey = RemoveReservedUnsafeCharacters(UserAuthenticator.GetHashString(DateTime.Now.ToString("G")))
             };
 
             using (var db = new FortyLifeDbContext())
@@ -78,6 +56,32 @@ namespace FortyLife.DataAccess
             }
         }
 
+        private static string RemoveReservedUnsafeCharacters(string text)
+        {
+            // UGLY way to remove reserved and unsafe characters from values (so it can be passed via url)
+            return text
+                .Replace("/", string.Empty)
+                .Replace("\\", string.Empty)
+                .Replace("?", string.Empty)
+                .Replace("&", string.Empty)
+                .Replace("\"", string.Empty)
+                .Replace("<", string.Empty)
+                .Replace(">", string.Empty)
+                .Replace(";", string.Empty)
+                .Replace(":", string.Empty)
+                .Replace("@", string.Empty)
+                .Replace("=", string.Empty)
+                .Replace("#", string.Empty)
+                .Replace("%", string.Empty)
+                .Replace("{", string.Empty)
+                .Replace("}", string.Empty)
+                .Replace("|", string.Empty)
+                .Replace("^", string.Empty)
+                .Replace("~", string.Empty)
+                .Replace("[", string.Empty)
+                .Replace("]", string.Empty);
+        }
+
         public static void SendActivationEmail(string email)
         {
             // Compose and send an activation email - account creation success!
@@ -93,6 +97,17 @@ namespace FortyLife.DataAccess
                 body = body.Replace("(activationlink)", "http://forty.life/Account/Activate");
 
                 new Mailer().SendMail(user.Email, "Welcome to Forty Life!", body);
+            }
+        }
+
+        public static void ResendActivationEmail(string email)
+        {
+            var user = GetApplicationUser(email);
+            if (user != null)
+            {
+                RegenerateActivationKey(email);
+                UpdateUserInCache(email);
+                SendActivationEmail(email);
             }
         }
 
@@ -122,9 +137,8 @@ namespace FortyLife.DataAccess
             if (ApplicationUserCache.Contains(email))
             {
                 ApplicationUserCache.Remove(email);
+                GetApplicationUser(email);
             }
-
-            GetApplicationUser(email);
         }
 
         public static void ActivateUser(string email)
@@ -135,6 +149,19 @@ namespace FortyLife.DataAccess
                 if (user != null)
                 {
                     user.ActivationKey = null;
+                    db.SaveChanges();
+                }
+            }
+        }
+
+        private static void RegenerateActivationKey(string email)
+        {
+            using (var db = new FortyLifeDbContext())
+            {
+                var user = db.ApplicationUsers.FirstOrDefault(i => i.Email == email);
+                if (user != null)
+                {
+                    user.ActivationKey = RemoveReservedUnsafeCharacters(UserAuthenticator.GetHashString(DateTime.Now.ToString("G")));
                     db.SaveChanges();
                 }
             }
