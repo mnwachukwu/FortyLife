@@ -21,7 +21,7 @@ namespace FortyLife.App.Controllers
             }
 
             return View("Results",
-                new SearchResultsViewMovel
+                new SearchResultsViewModel
                 {
                     NameSearch = cardName,
                     Results = results

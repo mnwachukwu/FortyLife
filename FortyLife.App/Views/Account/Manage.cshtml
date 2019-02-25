@@ -1,4 +1,41 @@
-﻿@{
-    ViewBag.Title = "Manage"
+﻿@model FortyLife.App.Models.ManageViewModel
+
+@{
+    ViewBag.Title = "Manage";
 }
 
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                Decks <span class="float-right">Add New Deck</span>
+            </div>
+            <div class="card-body">
+                <a href="#">See All Decks</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                Collections <span class="float-right">Add New Collection</span>
+            </div>
+            <div class="card-body">
+                <a href="#">See All Collections</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                Manage Your Account
+            </div>
+            <div class="card-body">
+                <a href="/Account/ViewProfile?id=@Model.Id">View Profile</a><br />
+                <a href="#">Change Display Name</a><br />
+                <a href="#">Change Password</a><br />
+                <a href="#" class="text-danger">Delete Your Account</a><br />
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace FortyLife.App.Models
@@ -17,14 +18,6 @@ namespace FortyLife.App.Models
     public class ResendActivationViewModel
     {
         [Required]
-        [EmailAddress]
-        public string Email { get; set; }
-    }
-
-    public class ForgotViewModel
-    {
-        [Required]
-        [Display(Name = "Email")]
         [EmailAddress]
         public string Email { get; set; }
     }
@@ -89,5 +82,19 @@ namespace FortyLife.App.Models
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+    }
+
+    public class ViewProfileViewModel
+    {
+        public string DisplayName { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public string AboutMe { get; set; }
+    }
+
+    public class ManageViewModel
+    {
+        public int Id { get; set; }
     }
 }

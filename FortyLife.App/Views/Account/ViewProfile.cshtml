@@ -1,0 +1,40 @@
+﻿@model FortyLife.App.Models.ViewProfileViewModel
+
+@{
+    ViewBag.Title = Model.DisplayName;
+}
+
+<div class="jumbotron">
+    <h1 class="display-3">@Model.DisplayName</h1>
+    <p class="lead">
+        @if (!string.IsNullOrEmpty(Model.AboutMe))
+        {
+            @Model.AboutMe
+        }
+        else
+        {
+            @:This user has nothing to say about themself.
+        }
+        <br />
+        <i class="float-right">Joined on @Model.CreateDate.ToString("D").</i>
+    </p>
+    <br />
+    <hr />
+    <div class="row">
+        <div class="col-md-3">
+
+        </div>
+
+        <div class="col-md-3">
+
+        </div>
+
+        <div class="col-md-3">
+
+        </div>
+
+        <div class="col-md-3">
+
+        </div>
+    </div>
+</div>

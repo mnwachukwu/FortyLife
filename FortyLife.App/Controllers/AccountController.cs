@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
@@ -63,6 +64,9 @@ namespace FortyLife.App.Controllers
                     // Identity stuff to personalize the site
                     new Claim(ClaimTypes.Email, model.Email),
                     new Claim(ClaimTypes.Name, $"{user.DisplayName}#{user.Id}"),
+
+                    // extra data
+                    new Claim("Id", user.Id.ToString()),
 
                     // add a role for a basic user
                     // TODO: we'll need to add more roles for users for administrative permissions
@@ -213,9 +217,35 @@ namespace FortyLife.App.Controllers
             return View();
         }
 
+        [Authorize]
         public ActionResult Manage()
         {
-            return View();
+            var id = (User.Identity as ClaimsIdentity)?.Claims.FirstOrDefault(i => i.Type == "Id")?.Value;
+            var model = new ManageViewModel
+            {
+                Id = Convert.ToInt32(id)
+            };
+
+            return View(model);
+        }
+
+        public ActionResult ViewProfile(int id)
+        {
+            var user = ApplicationUserEngine.GetApplicationUser(id);
+
+            if (user != null)
+            {
+                var profile = new ViewProfileViewModel
+                {
+                    DisplayName = $"{user.DisplayName}#{user.Id}",
+                    AboutMe = user.AboutMe,
+                    CreateDate = user.CreateDate
+                };
+
+                return View(profile);
+            }
+
+            return View("~/Views/Shared/Error.cshtml");
         }
     }
 }

@@ -201,7 +201,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\SearchResultsViewMovel.cs" />
+    <Compile Include="Models\SearchResultsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -346,6 +346,7 @@
     <Content Include="Views\Account\ActivationSuccess.cshtml" />
     <Content Include="Views\Account\ResendActivation.cshtml" />
     <Content Include="Views\Account\ResendActivationSuccess.cshtml" />
+    <Content Include="Views\Account\ViewProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

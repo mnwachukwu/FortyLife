@@ -132,6 +132,27 @@ namespace FortyLife.DataAccess
             return null;
         }
 
+        public static ApplicationUser GetApplicationUser(int id)
+        {
+            using (var db = new FortyLifeDbContext())
+            {
+                var user = db.ApplicationUsers.FirstOrDefault(i => i.Id == id);
+
+                if (user != null)
+                {
+                    if (ApplicationUserCache.Contains(user.Email))
+                    {
+                        return (ApplicationUser)ApplicationUserCache[user.Email];
+                    }
+
+                    ApplicationUserCache.Set(user.Email, user, DateTimeOffset.Now.AddDays(7));
+                    return user;
+                }
+
+                return null;
+            }
+        }
+
         public static void UpdateUserInCache(string email)
         {
             if (ApplicationUserCache.Contains(email))
