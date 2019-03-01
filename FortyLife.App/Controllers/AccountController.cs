@@ -181,7 +181,7 @@ namespace FortyLife.App.Controllers
                 ModelState.AddModelError("", "Please fill out both form fields.");
             }
 
-            return View();
+            return View(model);
         }
 
         [Route("Account/Activate/{email}/{activationKey}")]
@@ -222,7 +222,7 @@ namespace FortyLife.App.Controllers
                 ModelState.AddModelError("", "Invalid email address.");
             }
 
-            return View();
+            return View(model);
         }
 
         [Authorize]
