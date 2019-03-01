@@ -15,7 +15,7 @@ namespace FortyLife.App.Controllers
     public class AccountController : Controller
     {
         [HttpGet]
-        public ActionResult Login()
+        public ActionResult Login(string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -23,11 +23,12 @@ namespace FortyLife.App.Controllers
                 return View("Manage");
             }
 
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Login(LoginViewModel model)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -39,6 +40,7 @@ namespace FortyLife.App.Controllers
             {
                 // invalid username or password
                 ModelState.AddModelError("", "Invalid email or password.");
+                ViewBag.ReturnUrl = returnUrl;
                 return View(model);
             }
 
@@ -49,6 +51,7 @@ namespace FortyLife.App.Controllers
             if (!string.IsNullOrEmpty(user.ActivationKey))
             {
                 ModelState.AddModelError("", "Your account has not been activated.");
+                ViewBag.ReturnUrl = returnUrl;
                 return View(model);
             }
 
@@ -78,7 +81,12 @@ namespace FortyLife.App.Controllers
                 .SignIn(new AuthenticationProperties { IsPersistent = false, ExpiresUtc = DateTimeOffset.Now.AddDays(1) },
                     ident);
 
-            return RedirectToAction("Index", "Home"); // auth succeed, take em home
+            if (!string.IsNullOrEmpty(returnUrl))
+            {
+                return Redirect(returnUrl); // auth succeed, take em to their destination
+            }
+
+            return RedirectToAction("Index", "Home"); // auth succeed and no return url, take em home
         }
 
         public ActionResult Logout()
@@ -229,7 +237,7 @@ namespace FortyLife.App.Controllers
             return View(model);
         }
 
-        public ActionResult ViewProfile(int id)
+        public ActionResult ViewProfile(int id = 0)
         {
             var user = ApplicationUserEngine.GetApplicationUser(id);
 
