@@ -11,6 +11,8 @@ namespace FortyLife.DataAccess.UserAccount
 
         public string Name { get; set; }
 
+        public string Description { get; set; }
+
         public List<CollectionCard> Cards { get; set; }
 
         public double TcgMidValue { get; set; }

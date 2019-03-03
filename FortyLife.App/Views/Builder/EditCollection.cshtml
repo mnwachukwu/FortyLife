@@ -1,0 +1,46 @@
+﻿@model FortyLife.App.Models.CollectionModel
+
+@{
+    ViewBag.Title = string.IsNullOrEmpty(Model.Collection.Name) ? "New Collection" : Model.Collection.Name;
+}
+
+
+
+<h2>@ViewBag.Title</h2>
+<hr />
+
+@using (Html.BeginForm("SaveCollection", "Builder"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(i => i.Collection.CollectionId)
+
+    <div class="row">
+        <div class="col-md-5">
+            @Html.TextAreaFor(i => i.RawList, new { @class = "form-control", rows = "20" })
+        </div>
+        <div class="col-md-7">
+            @Html.Partial("_QuickCardLookup")
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    @Html.TextBoxFor(i => i.Collection.Name, new { @class = "form-control", placeholder="Collection Name" }) @Html.ValidationMessageFor(i => i.Collection.Name, "", new { @class = "text-danger" })
+                </div>
+                <div class="card-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    @Html.LabelFor(i => i.Collection.Description) <i class="small">(You can use <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Markdown</a> here!)</i>
+                    @Html.TextAreaFor(i => i.Collection.Description, new { @class = "form-control", rows = "15" })
+                    @Html.ValidationMessageFor(i => i.Collection.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="">
+        <input type="submit" value="Resend Activation" class="btn btn-outline-success" />
+    </div>
+}

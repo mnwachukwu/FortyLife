@@ -194,12 +194,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BuilderController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\BuilderModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\SearchResultsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -347,6 +349,13 @@
     <Content Include="Views\Account\ResendActivation.cshtml" />
     <Content Include="Views\Account\ResendActivationSuccess.cshtml" />
     <Content Include="Views\Account\ViewProfile.cshtml" />
+    <Content Include="Views\Builder\Collection.cshtml" />
+    <Content Include="Views\Builder\Deck.cshtml" />
+    <Content Include="Views\Builder\EditCollection.cshtml" />
+    <Content Include="Views\Builder\EditDeck.cshtml" />
+    <Content Include="Views\Builder\_QuickCardLookup.cshtml" />
+    <Content Include="Views\Builder\PrivateCollection.cshtml" />
+    <Content Include="Views\Account\PrivateProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -363,10 +372,6 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FortyLife.Core\FortyLife.Core.csproj">
-      <Project>{87443316-78ef-4681-aaaa-ac5d518e7f52}</Project>
-      <Name>FortyLife.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\FortyLife.DataAccess\FortyLife.DataAccess.csproj">
       <Project>{b464a41b-d8f6-45a5-8d92-f6f8ff9e0367}</Project>
       <Name>FortyLife.DataAccess</Name>
