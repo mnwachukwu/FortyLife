@@ -4,9 +4,8 @@
     ViewBag.Title = string.IsNullOrEmpty(Model.Collection.Name) ? "New Collection" : Model.Collection.Name;
 }
 
-
-
 <h2>@ViewBag.Title</h2>
+
 <hr />
 
 @using (Html.BeginForm("SaveCollection", "Builder"))
@@ -16,21 +15,22 @@
 
     <div class="row">
         <div class="col-md-5">
-            @Html.TextAreaFor(i => i.RawList, new { @class = "form-control", rows = "20" })
+            @Html.TextAreaFor(i => i.RawList, new { @class = "form-control", rows = "22" })
+            <span class="small">Use the format <code>0x CardName (SETCODE) *F*</code> to list cards. <em>Use one line per card.</em> Not using a count will make the engine assume the count is 1. Not using <code>(SETCODE)</code> will make the engine assume the latest set. Not using <code>*F*</code> will let the engine know the card is not foil.</span>
         </div>
         <div class="col-md-7">
-            @Html.Partial("_QuickCardLookup")
-        </div>
-    </div>
-    <hr />
-    <div class="row">
-        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    @Html.TextBoxFor(i => i.Collection.Name, new { @class = "form-control", placeholder="Collection Name" }) @Html.ValidationMessageFor(i => i.Collection.Name, "", new { @class = "text-danger" })
+                    <span class="oi oi-paperclip"></span> Collection Details
                 </div>
                 <div class="card-body">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    @Html.LabelFor(i => i.Collection.Name)
+                    @Html.TextBoxFor(i => i.Collection.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(i => i.Collection.Name, "", new { @class = "text-danger" })
+
+                    <br />
 
                     @Html.LabelFor(i => i.Collection.Description) <i class="small">(You can use <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Markdown</a> here!)</i>
                     @Html.TextAreaFor(i => i.Collection.Description, new { @class = "form-control", rows = "15" })
@@ -39,8 +39,10 @@
             </div>
         </div>
     </div>
-
-    <div class="">
-        <input type="submit" value="Resend Activation" class="btn btn-outline-success" />
-    </div>
+    <br />
+    <input type="submit" value="Save Collection" class="btn btn-outline-success" />
 }
+
+<hr />
+
+@Html.Partial("_QuickCardLookup")

@@ -372,6 +372,10 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FortyLife.Core\FortyLife.Core.csproj">
+      <Project>{87443316-78ef-4681-aaaa-ac5d518e7f52}</Project>
+      <Name>FortyLife.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FortyLife.DataAccess\FortyLife.DataAccess.csproj">
       <Project>{b464a41b-d8f6-45a5-8d92-f6f8ff9e0367}</Project>
       <Name>FortyLife.DataAccess</Name>

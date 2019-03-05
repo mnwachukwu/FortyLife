@@ -103,4 +103,5 @@ img.card-tooltip {
 
 textarea {
     resize: none;
+    white-space: nowrap;
 }

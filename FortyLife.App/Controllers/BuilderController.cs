@@ -38,9 +38,18 @@ namespace FortyLife.App.Controllers
         }
 
         [Authorize]
-        public ActionResult SaveCollection(Collection model)
+        public ActionResult SaveCollection(CollectionModel model)
         {
-            return View();
+            var collection = Core.CardListParsingEngine.ParseCardList(model.RawList, out var error);
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                // TODO: use a temp message here to alert them of the failed action
+                return View(model);
+            }
+
+            // TODO: after doing the stuff, return this page anyway, but with a temp message with success!
+            return View(model);
         }
 
         public ActionResult ViewDeck(int id)
