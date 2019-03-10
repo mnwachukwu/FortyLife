@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
@@ -10,6 +12,9 @@ namespace FortyLife.DataAccess
 {
     public static class ApplicationUserEngine
     {
+        public static string[] ReservedAndUnsafeCharacters =
+            {"/", "\\", "?", "&", "\"", "<", ">", ";", ":", "@", "=", "#", "%", "{", "}", "|", "^", "~", "[", "]"};
+
         private static ObjectCache ApplicationUserCache { get; set; }
 
         public static void Initialize()
@@ -56,30 +61,37 @@ namespace FortyLife.DataAccess
             }
         }
 
+        public static void UpdateUserCollection(string email, Collection collection, out string error)
+        {
+            error = "";
+
+            using (var db = new FortyLifeDbContext())
+            {
+                var users = db.ApplicationUsers.Include(i => i.Collections.Select(j => j.Cards));
+                var user = users.FirstOrDefault(i => i.Email == email);
+
+                if (user != null)
+                {
+                    if (user.Collections == null)
+                        user.Collections = new List<Collection>();
+
+                    if (user.Collections.Exists(i => i.CollectionId == collection.CollectionId))
+                        user.Collections.RemoveAll(i => i.CollectionId == collection.CollectionId);
+
+                    user.Collections.Add(collection);
+                    
+                    db.SaveChanges();
+                }
+                else
+                {
+                    error = "Error! No known user exists with an email address matching the current session claim.";
+                }
+            }
+        }
+
         private static string RemoveReservedUnsafeCharacters(string text)
         {
-            // UGLY way to remove reserved and unsafe characters from values (so it can be passed via url)
-            return text
-                .Replace("/", string.Empty)
-                .Replace("\\", string.Empty)
-                .Replace("?", string.Empty)
-                .Replace("&", string.Empty)
-                .Replace("\"", string.Empty)
-                .Replace("<", string.Empty)
-                .Replace(">", string.Empty)
-                .Replace(";", string.Empty)
-                .Replace(":", string.Empty)
-                .Replace("@", string.Empty)
-                .Replace("=", string.Empty)
-                .Replace("#", string.Empty)
-                .Replace("%", string.Empty)
-                .Replace("{", string.Empty)
-                .Replace("}", string.Empty)
-                .Replace("|", string.Empty)
-                .Replace("^", string.Empty)
-                .Replace("~", string.Empty)
-                .Replace("[", string.Empty)
-                .Replace("]", string.Empty);
+            return ReservedAndUnsafeCharacters.Aggregate(text, (current, character) => current.Replace(character, string.Empty));
         }
 
         public static void SendActivationEmail(string email)
@@ -120,8 +132,9 @@ namespace FortyLife.DataAccess
 
             using (var db = new FortyLifeDbContext())
             {
-                var user = db.ApplicationUsers.FirstOrDefault(i => i.Email == email);
-
+                var users = db.ApplicationUsers.Include(i => i.Collections.Select(j => j.Cards));
+                var user = users.FirstOrDefault(i => i.Email == email);
+                
                 if (user != null)
                 {
                     ApplicationUserCache.Set(email, user, DateTimeOffset.Now.AddDays(7));

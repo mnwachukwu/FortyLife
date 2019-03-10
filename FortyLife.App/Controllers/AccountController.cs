@@ -228,10 +228,13 @@ namespace FortyLife.App.Controllers
         [Authorize]
         public ActionResult Manage()
         {
-            var id = (User.Identity as ClaimsIdentity)?.Claims.FirstOrDefault(i => i.Type == "Id")?.Value;
+            var email = ((ClaimsIdentity)User.Identity).Claims.FirstOrDefault(i => i.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")?.Value;
+            var id = ((ClaimsIdentity) User.Identity)?.Claims.FirstOrDefault(i => i.Type == "Id")?.Value;
+
             var model = new ManageViewModel
             {
-                Id = Convert.ToInt32(id)
+                Id = Convert.ToInt32(id),
+                User = ApplicationUserEngine.GetApplicationUser(email)
             };
 
             return View(model);

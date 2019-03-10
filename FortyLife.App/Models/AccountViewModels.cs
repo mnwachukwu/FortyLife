@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using FortyLife.DataAccess.UserAccount;
 
 namespace FortyLife.App.Models
 {
@@ -98,5 +99,7 @@ namespace FortyLife.App.Models
     public class ManageViewModel
     {
         public int Id { get; set; }
+
+        public ApplicationUser User { get; set; }
     }
 }

@@ -9,5 +9,9 @@
         public string SetCode { get; set; }
 
         public bool Foil { get; set; }
+
+        public bool Commander { get; set; }
+
+        public int Count { get; set; }
     }
 }

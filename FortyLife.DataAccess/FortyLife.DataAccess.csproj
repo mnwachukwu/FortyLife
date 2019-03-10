@@ -173,6 +173,10 @@
     <Compile Include="Migrations\201903031826089_UpdateCollections.Designer.cs">
       <DependentUpon>201903031826089_UpdateCollections.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903091713463_UpdateCollectionCard.cs" />
+    <Compile Include="Migrations\201903091713463_UpdateCollectionCard.Designer.cs">
+      <DependentUpon>201903091713463_UpdateCollectionCard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PrimitiveListHandler.cs" />
     <Compile Include="ScryfallRequestEngine.cs" />
@@ -288,6 +292,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903031826089_UpdateCollections.resx">
       <DependentUpon>201903031826089_UpdateCollections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903091713463_UpdateCollectionCard.resx">
+      <DependentUpon>201903091713463_UpdateCollectionCard.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

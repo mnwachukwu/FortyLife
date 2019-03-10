@@ -25,6 +25,7 @@
 
     <div class="container body-content pt-3">
         @Html.Partial("_LotusModal")
+        @Html.Raw(TempData["AlertMsg"])
         @RenderBody()
 
         <hr class="bg-secondary" />

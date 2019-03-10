@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using FortyLife.App.Models;
+using FortyLife.Core;
+using FortyLife.DataAccess;
 using FortyLife.DataAccess.UserAccount;
 
 namespace FortyLife.App.Controllers
@@ -32,24 +35,89 @@ namespace FortyLife.App.Controllers
         }
 
         [Authorize]
-        public ActionResult EditCollection()
+        public ActionResult EditCollection(int id)
         {
-            return View();
+            var email = ((ClaimsIdentity)User.Identity).Claims.First(i => i.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress").Value;
+            var user = ApplicationUserEngine.GetApplicationUser(email);
+
+            if (user.Collections.Any(i => i.CollectionId == id))
+            {
+                var collection = user.Collections.First(i => i.CollectionId == id);
+                var model = new CollectionModel
+                {
+                    Collection = collection,
+                    RawList = CardListParsingEngine.GetCardList(collection.Cards)
+                };
+
+                return View("EditCollection", model);
+            }
+
+            TempData["AlertMsg"] = "<br /><div class=\"alert alert-danger alert-dismissible\">" +
+                                   "<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>" +
+                                   "<strong>You are not authorized to edit this collection.</div>";
+
+            return View("Error");
         }
 
         [Authorize]
         public ActionResult SaveCollection(CollectionModel model)
         {
-            var collection = Core.CardListParsingEngine.ParseCardList(model.RawList, out var error);
+            var email = ((ClaimsIdentity)User.Identity).Claims.First(i => i.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress").Value;
+            var collectionCards = CardListParsingEngine.ParseCardList(model.RawList, out var error);
+
+            if (string.IsNullOrEmpty(model.Collection.Name))
+            {
+                model.Collection.Name = "Unnamed Collection";
+            }
+            else
+            {
+                model.Collection.Name = model.Collection.Name.Trim();
+            }
 
             if (!string.IsNullOrEmpty(error))
             {
-                // TODO: use a temp message here to alert them of the failed action
-                return View(model);
+                TempData["AlertMsg"] = "<br /><div class=\"alert alert-danger alert-dismissible\">" +
+                                       "<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>" +
+                                       $"<strong>{error}</div>";
+
+                return View("EditCollection", model);
             }
 
-            // TODO: after doing the stuff, return this page anyway, but with a temp message with success!
-            return View(model);
+            if (!CardListParsingEngine.VerifyCardList(collectionCards, out error))
+            {
+                TempData["AlertMsg"] = "<br /><div class=\"alert alert-danger alert-dismissible\">" +
+                                       "<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>" +
+                                       $"<strong>{error}</div>";
+
+                return View("EditCollection", model);
+            }
+
+            model.Collection.Cards = collectionCards;
+            model.Collection.LastEditDate = DateTime.Now;
+
+            if (model.Collection.CollectionId <= 0)
+            {
+                model.Collection.CreateDate = DateTime.Now;
+            }
+
+            ApplicationUserEngine.UpdateUserCollection(email, model.Collection, out error);
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                TempData["AlertMsg"] = "<br /><div class=\"alert alert-danger alert-dismissible\">" +
+                                       "<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>" +
+                                       $"<strong>{error}</div>";
+
+                return View("EditCollection", model);
+            }
+
+            ApplicationUserEngine.UpdateUserInCache(email);
+
+            TempData["AlertMsg"] = "<br /><div class=\"alert alert-success alert-dismissible\">" +
+                                   "<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>" +
+                                   "<strong>Collection saved successfully.</div>";
+
+            return View("EditCollection", model);
         }
 
         public ActionResult ViewDeck(int id)
@@ -64,7 +132,7 @@ namespace FortyLife.App.Controllers
         }
 
         [Authorize]
-        public ActionResult EditDeck()
+        public ActionResult EditDeck(int id)
         {
             return View();
         }

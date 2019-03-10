@@ -18,9 +18,36 @@
     <div class="col-md-4">
         <div class="card">
             <div class="card-header">
-                Collections <span class="float-right">Add New Collection</span>
+                Collections <span class="float-right"><a href="/Builder/NewCollection">Add New Collection</a></span>
             </div>
             <div class="card-body">
+                <ul>
+                    @{
+                        var count = 1;
+                        var displayName = "";
+
+                        foreach (var list in Model.User.Collections.OrderByDescending(i => i.LastEditDate))
+                        {
+                            var id = list.CollectionId;
+
+                            if (list.Name.Length > 31)
+                            {
+                                displayName = list.Name.Substring(0, 30) + "...";
+                            }
+                            else
+                            {
+                                displayName = list.Name;
+                            }
+
+                            <li><a href="/Builder/ViewCollection?id=@id" title="@list.Name">@displayName</a> <a href="/Builder/EditCollection?id=@id"><span class="text-info">[Edit]</span></a></li>
+
+                            if (count++ >= 10)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                </ul>
                 <a href="#">See All Collections</a>
             </div>
         </div>
