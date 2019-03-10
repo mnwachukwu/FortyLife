@@ -83,7 +83,7 @@ namespace FortyLife.App.Controllers
                 return View("EditCollection", model);
             }
 
-            if (!CardListParsingEngine.VerifyCardList(collectionCards, out error))
+            if (!CardListParsingEngine.VerifyCardList(collectionCards, out collectionCards, out error))
             {
                 TempData["AlertMsg"] = "<br /><div class=\"alert alert-danger alert-dismissible\">" +
                                        "<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>" +
@@ -93,11 +93,11 @@ namespace FortyLife.App.Controllers
             }
 
             model.Collection.Cards = collectionCards;
-            model.Collection.LastEditDate = DateTime.Now;
 
-            if (model.Collection.CollectionId <= 0)
+            // only change the date if it's not a new collection in order to keep the dates the same for the first save
+            if (model.Collection.CollectionId > 0)
             {
-                model.Collection.CreateDate = DateTime.Now;
+                model.Collection.LastEditDate = DateTime.Now;
             }
 
             ApplicationUserEngine.UpdateUserCollection(email, model.Collection, out error);
@@ -115,9 +115,10 @@ namespace FortyLife.App.Controllers
 
             TempData["AlertMsg"] = "<br /><div class=\"alert alert-success alert-dismissible\">" +
                                    "<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>" +
-                                   "<strong>Collection saved successfully.</div>";
+                                   "<strong>The Collection was saved successfully.</div>";
 
-            return View("EditCollection", model);
+            return RedirectToAction("EditCollection", new { id = model.Collection.CollectionId });
+
         }
 
         public ActionResult ViewDeck(int id)

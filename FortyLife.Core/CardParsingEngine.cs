@@ -163,7 +163,13 @@ namespace FortyLife.Core
                 }
             }
 
-            return sb.ToString().Remove(sb.Length - 1);
+            if (sb.Length > 0)
+            {
+                return sb.ToString().Remove(sb.Length - 1);
+            }
+
+            return "Colorless";
+
         }
 
         public static string RenderManaSymbols(string originalText)

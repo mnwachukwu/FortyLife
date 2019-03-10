@@ -20,8 +20,15 @@ namespace FortyLife.Core
         public static List<CollectionCard> ParseCardList(string rawList, out string error)
         {
             error = "";
-            var rawLines = rawList.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
             var cardList = new List<CollectionCard>();
+
+            if (string.IsNullOrEmpty(rawList))
+            {
+                error = "The card list is empty!";
+                return cardList;
+            }
+
+            var rawLines = rawList.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
             if (rawLines.Length <= 0)
             {
@@ -124,10 +131,11 @@ namespace FortyLife.Core
             return rawSetCode.Replace("(", string.Empty).Replace(")", string.Empty);
         }
 
-        public static bool VerifyCardList(List<CollectionCard> list, out string error)
+        public static bool VerifyCardList(List<CollectionCard> list, out List<CollectionCard> cleanList, out string error)
         {
             var requestEngine = new ScryfallRequestEngine();
             error = "";
+            cleanList = new List<CollectionCard>();
 
             foreach (var card in list)
             {
@@ -138,6 +146,8 @@ namespace FortyLife.Core
                         : ".");
                     return false;
                 }
+
+                card.Name = requestEngine.FirstCardFromSearch(card.Name, card.SetCode).Name;
             }
 
             if (list.Count(i => i.Commander) > 1)
@@ -169,6 +179,7 @@ namespace FortyLife.Core
                 }
             }
 
+            cleanList = list;
             return true;
         }
     }

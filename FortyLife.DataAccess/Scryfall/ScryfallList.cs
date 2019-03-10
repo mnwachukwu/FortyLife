@@ -10,6 +10,8 @@ namespace FortyLife.DataAccess.Scryfall
 
         public bool HasMore { get; set; }
 
+        public string NextPage { get; set; }
+
         public List<T> Data { get; set; }
     }
 }

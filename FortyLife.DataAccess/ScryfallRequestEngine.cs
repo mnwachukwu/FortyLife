@@ -34,15 +34,30 @@ namespace FortyLife.DataAccess
         {
             var request = Request<ScryfallList<Card>>($"{BaseSearchUri}?q=name={cardName}");
 
+            // pull data until we have it all
+            while (request.HasMore)
+            {
+                var moreResults = Request<ScryfallList<Card>>(request.NextPage);
+                request.Data.AddRange(moreResults.Data);
+                request.NextPage = moreResults.NextPage;
+                request.HasMore = moreResults.HasMore;
+            }
+
             if (request.Data != null)
             {
-                for (var i = 0; i < request.Data.Count; i++)
+                // remove all digital only cards
+                var paperData = request.Data.Where(i => i.Digital && FirstCardFromSearch(i.Name) != null || !i.Digital).ToList();
+
+                for (var i = 0; i < paperData.Count; i++)
                 {
-                    if (request.Data[i].Digital)
+                    if (paperData[i].Digital)
                     {
-                        request.Data[i] = FirstCardFromSearch(request.Data[i].Name);
+                        paperData[i] = FirstCardFromSearch(paperData[i].Name);
                     }
                 }
+
+                request.Data = paperData;
+                request.TotalCards = paperData.Count;
             }
 
             return request;
@@ -99,9 +114,9 @@ namespace FortyLife.DataAccess
                 {
                     card = !string.IsNullOrEmpty(setCode)
                         ? searchResultList.Data?.FirstOrDefault(i =>
-                            i.Name == cardName &&
+                            string.Equals(i.Name, cardName, StringComparison.CurrentCultureIgnoreCase) &&
                             string.Equals(i.Set, setCode, StringComparison.CurrentCultureIgnoreCase))
-                        : searchResultList.Data?.FirstOrDefault(i => i.Name == cardName);
+                        : searchResultList.Data?.FirstOrDefault(i => string.Equals(i.Name, cardName, StringComparison.CurrentCultureIgnoreCase));
 
                     if (card != null)
                     {
@@ -182,9 +197,19 @@ namespace FortyLife.DataAccess
         public ScryfallList<Card> CardPrintingsRequest(string cardName)
         {
             var results = Request<ScryfallList<Card>>($"{BaseSearchUri}?q=name={cardName}&unique=prints");
+
+            // pull data until we have it all
+            while (results.HasMore)
+            {
+                var moreResults = Request<ScryfallList<Card>>(results.NextPage);
+                results.Data.AddRange(moreResults.Data);
+                results.NextPage = moreResults.NextPage;
+                results.HasMore = moreResults.HasMore;
+            }
+
             if (results.TotalCards > 0)
             {
-                results.Data = results.Data.Where(i => i.Digital == false && i.Name == cardName).ToList();
+                results.Data = results.Data.Where(i => i.Digital == false && string.Equals(i.Name, cardName, StringComparison.CurrentCultureIgnoreCase)).ToList();
 
                 return results;
             }
