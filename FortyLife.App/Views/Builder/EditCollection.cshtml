@@ -1,7 +1,7 @@
 ﻿@model FortyLife.App.Models.CollectionModel
 
 @{
-    ViewBag.Title = string.IsNullOrEmpty(Model.Collection.Name) ? "New Collection" : Model.Collection.Name;
+    ViewBag.Title = string.IsNullOrEmpty(Model.Collection.Name) ? "New Collection" : "Editing " + Model.Collection.Name;
 }
 
 <h2>@ViewBag.Title</h2>

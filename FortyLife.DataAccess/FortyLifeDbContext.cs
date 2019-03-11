@@ -18,6 +18,8 @@ namespace FortyLife.DataAccess
         /// </summary>
         public DbSet<Collection> Collections { get; set; }
 
+        public DbSet<CollectionCard> CollectionCards { get; set; }
+
         /// <summary>
         /// Db Context for the Scryfall Card objects.
         /// </summary>

@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using FortyLife.App.Models;
 using FortyLife.Core;
 using FortyLife.DataAccess;
+using FortyLife.DataAccess.TCGPlayer;
 using FortyLife.DataAccess.UserAccount;
 
 namespace FortyLife.App.Controllers
@@ -15,7 +16,20 @@ namespace FortyLife.App.Controllers
     {
         public ActionResult ViewCollection(int id)
         {
-            return View();
+            var collection = ApplicationUserEngine.GetCollection(id, out var error);
+
+            // TODO: Up the view count and add it to an audit log for tracking so the system can't be cheated
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                TempData["AlertMsg"] = "<br /><div class=\"alert alert-danger alert-dismissible\">" +
+                                       "<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>" +
+                                       $"<strong>{error}</div>";
+
+                return View("Error");
+            }
+
+            return View("Collection", collection);
         }
 
         [Authorize]
@@ -100,7 +114,8 @@ namespace FortyLife.App.Controllers
                 model.Collection.LastEditDate = DateTime.Now;
             }
 
-            ApplicationUserEngine.UpdateUserCollection(email, model.Collection, out error);
+            ApplicationUserEngine.DeleteAllCardsInCollection(model.Collection);
+            ApplicationUserEngine.AddOrUpdateUserCollection(email, model.Collection, out error);
 
             if (!string.IsNullOrEmpty(error))
             {

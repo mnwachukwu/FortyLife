@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Caching;
 using System.Web;
+using FortyLife.DataAccess.TCGPlayer;
 using FortyLife.DataAccess.UserAccount;
 
 namespace FortyLife.DataAccess
@@ -61,7 +62,59 @@ namespace FortyLife.DataAccess
             }
         }
 
-        public static void UpdateUserCollection(string email, Collection collection, out string error)
+        public static void DeleteAllCardsInCollection(Collection collection)
+        {
+            using (var db = new FortyLifeDbContext())
+            {
+                foreach (var card in db.CollectionCards.Where(i => i.CollectionId == collection.CollectionId))
+                {
+                    db.CollectionCards.Remove(card);
+                }
+
+                db.SaveChanges();
+            }
+        }
+
+        public static void DeleteUserCollection(string email, Collection collection, out string error)
+        {
+            error = "";
+
+            using (var db = new FortyLifeDbContext())
+            {
+                var users = db.ApplicationUsers.Include(i => i.Collections.Select(j => j.Cards));
+                var user = users.FirstOrDefault(i => i.Email == email);
+
+                if (user != null)
+                {
+                    if (user.Collections.Exists(i => i.CollectionId == collection.CollectionId))
+                    {
+                        // remove it from the object in memory
+                        user.Collections.RemoveAll(i => i.CollectionId == collection.CollectionId);
+
+                        // remove all cards associated with the collection in the db
+                        foreach (var card in db.CollectionCards.Where(i => i.CollectionId == collection.CollectionId))
+                        {
+                            db.CollectionCards.Remove(card);
+                        }
+
+                        // remove the collection from the db
+                        db.Collections.Remove(db.Collections.First(i => i.CollectionId == collection.CollectionId));
+
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        error = "Error! Collection doesn't exist.";
+                    }
+                }
+                else
+                {
+                    error = "Error! No known user exists with an email address matching the current session claim.";
+                }
+            }
+        }
+
+        public static void AddOrUpdateUserCollection(string email, Collection collection, out string error)
         {
             error = "";
 
@@ -75,11 +128,22 @@ namespace FortyLife.DataAccess
                     if (user.Collections == null)
                         user.Collections = new List<Collection>();
 
-                    if (user.Collections.Exists(i => i.CollectionId == collection.CollectionId))
-                        user.Collections.RemoveAll(i => i.CollectionId == collection.CollectionId);
+                    var collectionToUpdate =
+                        user.Collections.FirstOrDefault(i => i.CollectionId == collection.CollectionId);
 
-                    user.Collections.Add(collection);
-                    
+                    if (collectionToUpdate != null)
+                    {
+                        collectionToUpdate.Cards = collection.Cards;
+                        collectionToUpdate.CreateDate = collection.CreateDate;
+                        collectionToUpdate.LastEditDate = collection.LastEditDate;
+                        collectionToUpdate.Name = collection.Name;
+                        collectionToUpdate.Description = collection.Description;
+                    }
+                    else
+                    {
+                        user.Collections.Add(collection);
+                    }
+
                     db.SaveChanges();
                 }
                 else
@@ -123,6 +187,51 @@ namespace FortyLife.DataAccess
             }
         }
 
+        public static Collection GetCollection(int id, out string error)
+        {
+            error = "";
+            var priceRequestEngine = new TcgPlayerRequestEngine();
+            var cardRequestEngine = new ScryfallRequestEngine();
+
+            using (var db = new FortyLifeDbContext())
+            {
+                var collection = db.Collections.Include(i => i.Cards).FirstOrDefault(i => i.CollectionId == id);
+
+                if (collection != null)
+                {
+                    // We need to update pertinent information about the collection
+                    collection.TcgMidValue = 0;
+
+                    foreach (var card in collection.Cards)
+                    {
+                        var setName = cardRequestEngine.FirstCardFromSearch(card.Name, card.SetCode).SetName;
+                        Price price;
+
+                        if (card.Foil)
+                        {
+                            price = priceRequestEngine.CardPriceRequest(card.Name, setName)?
+                                .First(i => i.SubTypeName == "Foil");
+                        }
+                        else
+                        {
+                            price = priceRequestEngine.CardPriceRequest(card.Name, setName)?
+                                .First(i => i.SubTypeName == "Normal");
+                        }
+
+                        if (price != null && price.MidPrice != null)
+                        {
+                            collection.TcgMidValue += price.MidPrice.Value;
+                        }
+
+                        return collection;
+                    }
+                }
+            }
+
+            error = "This collection does not exist or is private.";
+            return new Collection();
+        }
+
         public static ApplicationUser GetApplicationUser(string email)
         {
             if (ApplicationUserCache.Contains(email))
@@ -134,7 +243,7 @@ namespace FortyLife.DataAccess
             {
                 var users = db.ApplicationUsers.Include(i => i.Collections.Select(j => j.Cards));
                 var user = users.FirstOrDefault(i => i.Email == email);
-                
+
                 if (user != null)
                 {
                     ApplicationUserCache.Set(email, user, DateTimeOffset.Now.AddDays(7));

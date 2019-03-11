@@ -1,4 +1,6 @@
-﻿namespace FortyLife.DataAccess.UserAccount
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace FortyLife.DataAccess.UserAccount
 {
     public class CollectionCard
     {
@@ -13,5 +15,7 @@
         public bool Commander { get; set; }
 
         public int Count { get; set; }
+
+        public int? CollectionId { get; set; }
     }
 }

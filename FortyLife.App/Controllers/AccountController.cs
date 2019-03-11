@@ -256,7 +256,11 @@ namespace FortyLife.App.Controllers
                 return View(profile);
             }
 
-            return View("~/Views/Shared/Error.cshtml");
+            TempData["AlertMsg"] = "<br /><div class=\"alert alert-danger alert-dismissible\">" +
+                                   "<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>" +
+                                   "<strong>This user does not exist or has a private profile.</div>";
+
+            return View("Error");
         }
     }
 }

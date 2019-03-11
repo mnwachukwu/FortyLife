@@ -24,12 +24,12 @@
                 <ul>
                     @{
                         var count = 1;
-                        var displayName = "";
 
                         foreach (var list in Model.User.Collections.OrderByDescending(i => i.LastEditDate))
                         {
                             var id = list.CollectionId;
 
+                            string displayName;
                             if (list.Name.Length > 31)
                             {
                                 displayName = list.Name.Substring(0, 30) + "...";
