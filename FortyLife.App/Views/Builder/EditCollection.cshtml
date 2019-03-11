@@ -4,6 +4,11 @@
     ViewBag.Title = string.IsNullOrEmpty(Model.Collection.Name) ? "New Collection" : "Editing " + Model.Collection.Name;
 }
 
+@section Scripts
+{
+    @Scripts.Render("~/bundles/linedtextarea")
+}
+
 <h2>@ViewBag.Title</h2>
 
 <hr />
@@ -17,7 +22,7 @@
 
     <div class="row">
         <div class="col-md-5">
-            @Html.TextAreaFor(i => i.RawList, new { @class = "form-control", rows = "26" })
+            @Html.TextAreaFor(i => i.RawList, new { @class = "lined", rows = "37", cols = "54" })
             <span class="small">Use the format <code>0x CardName (SETCODE) *F* *CMDR*</code> to list cards. <em>Use one line per card.</em> Not using a count will make the engine assume the count is 1. Not using <code>(SETCODE)</code> will make the engine assume the latest set. Using <code>*F*</code> will let the engine know the card is foil. Using <code>*CMDR*</code> will indicate that the card is a Commander.</span>
         </div>
         <div class="col-md-7">
@@ -35,7 +40,7 @@
                     <br />
 
                     @Html.LabelFor(i => i.Collection.Description) <i class="small">(You can use <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Markdown</a> here!)</i>
-                    @Html.TextAreaFor(i => i.Collection.Description, new { @class = "form-control", rows = "19" })
+                    @Html.TextAreaFor(i => i.Collection.Description, new { @class = "form-control", rows = "20" })
                     @Html.ValidationMessageFor(i => i.Collection.Description, "", new { @class = "text-danger" })
                 </div>
             </div>

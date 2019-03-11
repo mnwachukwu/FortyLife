@@ -135,15 +135,20 @@ namespace FortyLife.Core
         {
             var requestEngine = new ScryfallRequestEngine();
             error = "";
+            var errorLine = 0;
             cleanList = new List<CollectionCard>();
 
             foreach (var card in list)
             {
+                errorLine++;
+
                 if (requestEngine.FirstCardFromSearch(card.Name, card.SetCode) == null)
                 {
                     error = $"Error processing the Card named {card.Name}" + (!string.IsNullOrEmpty(card.SetCode)
                         ? $" with Set Code {card.SetCode}."
                         : ".");
+                    error += $" (Line {errorLine})";
+
                     return false;
                 }
 

@@ -18,3 +18,10 @@ $(document).ready(function () {
         $("#lotus-modal").modal();
     });
 });
+
+$(function () {
+    // Target all classed with ".lined"
+    $(".lined").linedtextarea(
+        //{ selectedLine: 1 }
+    );
+});
