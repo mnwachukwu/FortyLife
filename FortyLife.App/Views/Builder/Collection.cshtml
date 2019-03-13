@@ -1,7 +1,47 @@
-﻿@model FortyLife.DataAccess.UserAccount.Collection
+﻿@using HeyRed.MarkdownSharp
+@model FortyLife.DataAccess.UserAccount.Collection
 
 @{
+    var markdownInterpreter = new Markdown();
     ViewBag.Title = Model.Name;
+    var description = "Description";
+
+    // I feel like "Ehhhh..." about this feature
+    //if (Model.Description.StartsWith("#"))
+    //{
+    //    description = Model.Description.Split(new[] {Environment.NewLine}, StringSplitOptions.None)[0].Remove(0, 1).Trim();
+    //    // TODO: if we do decide to keep this feature, remove the first line from the render string so it isn't redundant
+    //}
 }
 
 <h2>@ViewBag.Title</h2>
+<span class="badge badge-pill badge-secondary">Collection</span>
+
+@{
+    if (true) // TODO: need to make sure only the collection owner can see this
+    {
+        <a href="/Builder/EditCollection?id=1" class="float-right btn btn-outline-warning">Edit</a>
+    }
+}
+
+<hr />
+
+<div class="card border-success">
+    <div class="card-header">
+        Card List
+    </div>
+    <div class="card-body">
+        <!-- TODO: put a chart here to show the list. Maybe include pagination options with asychronous updates -->
+    </div>
+</div>
+
+<br />
+
+<div class="card border-dark">
+    <div class="card-header">
+        @description
+    </div>
+    <div class="card-body">
+        @Html.Raw(markdownInterpreter.Transform(Model.Description))
+    </div>
+</div>
