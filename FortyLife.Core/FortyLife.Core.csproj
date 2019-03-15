@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="CardListParsingEngine.cs" />
     <Compile Include="CardParsingEngine.cs" />
+    <Compile Include="MarkdownHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

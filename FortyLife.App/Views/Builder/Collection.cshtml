@@ -1,10 +1,16 @@
-﻿@using HeyRed.MarkdownSharp
+﻿@using FortyLife.Core
+@using HeyRed.MarkdownSharp
 @model FortyLife.DataAccess.UserAccount.Collection
 
 @{
-    var markdownInterpreter = new Markdown();
     ViewBag.Title = Model.Name;
+
+    var markdownInterpreter = new Markdown();
+    var markdownHelper = new MarkdownHelper();
     var description = "Description";
+    var parsedMarkdown = markdownHelper.Transform(Model.Description); // replace tildes first
+    parsedMarkdown = markdownInterpreter.Transform(parsedMarkdown); // parse the rest of the markdown
+    parsedMarkdown = markdownHelper.RemoveProhibitedTags(parsedMarkdown); // remove <script> and <style> tags (and everything inside of them)
 
     // I feel like "Ehhhh..." about this feature
     //if (Model.Description.StartsWith("#"))
@@ -42,6 +48,6 @@
         @description
     </div>
     <div class="card-body">
-        @Html.Raw(markdownInterpreter.Transform(Model.Description))
+        @Html.Raw(parsedMarkdown)
     </div>
 </div>
