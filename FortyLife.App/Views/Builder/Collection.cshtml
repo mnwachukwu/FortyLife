@@ -5,6 +5,7 @@
 @{
     ViewBag.Title = Model.Name;
 
+    var isOwner = ViewBag.IsOwner;
     var markdownInterpreter = new Markdown();
     var markdownHelper = new MarkdownHelper();
     var description = "Description";
@@ -24,9 +25,9 @@
 <span class="badge badge-pill badge-secondary">Collection</span>
 
 @{
-    if (true) // TODO: need to make sure only the collection owner can see this
+    if (isOwner) // TODO: need to make sure only the collection owner can see this
     {
-        <a href="/Builder/EditCollection?id=1" class="float-right btn btn-outline-warning">Edit</a>
+        <a href="/Builder/EditCollection?id=@Model.CollectionId" class="float-right btn btn-outline-warning">Edit</a>
     }
 }
 

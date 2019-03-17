@@ -1,7 +1,8 @@
 ﻿@model FortyLife.App.Models.CollectionModel
 
 @{
-    ViewBag.Title = string.IsNullOrEmpty(Model.Collection.Name) ? "New Collection" : "Editing " + Model.Collection.Name;
+    var newCollection = string.IsNullOrEmpty(Model.Collection.Name);
+    ViewBag.Title = newCollection ? "New Collection" : "Editing " + Model.Collection.Name;
 }
 
 @section Scripts
@@ -9,7 +10,20 @@
     @Scripts.Render("~/bundles/linedtextarea")
 }
 
-<h2>@ViewBag.Title</h2>
+@if (newCollection)
+{
+    <h2>New Collection</h2>
+}
+else
+{
+    <h2>Editing <span class="text-info">@Model.Collection.Name</span></h2>
+}
+
+@if (!newCollection)
+{
+    <a href="/Builder/ViewCollection?id=@Model.Collection.CollectionId" class="float-right btn btn-outline-warning">View</a>
+    <br/>
+}
 
 <hr />
 

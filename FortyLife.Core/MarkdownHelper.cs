@@ -9,7 +9,7 @@ namespace FortyLife.Core
 {
     /// <summary>
     /// Even though the official Markdown specification doesn't include ~~text~~ for strikethrough, I strongly feel it should be included.
-    /// This helper will parse ~~text~~ to <strike>text</strike>. It is a deviation from the spec.
+    /// This helper will parse ~~text~~ to <del>text</del>. It is a deviation from the spec.
     /// </summary>
     public class MarkdownHelper
     {
@@ -27,6 +27,8 @@ namespace FortyLife.Core
         {
             var newText = Regex.Replace(rawText, ScriptPattern, string.Empty, RegexOptions.Multiline);
             newText = Regex.Replace(newText, StylePattern, string.Empty, RegexOptions.Multiline);
+            newText = newText.Replace("<style>", string.Empty).Replace("<style", string.Empty).Replace("</style>", string.Empty);
+            newText = newText.Replace("<script>", string.Empty).Replace("</script>", string.Empty);
 
             return newText;
         }

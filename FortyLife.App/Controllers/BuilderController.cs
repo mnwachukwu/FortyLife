@@ -18,6 +18,19 @@ namespace FortyLife.App.Controllers
         {
             var collection = ApplicationUserEngine.GetCollection(id, out var error);
 
+            if (User.Identity.IsAuthenticated)
+            {
+                var email = ((ClaimsIdentity) User.Identity).Claims.First(i =>
+                    i.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress").Value;
+                var user = ApplicationUserEngine.GetApplicationUser(email);
+
+                ViewBag.IsOwner = user.Collections.Any(i => i.CollectionId == collection.CollectionId);
+            }
+            else
+            {
+                ViewBag.IsOwner = false;
+            }
+
             // TODO: Up the view count and add it to an audit log for tracking so the system can't be cheated
 
             if (!string.IsNullOrEmpty(error))
@@ -133,7 +146,6 @@ namespace FortyLife.App.Controllers
                                    "<strong>The Collection was saved successfully.</div>";
 
             return RedirectToAction("EditCollection", new { id = model.Collection.CollectionId });
-
         }
 
         public ActionResult ViewDeck(int id)
