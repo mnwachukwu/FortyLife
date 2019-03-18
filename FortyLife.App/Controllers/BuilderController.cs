@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using FortyLife.App.Models;
 using FortyLife.Core;
 using FortyLife.DataAccess;
+using FortyLife.DataAccess.Scryfall;
 using FortyLife.DataAccess.TCGPlayer;
 using FortyLife.DataAccess.UserAccount;
 
@@ -17,11 +18,13 @@ namespace FortyLife.App.Controllers
         public ActionResult ViewCollection(int id)
         {
             var collection = ApplicationUserEngine.GetCollection(id, out var error);
+            var scryfallRequestEngine = new ScryfallRequestEngine();
+            var tcgPlayerRequestEngine = new TcgPlayerRequestEngine();
 
             if (User.Identity.IsAuthenticated)
             {
-                var email = ((ClaimsIdentity) User.Identity).Claims.First(i =>
-                    i.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress").Value;
+                var email = ((ClaimsIdentity)User.Identity).Claims.First(i =>
+                   i.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress").Value;
                 var user = ApplicationUserEngine.GetApplicationUser(email);
 
                 ViewBag.IsOwner = user.Collections.Any(i => i.CollectionId == collection.CollectionId);
@@ -32,6 +35,7 @@ namespace FortyLife.App.Controllers
             }
 
             // TODO: Up the view count and add it to an audit log for tracking so the system can't be cheated
+            // TODO: create an audit log, lol
 
             if (!string.IsNullOrEmpty(error))
             {
@@ -42,13 +46,33 @@ namespace FortyLife.App.Controllers
                 return View("Error");
             }
 
-            return View("Collection", collection);
+            var scryfallList = new List<Card>();
+            var prices = new List<double>();
+
+            // Get card data and prices
+            foreach (var collectionCard in collection.Cards)
+            {
+                scryfallList.Add(scryfallRequestEngine.FirstCardFromSearch(collectionCard.Name, collectionCard.SetCode));
+
+                var price = tcgPlayerRequestEngine.CardPriceRequest(collectionCard.Name, collectionCard.SetCode)
+                    .First(i => collectionCard.Foil ? i.SubTypeName == "Foil" : i.SubTypeName == "Normal");
+                prices.Add(price?.MidPrice ?? 0);
+            }
+
+            var model = new ViewCollectionModel
+            {
+                Collection = collection,
+                ScryfallList = scryfallList,
+                Prices = prices
+            };
+
+            return View("Collection", model);
         }
 
         [Authorize]
         public ActionResult NewCollection()
         {
-            var model = new CollectionModel
+            var model = new EditCollectionModel
             {
                 Collection = new Collection
                 {
@@ -70,7 +94,7 @@ namespace FortyLife.App.Controllers
             if (user.Collections.Any(i => i.CollectionId == id))
             {
                 var collection = user.Collections.First(i => i.CollectionId == id);
-                var model = new CollectionModel
+                var model = new EditCollectionModel
                 {
                     Collection = collection,
                     RawList = CardListParsingEngine.GetCardList(collection.Cards)
@@ -87,7 +111,7 @@ namespace FortyLife.App.Controllers
         }
 
         [Authorize]
-        public ActionResult SaveCollection(CollectionModel model)
+        public ActionResult SaveCollection(EditCollectionModel model)
         {
             var email = ((ClaimsIdentity)User.Identity).Claims.First(i => i.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress").Value;
             var collectionCards = CardListParsingEngine.ParseCardList(model.RawList, out var error);

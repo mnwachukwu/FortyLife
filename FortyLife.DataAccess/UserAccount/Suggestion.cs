@@ -6,7 +6,7 @@ namespace FortyLife.DataAccess.UserAccount
     {
         public int SuggestionId { get; set; }
 
-        public string SuggesterName { get; set; }
+        public int SuggesterId { get; set; }
 
         public string Text { get; set; }
 

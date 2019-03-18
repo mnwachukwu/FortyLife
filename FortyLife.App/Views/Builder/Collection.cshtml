@@ -1,15 +1,15 @@
 ﻿@using FortyLife.Core
 @using HeyRed.MarkdownSharp
-@model FortyLife.DataAccess.UserAccount.Collection
+@model FortyLife.App.Models.ViewCollectionModel
 
 @{
-    ViewBag.Title = Model.Name;
+    ViewBag.Title = Model.Collection.Name;
 
     var isOwner = ViewBag.IsOwner;
     var markdownInterpreter = new Markdown();
     var markdownHelper = new MarkdownHelper();
     var description = "Description";
-    var parsedMarkdown = markdownHelper.Transform(Model.Description); // replace tildes first
+    var parsedMarkdown = markdownHelper.Transform(Model.Collection.Description); // replace tildes first
     parsedMarkdown = markdownInterpreter.Transform(parsedMarkdown); // parse the rest of the markdown
     parsedMarkdown = markdownHelper.RemoveProhibitedTags(parsedMarkdown); // remove <script> and <style> tags (and everything inside of them)
 
@@ -21,13 +21,17 @@
     //}
 }
 
+@section Scripts{
+    @Scripts.Render("~/bundles/tooltipjs")
+}
+
 <h2>@ViewBag.Title</h2>
 <span class="badge badge-pill badge-secondary">Collection</span>
 
 @{
     if (isOwner) // TODO: need to make sure only the collection owner can see this
     {
-        <a href="/Builder/EditCollection?id=@Model.CollectionId" class="float-right btn btn-outline-warning">Edit</a>
+        <a href="/Builder/EditCollection?id=@Model.Collection.CollectionId" class="float-right btn btn-outline-warning">Edit</a>
     }
 }
 
@@ -38,7 +42,7 @@
         Card List
     </div>
     <div class="card-body">
-        <!-- TODO: put a chart here to show the list. Maybe include pagination options with asychronous updates -->
+        @Html.Partial("_CollectionCardList", Model)
     </div>
 </div>
 

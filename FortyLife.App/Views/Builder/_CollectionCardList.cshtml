@@ -1,0 +1,45 @@
+﻿@using System.Threading
+@using FortyLife.Core
+@model FortyLife.App.Models.ViewCollectionModel
+
+@{
+    var alternater = false;
+    var count = 0;
+
+    // we need to escape around the title so that " and ' can be distinguished and our HTML in the title attribute can be rendered in the tooltips
+    string TransformIconName(string name) => $"<span class='oi oi-loop-square' data-toggle='tooltip' data-placement='left' title=\"{name}\"></span>";
+}
+
+<table class="table table-sm table-hover">
+    <thead>
+        <tr class="bg-primary">
+            <th>Qty</th>
+            <th>Name</th>
+            <th class="text-center">Rarity</th>
+            <th>Set</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var card in Model.ScryfallList)
+        {
+            // custom stripping of the table TODO: would we just want to edit the css and custom strip every table this way?
+            var rowClass = alternater ? "bg-active" : "table-default";
+
+            <!-- manually encode our reserved characters in the param for card names (' = %27), (/ = %2F) from https://www.url-encode-decode.com/
+            TODO: this might not be the best way to handle this -->
+            <tr id="card-tooltip" class="@rowClass" data-toggle="tooltip" data-placement="bottom"
+                data-html="true" title="@CardParsingEngine.RenderImage(card, CardParsingEngine.CardSize.Normal, 60, true)"
+                onclick="window.location.assign('/Search/CardDetails?cardName=@card.Name.Replace("//", "%2F%2F").Replace("'", "%27")&setCode=@card.Set');$('#lotus-modal').modal();">
+                <td>@Model.Collection.Cards[count].Count</td>
+                <td>@Html.Raw(card.IsDoubleFaced ? $"{card.CardFaces[0].Name} {TransformIconName(card.CardFaces[1].Name)}" : card.Name) @Html.Raw(Model.Collection.Cards[count].Foil ? "<i class=\"ss ss-htr color-text-flow rainbow-text\"></i>" : string.Empty) </td>
+                <td class="text-center">@Html.Raw(CardParsingEngine.RenderSetSymbol(card.Set, card.Rarity))</td>
+                <td>@card.SetName</td>
+                <td>@Model.Prices[count].ToString("C")</td>
+            </tr>
+
+            alternater = !alternater;
+            count++;
+        }
+    </tbody>
+</table>

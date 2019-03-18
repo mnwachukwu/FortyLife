@@ -218,7 +218,7 @@ namespace FortyLife.DataAccess
                                 .First(i => i.SubTypeName == "Normal");
                         }
 
-                        if (price != null && price.MidPrice != null)
+                        if (price?.MidPrice != null)
                         {
                             collection.TcgMidValue += price.MidPrice.Value;
                         }

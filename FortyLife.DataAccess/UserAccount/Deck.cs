@@ -33,10 +33,6 @@ namespace FortyLife.DataAccess.UserAccount
         public DeckFormat Format { get; set; }
 
         public bool Legality { get; set; }
-
-        public bool AllowSuggestions { get; set; }
-
-        public List<Suggestion> Suggestions { get; set; }
     }
 
     public class ColorStatistics

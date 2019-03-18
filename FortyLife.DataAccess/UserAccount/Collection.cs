@@ -21,6 +21,10 @@ namespace FortyLife.DataAccess.UserAccount
 
         public DateTime LastEditDate { get; set; }
 
+        public bool? AllowSuggestions { get; set; }
+
+        public List<Suggestion> Suggestions { get; set; }
+
         // TODO: when implemented, make very sure it cannot be abused! (one view, per IP, per day)
         public int Views { get; set; }
     }
