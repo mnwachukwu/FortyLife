@@ -17,7 +17,7 @@
             <th>Name</th>
             <th class="text-center">Rarity</th>
             <th>Set</th>
-            <th>Price</th>
+            <th>TCG Mid Price</th>
         </tr>
     </thead>
     <tbody>
@@ -37,7 +37,7 @@
                 <td>@card.SetName</td>
                 @if (@Model.Collection.Cards[count].Count > 1)
                 {
-                <td>@((Model.Prices[count] * @Model.Collection.Cards[count].Count).ToString("C")) @@ @Model.Prices[count].ToString("C")ea.</td>
+                <td>@Model.Prices[count].ToString("C") <span class="small">(@((Model.Prices[count] * @Model.Collection.Cards[count].Count).ToString("C")))</span></td>
                 }
                 else
                 {
