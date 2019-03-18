@@ -32,10 +32,17 @@
                 data-html="true" title="@CardParsingEngine.RenderImage(card, CardParsingEngine.CardSize.Normal, 60, true)"
                 onclick="window.location.assign('/Search/CardDetails?cardName=@card.Name.Replace("//", "%2F%2F").Replace("'", "%27")&setCode=@card.Set');$('#lotus-modal').modal();">
                 <td>@Model.Collection.Cards[count].Count</td>
-                <td>@Html.Raw(card.IsDoubleFaced ? $"{card.CardFaces[0].Name} {TransformIconName(card.CardFaces[1].Name)}" : card.Name) @Html.Raw(Model.Collection.Cards[count].Foil ? "<i class=\"ss ss-htr color-text-flow rainbow-text\"></i>" : string.Empty) </td>
+                <td>@Html.Raw(card.IsDoubleFaced ? $"{card.CardFaces[0].Name} {TransformIconName(card.CardFaces[1].Name)}" : card.Name) @Html.Raw(Model.Collection.Cards[count].Foil ? "<i class='ss ss-htr color-text-flow rainbow-text' data-toggle='tooltip' title='Foil'></i>" : string.Empty) </td>
                 <td class="text-center">@Html.Raw(CardParsingEngine.RenderSetSymbol(card.Set, card.Rarity))</td>
                 <td>@card.SetName</td>
-                <td>@Model.Prices[count].ToString("C")</td>
+                @if (@Model.Collection.Cards[count].Count > 1)
+                {
+                <td>@((Model.Prices[count] * @Model.Collection.Cards[count].Count).ToString("C")) @@ @Model.Prices[count].ToString("C")ea.</td>
+                }
+                else
+                {
+                    <td>@Model.Prices[count].ToString("C")</td>
+                }
             </tr>
 
             alternater = !alternater;
