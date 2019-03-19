@@ -23,5 +23,9 @@ namespace FortyLife.App.Models
         public Collection Collection { get; set; }
 
         public List<double> Prices { get; set; }
+
+        public string OwnerDisplayName { get; set; }
+
+        public int OwnerId { get; set; }
     }
 }

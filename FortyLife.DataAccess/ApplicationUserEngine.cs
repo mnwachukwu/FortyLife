@@ -258,7 +258,8 @@ namespace FortyLife.DataAccess
         {
             using (var db = new FortyLifeDbContext())
             {
-                var user = db.ApplicationUsers.FirstOrDefault(i => i.Id == id);
+                var users = db.ApplicationUsers.Include(i => i.Collections.Select(j => j.Cards));
+                var user = users.FirstOrDefault(i => i.Id == id);
 
                 if (user != null)
                 {

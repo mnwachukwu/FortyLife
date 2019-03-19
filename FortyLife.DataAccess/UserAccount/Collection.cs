@@ -27,5 +27,7 @@ namespace FortyLife.DataAccess.UserAccount
 
         // TODO: when implemented, make very sure it cannot be abused! (one view, per IP, per day)
         public int Views { get; set; }
+
+        public int ApplicationUserId { get; set; }
     }
 }

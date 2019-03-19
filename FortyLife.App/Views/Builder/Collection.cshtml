@@ -37,7 +37,7 @@
 }
 
 <h2>@ViewBag.Title</h2>
-<span class="badge badge-pill badge-secondary">Collection</span>
+<span class="badge badge-pill badge-secondary">Collection</span> &nbsp; <a href="/Account/ViewProfile?id=@Model.OwnerId">@Model.OwnerDisplayName</a>
 
 @{
     if (isOwner) // TODO: need to make sure only the collection owner can see this
@@ -48,12 +48,14 @@
 
 <hr />
 
+<span class="small">Last edited on @Model.Collection.LastEditDate.ToString("D").</span> <br /> <br />
+
 <div class="card border-success">
     <div class="card-header">
         Card List
     </div>
     <div class="card-body">
-        <span class="small">Total Cards: @totalCards</span> <span class="small float-right">Total TCG Mid Price: @totalPrice.ToString("C")</span>
+        <span class="small">Total Cards: <span class="text-info">@totalCards</span></span> <span class="small float-right">Total TCG Mid Price: <span class="text-success">@totalPrice.ToString("C")</span></span>
         @Html.Partial("_CollectionCardList", Model)
     </div>
 </div>

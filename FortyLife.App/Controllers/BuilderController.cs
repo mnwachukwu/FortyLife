@@ -20,6 +20,8 @@ namespace FortyLife.App.Controllers
             var collection = ApplicationUserEngine.GetCollection(id, out var error);
             var scryfallRequestEngine = new ScryfallRequestEngine();
             var tcgPlayerRequestEngine = new TcgPlayerRequestEngine();
+            var displayName = ApplicationUserEngine.GetApplicationUser(collection.ApplicationUserId).DisplayName;
+            var ownerDisplayName = $"{displayName}#{collection.ApplicationUserId}";
 
             if (User.Identity.IsAuthenticated)
             {
@@ -64,7 +66,9 @@ namespace FortyLife.App.Controllers
             {
                 Collection = collection,
                 ScryfallList = scryfallList,
-                Prices = prices
+                Prices = prices,
+                OwnerDisplayName = ownerDisplayName,
+                OwnerId = collection.ApplicationUserId
             };
 
             return View("Collection", model);
