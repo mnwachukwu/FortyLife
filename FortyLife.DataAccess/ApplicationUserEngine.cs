@@ -166,6 +166,8 @@ namespace FortyLife.DataAccess
                     .Select(i => i.Key);
                 var duplicateList = duplicates.ToList();
 
+                // TODO: consider cards with sets vs cards without sets where they would have the same set code (ie, Jace, the Mind Sculptor and Jace, the Mind Sculptor (V13))
+
                 if (!duplicateList.Any())
                 {
                     DeleteAllCardsInCollection(collectionId);
