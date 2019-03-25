@@ -161,7 +161,7 @@ namespace FortyLife.DataAccess
             {
                 var collectionCards = db.CollectionCards;
                 var cardList = cards.ToList();
-                var duplicates = cardList.GroupBy(i => new { i.CollectionId, i.Name, i.SetCode })
+                var duplicates = cardList.GroupBy(i => new { i.Name, i.SetCode, i.Foil })
                     .Where(i => i.Count() > 1)
                     .Select(i => i.Key);
                 var duplicateList = duplicates.ToList();
