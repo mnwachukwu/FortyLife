@@ -20,7 +20,7 @@ namespace FortyLife.Core
 
         public string Transform(string rawText)
         {
-            return Regex.Replace(rawText, TildePattern, TildeReplacePattern, RegexOptions.Multiline);
+            return !string.IsNullOrEmpty(rawText) ? Regex.Replace(rawText, TildePattern, TildeReplacePattern, RegexOptions.Multiline) : string.Empty;
         }
 
         public string RemoveProhibitedTags(string rawText)

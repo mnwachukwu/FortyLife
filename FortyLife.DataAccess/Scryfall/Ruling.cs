@@ -1,16 +1,16 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace FortyLife.DataAccess.Scryfall
 {
     public class Ruling
     {
-        public int RulingId { get; set; }
+        [Key]
+        public string OracleId { get; set; }
 
         public string RulingsUri { get; set; }
 
         public string Object { get; set; }
-
-        public string OracleId { get; set; }
 
         public string Source { get; set; }
 

@@ -1,11 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FortyLife.DataAccess.TCGPlayer
 {
     public class ProductDetail
     {
-        public int ProductDetailId { get; set; }
-
+        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int ProductId { get; set; }
 
         public string Name { get; set; }

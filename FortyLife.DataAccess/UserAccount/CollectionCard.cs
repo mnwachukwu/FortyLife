@@ -1,13 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FortyLife.DataAccess.UserAccount
 {
     public class CollectionCard
     {
-        public int CollectionCardId { get; set; }
-
+        [Key, Column(Order = 1)]
         public string Name { get; set; }
 
+        [Key, Column(Order = 2)]
         public string SetCode { get; set; }
 
         public bool Foil { get; set; }
@@ -16,6 +17,7 @@ namespace FortyLife.DataAccess.UserAccount
 
         public int Count { get; set; }
 
-        public int? CollectionId { get; set; }
+        [Key, Column(Order = 0)]
+        public int CollectionId { get; set; }
     }
 }

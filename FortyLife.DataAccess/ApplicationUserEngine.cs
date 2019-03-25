@@ -62,11 +62,11 @@ namespace FortyLife.DataAccess
             }
         }
 
-        public static void DeleteAllCardsInCollection(Collection collection)
+        public static void DeleteAllCardsInCollection(int collectionId)
         {
             using (var db = new FortyLifeDbContext())
             {
-                foreach (var card in db.CollectionCards.Where(i => i.CollectionId == collection.CollectionId))
+                foreach (var card in db.CollectionCards.Where(i => i.CollectionId == collectionId))
                 {
                     db.CollectionCards.Remove(card);
                 }
@@ -133,7 +133,6 @@ namespace FortyLife.DataAccess
 
                     if (collectionToUpdate != null)
                     {
-                        collectionToUpdate.Cards = collection.Cards;
                         collectionToUpdate.CreateDate = collection.CreateDate;
                         collectionToUpdate.LastEditDate = collection.LastEditDate;
                         collectionToUpdate.Name = collection.Name;
@@ -141,6 +140,7 @@ namespace FortyLife.DataAccess
                     }
                     else
                     {
+                        collection.Cards = null;
                         user.Collections.Add(collection);
                     }
 
@@ -149,6 +149,52 @@ namespace FortyLife.DataAccess
                 else
                 {
                     error = "Error! No known user exists with an email address matching the current session claim.";
+                }
+            }
+        }
+
+        public static void AddOrUpdateUserCollectionCard(int collectionId, IEnumerable<CollectionCard> cards, out string error)
+        {
+            error = "";
+
+            using (var db = new FortyLifeDbContext())
+            {
+                var collectionCards = db.CollectionCards;
+                var cardList = cards.ToList();
+                var duplicates = cardList.GroupBy(i => new { i.CollectionId, i.Name, i.SetCode })
+                    .Where(i => i.Count() > 1)
+                    .Select(i => i.Key);
+                var duplicateList = duplicates.ToList();
+
+                if (!duplicateList.Any())
+                {
+                    DeleteAllCardsInCollection(collectionId);
+
+                    foreach (var card in cardList)
+                    {
+                        card.CollectionId = collectionId;
+
+                        collectionCards.AddOrUpdate(card);
+                    }
+
+                    db.SaveChanges();
+                }
+                else
+                {
+                    var errorCard = duplicateList.First();
+                    var errorCardName = errorCard.Name;
+
+                    if (!string.IsNullOrEmpty(errorCard.SetCode))
+                    {
+                        errorCardName += $" ({errorCard.SetCode})";
+                    }
+
+                    // find the second occurence of any duplicated item
+                    var firstOcc = cardList.FindIndex(i => i.Name == errorCard.Name && i.SetCode == errorCard.SetCode);
+                    var errorLine = cardList.FindIndex(firstOcc + 1,
+                        i => i.Name == errorCard.Name && i.SetCode == errorCard.SetCode) + 1;
+
+                    error = $"Duplicate card detected: {errorCardName}. (Line {errorLine})";
                 }
             }
         }

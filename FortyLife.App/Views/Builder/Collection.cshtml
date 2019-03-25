@@ -62,11 +62,14 @@
 
 <br />
 
-<div class="card border-dark">
-    <div class="card-header">
-        @description
+@if (!string.IsNullOrEmpty(parsedMarkdown))
+{
+    <div class="card border-dark">
+        <div class="card-header">
+            @description
+        </div>
+        <div class="card-body">
+            @Html.Raw(parsedMarkdown)
+        </div>
     </div>
-    <div class="card-body">
-        @Html.Raw(parsedMarkdown)
-    </div>
-</div>
+}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using FortyLife.App.Models;
@@ -156,14 +157,29 @@ namespace FortyLife.App.Controllers
                 model.Collection.LastEditDate = DateTime.Now;
             }
 
-            ApplicationUserEngine.DeleteAllCardsInCollection(model.Collection);
+            // make a backup of the list, since we have to null the original list in AddOrUpdateUserCollection() in order to save new lists
+            var cardList = new List<CollectionCard>(model.Collection.Cards);
+
+            // Save the collection details (this method nulls the collection list)
             ApplicationUserEngine.AddOrUpdateUserCollection(email, model.Collection, out error);
 
+            // Only attempt to save the list if nothing is wrong with saving the collection
+            if (string.IsNullOrEmpty(error))
+            {
+                ApplicationUserEngine.AddOrUpdateUserCollectionCard(model.Collection.CollectionId, cardList, out error);
+            }
+
+            // Some error saving the collection; display it
             if (!string.IsNullOrEmpty(error))
             {
                 TempData["AlertMsg"] = "<br /><div class=\"alert alert-danger alert-dismissible\">" +
                                        "<a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>" +
                                        $"<strong>{error}</div>";
+
+                // clean the list up (remove blank lines)
+                model.RawList = Regex.Replace(model.RawList, @"^\s+$[\r\n]*", string.Empty, RegexOptions.Multiline);
+
+                ModelState.Clear();
 
                 return View("EditCollection", model);
             }

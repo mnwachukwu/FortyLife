@@ -1,11 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FortyLife.DataAccess.TCGPlayer
 {
     public class Price
     {
-        public int PriceId { get; set; }
-
+        [Key, Column(Order = 0)]
         public int ProductId { get; set; }
 
         public double? LowPrice { get; set; }
@@ -18,6 +19,7 @@ namespace FortyLife.DataAccess.TCGPlayer
 
         public double? DirectLowPrice { get; set; }
 
+        [Key, Column(Order = 1)]
         public string SubTypeName { get; set; }
 
         public DateTime CacheDate { get; set; }

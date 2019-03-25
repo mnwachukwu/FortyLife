@@ -189,6 +189,26 @@
     <Compile Include="Migrations\201903190020163_UpdateCollections2.Designer.cs">
       <DependentUpon>201903190020163_UpdateCollections2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903250355353_UpdateRulings1.cs" />
+    <Compile Include="Migrations\201903250355353_UpdateRulings1.Designer.cs">
+      <DependentUpon>201903250355353_UpdateRulings1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903250403111_UpdateProductDetails.cs" />
+    <Compile Include="Migrations\201903250403111_UpdateProductDetails.Designer.cs">
+      <DependentUpon>201903250403111_UpdateProductDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903250430527_UpdateProductDetails1.cs" />
+    <Compile Include="Migrations\201903250430527_UpdateProductDetails1.Designer.cs">
+      <DependentUpon>201903250430527_UpdateProductDetails1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903250515515_UpdatePrices.cs" />
+    <Compile Include="Migrations\201903250515515_UpdatePrices.Designer.cs">
+      <DependentUpon>201903250515515_UpdatePrices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201903250624493_UpdateCollections3.cs" />
+    <Compile Include="Migrations\201903250624493_UpdateCollections3.Designer.cs">
+      <DependentUpon>201903250624493_UpdateCollections3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PrimitiveListHandler.cs" />
     <Compile Include="ScryfallRequestEngine.cs" />
@@ -316,6 +336,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201903190020163_UpdateCollections2.resx">
       <DependentUpon>201903190020163_UpdateCollections2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903250355353_UpdateRulings1.resx">
+      <DependentUpon>201903250355353_UpdateRulings1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903250403111_UpdateProductDetails.resx">
+      <DependentUpon>201903250403111_UpdateProductDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903250430527_UpdateProductDetails1.resx">
+      <DependentUpon>201903250430527_UpdateProductDetails1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903250515515_UpdatePrices.resx">
+      <DependentUpon>201903250515515_UpdatePrices.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903250624493_UpdateCollections3.resx">
+      <DependentUpon>201903250624493_UpdateCollections3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

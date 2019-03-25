@@ -68,7 +68,7 @@ namespace FortyLife.DataAccess
             var accessToken = JsonConvert.DeserializeObject<TcgPlayerAccessToken>(jsonText);
 
             // our token is expired
-            if (DateTime.Now >= accessToken.Expires)
+            if (DateTime.UtcNow >= accessToken.Expires)
             {
                 StoreAccessToken(AccessTokenRequest());
 
