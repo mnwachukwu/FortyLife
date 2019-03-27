@@ -131,12 +131,12 @@ namespace FortyLife.Core
             return rawSetCode.Replace("(", string.Empty).Replace(")", string.Empty);
         }
 
-        public static bool VerifyCardList(List<CollectionCard> list, out List<CollectionCard> cleanList, out string error)
+        public static bool VerifyCardList(List<CollectionCard> list, out List<CollectionCard> verifiedList, out string error)
         {
             var requestEngine = new ScryfallRequestEngine();
             error = "";
             var errorLine = 0;
-            cleanList = new List<CollectionCard>();
+            verifiedList = new List<CollectionCard>();
 
             foreach (var card in list)
             {
@@ -184,7 +184,7 @@ namespace FortyLife.Core
                 }
             }
 
-            cleanList = list;
+            verifiedList = list;
             return true;
         }
     }

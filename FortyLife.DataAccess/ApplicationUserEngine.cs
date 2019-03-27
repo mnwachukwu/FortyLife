@@ -159,14 +159,32 @@ namespace FortyLife.DataAccess
 
             using (var db = new FortyLifeDbContext())
             {
+                var scryfallRequestEngine = new ScryfallRequestEngine();
                 var collectionCards = db.CollectionCards;
                 var cardList = cards.ToList();
-                var duplicates = cardList.GroupBy(i => new { i.Name, i.SetCode, i.Foil })
+                var cardListWithSets = cardList.Select(i => new CollectionCard
+                {
+                    CollectionId = i.CollectionId,
+                    Commander = i.Commander,
+                    Count = i.Count,
+                    Foil = i.Foil,
+                    Name = i.Name,
+                    SetCode = i.SetCode
+                }).ToList();
+
+                // fill in set names to keep people from adding duplicate cards this way
+                foreach (var card in cardListWithSets)
+                {
+                    if (string.IsNullOrEmpty(card.SetCode))
+                    {
+                        card.SetCode = scryfallRequestEngine.CardSearchRequest(card.Name).Data.FirstOrDefault()?.Set.ToUpper();
+                    }
+                }
+
+                var duplicates = cardListWithSets.GroupBy(i => new { i.Name, i.SetCode, i.Foil })
                     .Where(i => i.Count() > 1)
                     .Select(i => i.Key);
                 var duplicateList = duplicates.ToList();
-
-                // TODO: consider cards with sets vs cards without sets where they would have the same set code (ie, Jace, the Mind Sculptor and Jace, the Mind Sculptor (V13))
 
                 if (!duplicateList.Any())
                 {
@@ -186,17 +204,12 @@ namespace FortyLife.DataAccess
                     var errorCard = duplicateList.First();
                     var errorCardName = errorCard.Name;
 
-                    if (!string.IsNullOrEmpty(errorCard.SetCode))
-                    {
-                        errorCardName += $" ({errorCard.SetCode})";
-                    }
-
                     // find the second occurence of any duplicated item
-                    var firstOcc = cardList.FindIndex(i => i.Name == errorCard.Name && i.SetCode == errorCard.SetCode);
-                    var errorLine = cardList.FindIndex(firstOcc + 1,
+                    var firstOcc = cardListWithSets.FindIndex(i => i.Name == errorCard.Name && i.SetCode == errorCard.SetCode) + 1;
+                    var errorLine = cardListWithSets.FindIndex(firstOcc,
                         i => i.Name == errorCard.Name && i.SetCode == errorCard.SetCode) + 1;
 
-                    error = $"Duplicate card detected: {errorCardName}. (Line {errorLine})";
+                    error = $"Duplicate card detected: {errorCardName}. (Lines {firstOcc} and {errorLine})";
                 }
             }
         }

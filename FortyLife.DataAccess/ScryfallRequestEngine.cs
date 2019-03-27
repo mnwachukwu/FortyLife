@@ -104,7 +104,27 @@ namespace FortyLife.DataAccess
                     {
                         var cards = db.Cards.Include(i => i.CardFaces);
 
-                        return cards.FirstOrDefault(i => i.Name == cardName);
+                        card = cards.FirstOrDefault(i => i.Name == cardName);
+
+                        if (card != null)
+                        {
+                            // prep list data by parsing string data from db
+                            foreach (var i in card.CardFaces)
+                            {
+                                if (i.ColorsString != null)
+                                {
+                                    i.Colors = i.ColorsString.Split(',').ToList();
+                                }
+                            }
+
+                            card.Colors = card.ColorsString?.Split(',').ToList();
+                            card.ColorIdentity = card.ColorIdentityString?.Split(',').ToList();
+                            card.Games = card.GamesString?.Split(',').ToList();
+                            card.MultiverseIds = card.MultiverseIdsString?.Split(',').ToList();
+
+                            // return prepped card
+                            return card;
+                        }
                     }
                 }
 

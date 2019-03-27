@@ -55,10 +55,13 @@ namespace FortyLife.App.Controllers
             // Get card data and prices
             foreach (var collectionCard in collection.Cards)
             {
-                var card = scryfallRequestEngine.FirstCardFromSearch(collectionCard.Name, collectionCard.SetCode);
+                var card = !string.IsNullOrEmpty(collectionCard.SetCode) ?
+                    scryfallRequestEngine.FirstCardFromSearch(collectionCard.Name, collectionCard.SetCode) :
+                    scryfallRequestEngine.CardSearchRequest(collectionCard.Name).Data.FirstOrDefault();
+
                 scryfallList.Add(card);
 
-                var price = tcgPlayerRequestEngine.CardPriceRequest(card.Name, card.SetName)?.First(i =>
+                var price = tcgPlayerRequestEngine.CardPriceRequest(card?.Name, card?.SetName)?.First(i =>
                     collectionCard.Foil ? i.SubTypeName == "Foil" : i.SubTypeName == "Normal");
                 prices.Add(price?.MidPrice ?? 0);
             }
