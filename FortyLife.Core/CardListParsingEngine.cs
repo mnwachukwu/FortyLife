@@ -142,7 +142,7 @@ namespace FortyLife.Core
             {
                 errorLine++;
 
-                if (requestEngine.FirstCardFromSearch(card.Name, card.SetCode) == null)
+                if (requestEngine.GetCard(card.Name, card.SetCode) == null)
                 {
                     error = $"Error processing the Card named {card.Name}" + (!string.IsNullOrEmpty(card.SetCode)
                         ? $" with Set Code {card.SetCode}."
@@ -152,7 +152,7 @@ namespace FortyLife.Core
                     return false;
                 }
 
-                card.Name = requestEngine.FirstCardFromSearch(card.Name, card.SetCode).Name;
+                card.Name = requestEngine.GetCard(card.Name, card.SetCode).Name;
             }
 
             if (list.Count(i => i.Commander) > 1)
@@ -161,7 +161,7 @@ namespace FortyLife.Core
 
                 foreach (var commander in commanders)
                 {
-                    var card = requestEngine.FirstCardFromSearch(commander.Name, commander.SetCode);
+                    var card = requestEngine.GetCard(commander.Name, commander.SetCode);
                     if (!card.TypeLine.Contains("Legendary") && !card.TypeLine.Contains("Creature") || !card.OracleText.Contains("can be your commander"))
                     {
                         error =
@@ -174,7 +174,7 @@ namespace FortyLife.Core
                 {
                     foreach (var commander in commanders)
                     {
-                        var card = requestEngine.FirstCardFromSearch(commander.Name);
+                        var card = requestEngine.GetCard(commander.Name);
                         if (!card.OracleText.Contains("Partner") && !card.OracleText.Contains("Partner with"))
                         {
                             error = "You can't have more than one commander in your list.";

@@ -55,9 +55,7 @@ namespace FortyLife.App.Controllers
             // Get card data and prices
             foreach (var collectionCard in collection.Cards)
             {
-                var card = !string.IsNullOrEmpty(collectionCard.SetCode) ?
-                    scryfallRequestEngine.FirstCardFromSearch(collectionCard.Name, collectionCard.SetCode) :
-                    scryfallRequestEngine.CardSearchRequest(collectionCard.Name).Data.FirstOrDefault();
+                var card = scryfallRequestEngine.GetCard(collectionCard.Name, collectionCard.SetCode);
 
                 scryfallList.Add(card);
 

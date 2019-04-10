@@ -31,7 +31,7 @@ namespace FortyLife.App.Controllers
         public ActionResult CardDetails(string cardName, string setCode)
         {
             var requestEngine = new ScryfallRequestEngine();
-            var card = requestEngine.FirstCardFromSearch(cardName, setCode);
+            var card = requestEngine.GetCard(cardName, setCode);
             return card != null ? View("CardDetails", card) : View("~/Views/Shared/CardNotFound.cshtml", null, cardName);
         }
     }

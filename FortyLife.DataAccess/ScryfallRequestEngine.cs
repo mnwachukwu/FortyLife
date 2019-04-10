@@ -46,13 +46,13 @@ namespace FortyLife.DataAccess
             if (request.Data != null)
             {
                 // remove all digital only cards
-                var paperData = request.Data.Where(i => i.Digital && FirstCardFromSearch(i.Name) != null || !i.Digital).ToList();
+                var paperData = request.Data.Where(i => i.Digital && GetCard(i.Name) != null || !i.Digital).ToList();
 
                 for (var i = 0; i < paperData.Count; i++)
                 {
                     if (paperData[i].Digital)
                     {
-                        paperData[i] = FirstCardFromSearch(paperData[i].Name);
+                        paperData[i] = GetCard(paperData[i].Name);
                     }
                 }
 
@@ -63,7 +63,7 @@ namespace FortyLife.DataAccess
             return request;
         }
 
-        public Card FirstCardFromSearch(string cardName, string setCode = "")
+        public Card GetCard(string cardName, string setCode = "")
         {
             using (var db = new FortyLifeDbContext())
             {

@@ -162,18 +162,9 @@ namespace FortyLife.DataAccess
                 var scryfallRequestEngine = new ScryfallRequestEngine();
                 var collectionCards = db.CollectionCards;
                 var cardList = cards.ToList();
-                var cardListWithSets = cardList.Select(i => new CollectionCard
-                {
-                    CollectionId = i.CollectionId,
-                    Commander = i.Commander,
-                    Count = i.Count,
-                    Foil = i.Foil,
-                    Name = i.Name,
-                    SetCode = i.SetCode
-                }).ToList();
 
-                // fill in set names to keep people from adding duplicate cards this way
-                foreach (var card in cardListWithSets)
+                // fill in set codes for entries that don't have one
+                foreach (var card in cardList)
                 {
                     if (string.IsNullOrEmpty(card.SetCode))
                     {
@@ -181,7 +172,7 @@ namespace FortyLife.DataAccess
                     }
                 }
 
-                var duplicates = cardListWithSets.GroupBy(i => new { i.Name, i.SetCode, i.Foil })
+                var duplicates = cardList.GroupBy(i => new { i.Name, i.SetCode, i.Foil })
                     .Where(i => i.Count() > 1)
                     .Select(i => i.Key);
                 var duplicateList = duplicates.ToList();
@@ -205,8 +196,8 @@ namespace FortyLife.DataAccess
                     var errorCardName = errorCard.Name;
 
                     // find the second occurence of any duplicated item
-                    var firstOcc = cardListWithSets.FindIndex(i => i.Name == errorCard.Name && i.SetCode == errorCard.SetCode) + 1;
-                    var errorLine = cardListWithSets.FindIndex(firstOcc,
+                    var firstOcc = cardList.FindIndex(i => i.Name == errorCard.Name && i.SetCode == errorCard.SetCode) + 1;
+                    var errorLine = cardList.FindIndex(firstOcc,
                         i => i.Name == errorCard.Name && i.SetCode == errorCard.SetCode) + 1;
 
                     error = $"Duplicate card detected: {errorCardName}. (Lines {firstOcc} and {errorLine})";
@@ -265,7 +256,7 @@ namespace FortyLife.DataAccess
 
                     foreach (var card in collection.Cards)
                     {
-                        var setName = cardRequestEngine.FirstCardFromSearch(card.Name, card.SetCode).SetName;
+                        var setName = cardRequestEngine.GetCard(card.Name, card.SetCode).SetName;
                         Price price;
 
                         if (card.Foil)
