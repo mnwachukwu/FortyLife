@@ -168,7 +168,7 @@ namespace FortyLife.DataAccess
                 {
                     if (string.IsNullOrEmpty(card.SetCode))
                     {
-                        card.SetCode = scryfallRequestEngine.CardSearchRequest(card.Name).Data.FirstOrDefault()?.Set.ToUpper();
+                        card.SetCode = scryfallRequestEngine.GetCard(card.Name).Set.ToUpper();
                     }
                 }
 
