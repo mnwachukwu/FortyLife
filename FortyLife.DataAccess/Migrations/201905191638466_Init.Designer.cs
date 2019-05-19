@@ -7,13 +7,13 @@ namespace FortyLife.DataAccess.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class UpdateCollectionCards : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateCollectionCards));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201903250851244_UpdateCollectionCards"; }
+            get { return "201905191638466_Init"; }
         }
         
         string IMigrationMetadata.Source

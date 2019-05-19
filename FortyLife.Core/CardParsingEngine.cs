@@ -37,6 +37,7 @@ namespace FortyLife.Core
 
             if (cardResult.ImageUris != null)
             {
+                // TODO: Incase any of this comes up null, we should coalesce into a default image
                 switch (size)
                 {
                     default:
@@ -61,6 +62,8 @@ namespace FortyLife.Core
             else
             {
                 var cardFace = cardResult.CardFaces[reverseSide ? 1 : 0];
+
+                // TODO: Incase any of this comes up null, we should coalesce into a default image
                 switch (size)
                 {
                     default:

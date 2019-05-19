@@ -1,16 +1,18 @@
-using System.Data.Entity.Migrations;
-
 namespace FortyLife.DataAccess.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<FortyLifeDbContext>
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
+
+    internal sealed class Configuration : DbMigrationsConfiguration<FortyLife.DataAccess.FortyLifeDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "FortyLife.DataAccess.FortyLifeDbContext";
         }
 
-        protected override void Seed(FortyLifeDbContext context)
+        protected override void Seed(FortyLife.DataAccess.FortyLifeDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

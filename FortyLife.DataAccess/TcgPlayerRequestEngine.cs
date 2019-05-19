@@ -64,6 +64,12 @@ namespace FortyLife.DataAccess
 
         private string ReadAccessToken()
         {
+            if (!File.Exists(AppDataPath + "access-token.txt"))
+            {
+                // no token exists, so create one before resuming
+                StoreAccessToken(AccessTokenRequest());
+            }
+
             var jsonText = File.ReadAllText(AppDataPath + "access-token.txt");
             var accessToken = JsonConvert.DeserializeObject<TcgPlayerAccessToken>(jsonText);
 
