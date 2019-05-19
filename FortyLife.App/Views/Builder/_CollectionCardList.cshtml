@@ -31,7 +31,7 @@
             TODO: this might not be the best way to handle this -->
         <tr id="card-tooltip" class="@rowClass" data-toggle="tooltip" data-placement="bottom"
             data-html="true" title="@CardParsingEngine.RenderImage(card, CardParsingEngine.CardSize.Normal, 60, true)"
-            onclick="window.location.assign('/Search/CardDetails?cardName=@card.Name.Replace("//", "%2F%2F").Replace("'", "%27")&setCode=@card.Set');$('#lotus-modal').modal();">
+            onclick="window.location.assign('/CardDetails?cardName=@card.Name.Replace("//", "%2F%2F").Replace("'", "%27")&setCode=@card.Set');$('#lotus-modal').modal();">
             <td>@Model.Collection.Cards[count].Count</td>
             <td>@Html.Raw(card.IsDoubleFaced ? $"{card.CardFaces[0].Name} {TransformIconName(card.CardFaces[1].Name)}" : card.Name) @Html.Raw(Model.Collection.Cards[count].Foil ? "<i class='ss ss-htr color-text-flow rainbow-text' data-toggle='tooltip' title='Foil' />" : string.Empty) </td>
             <td class="text-center">@Html.Raw(CardParsingEngine.RenderSetSymbol(card.Set, card.Rarity))</td>

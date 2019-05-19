@@ -28,6 +28,7 @@ namespace FortyLife.App.Controllers
                 });
         }
 
+        [Route("CardDetails")]
         public ActionResult CardDetails(string cardName, string setCode)
         {
             var requestEngine = new ScryfallRequestEngine();
