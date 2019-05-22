@@ -1,0 +1,26 @@
+﻿@model FortyLife.App.Models.SpoilersViewModel
+
+@{
+    ViewBag.Title = Model.SetName + " Set Spoiler";
+}
+
+<div>
+    <!-- Page management stuff here -->
+</div>
+
+<h2 class="text-center">@Model.SetName</h2>
+
+@if (Model.Cards != null)
+{
+    <div class="spoiler-container">
+        @foreach (var card in Model.Cards)
+        {
+            <div class="text-center no-break">
+                <span class="card-image">
+                    <img class="spoiler card card-shadow" src="@card.ImageUris.Normal" alt="@card.Name [@card.Set.ToUpper()]" title="@card.Name [@card.Set.ToUpper()]" />
+                </span>
+                @card.Name
+            </div>
+        }
+    </div>
+}

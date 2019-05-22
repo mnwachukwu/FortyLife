@@ -207,6 +207,7 @@
     <Compile Include="Models\BuilderModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\SearchResultsViewModel.cs" />
+    <Compile Include="Models\SpoilersViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -362,6 +363,7 @@
     <Content Include="Views\Builder\PrivateCollection.cshtml" />
     <Content Include="Views\Account\PrivateProfile.cshtml" />
     <Content Include="Views\Builder\_CollectionCardList.cshtml" />
+    <Content Include="Views\Home\Spoilers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

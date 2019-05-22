@@ -15,7 +15,7 @@ namespace FortyLife.DataAccess
     public class ScryfallRequestEngine : RequestEngine
     {
         private const string BaseSearchUri = "https://api.scryfall.com/cards/search";
-        private const string SetSearchUri = "https://scryfall.com/set/";
+        private const string SetSearchUri = "https://api.scryfall.com/sets";
 
         private T Request<T>(string requestUri) where T : new()
         {
@@ -28,6 +28,38 @@ namespace FortyLife.DataAccess
             var jsonResult = Get(requestUri).Replace("_", string.Empty);
 
             return !string.IsNullOrEmpty(jsonResult) ? JsonConvert.DeserializeObject<T>(jsonResult) : new T();
+        }
+
+        public ScryfallList<Card> CardSetListRequest(string setCode)
+        {
+            var request = Request<ScryfallList<Card>>($"{BaseSearchUri}?q=set={setCode}");
+
+            while (request.HasMore)
+            {
+                var moreResults = Request<ScryfallList<Card>>(request.NextPage);
+                request.Data.AddRange(moreResults.Data);
+                request.NextPage = moreResults.NextPage;
+                request.HasMore = moreResults.HasMore;
+            }
+
+            if (request.Data != null)
+            {
+                // remove all digital only cards
+                var paperData = request.Data.Where(i => i.Digital && GetCard(i.Name) != null || !i.Digital).ToList();
+
+                for (var i = 0; i < paperData.Count; i++)
+                {
+                    if (paperData[i].Digital)
+                    {
+                        paperData[i] = GetCard(paperData[i].Name);
+                    }
+                }
+
+                request.Data = paperData;
+                request.TotalCards = paperData.Count;
+            }
+
+            return request;
         }
 
         public ScryfallList<Card> CardSearchRequest(string cardName)
@@ -254,14 +286,24 @@ namespace FortyLife.DataAccess
             return setNames;
         }
 
-        public Set CardSetRequest(string setUri)
+        public ScryfallList<Set> SetsRequest()
         {
-            return Request<Set>(setUri);
+            var request = Request<ScryfallList<Set>>("https://api.scryfall.com/sets");
+            var restrictedSetTypes = new[] { "treasurechest", "vanguard", "token", "memorabilia" };
+
+            request.Data = request.Data.Where(i => i.CardCount > 0 && !restrictedSetTypes.Contains(i.SetType)).ToList();
+
+            return request;
         }
 
-        public int SetCardCount(string setUri)
+        public Set SetRequest(string setCode)
         {
-            return CardSetRequest(setUri).CardCount;
+            return Request<Set>($"{SetSearchUri}/{setCode}");
+        }
+
+        public int SetCardCount(string setCode)
+        {
+            return SetRequest(setCode).CardCount;
         }
 
         public List<Ruling> RulingsRequest(string rulingsUri)
@@ -288,6 +330,11 @@ namespace FortyLife.DataAccess
 
                 return rulings;
             }
+        }
+
+        public Set LatestSet()
+        {
+            return SetsRequest().Data.OrderByDescending(i => i.ReleasedAt).FirstOrDefault();
         }
     }
 }

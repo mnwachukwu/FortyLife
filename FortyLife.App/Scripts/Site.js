@@ -21,7 +21,5 @@ $(document).ready(function () {
 
 $(function () {
     // Target all classed with ".lined"
-    $(".lined").linedtextarea(
-        //{ selectedLine: 1 }
-    );
+    $(".lined").linedtextarea();
 });
