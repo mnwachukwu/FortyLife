@@ -23,3 +23,17 @@ $(function () {
     // Target all classed with ".lined"
     $(".lined").linedtextarea();
 });
+
+$(document).ready(function () {
+    $("#Set_Code").change(function () {
+        var $this = $(this);
+        var url = "/Spoilers?setCode=" + $this.val();
+        window.location.href = url;
+    });
+
+    $("#SortId").change(function () {
+        var $this = $(this);
+        var url = "/Spoilers?setCode=" + $("#Set_Code").val() + "&sortId=" + $this.val();
+        window.location.href = url;
+    });
+});

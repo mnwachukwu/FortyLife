@@ -1,14 +1,40 @@
-﻿@model FortyLife.App.Models.SpoilersViewModel
+﻿@using FortyLife.App.Models
+@model FortyLife.App.Models.SpoilersViewModel
 
 @{
-    ViewBag.Title = Model.SetName + " Set Spoiler";
+    ViewBag.Title = Model.Set.Name;
 }
 
-<div>
-    <!-- Page management stuff here -->
+<!-- Page management stuff here -->
+<div class="row">
+    <div class="col-md-6">
+        Set
+        @Html.DropDownListFor(i => i.Set.Code, new SelectList(Model.Sets.Data, "Code", "Name", Model.Set.Code), new { @class = "form-control" })
+    </div>
+    <div class="col-md-6">
+        Order By
+        @Html.DropDownListFor(i => i.SortId, Model.Sort, new { @class = "form-control" })
+    </div>
 </div>
 
-<h2 class="text-center">@Model.SetName</h2>
+<hr />
+
+<h2 class="text-center">@ViewBag.Title [@Model.Set.Code.ToUpper()]</h2>
+
+<div class="text-center">
+    <span class="badge badge-dark">Cards: @Model.Cards.Count</span>
+    <br />
+    <span class="small">Release Date: @Model.Set.ReleasedAt.ToString("MMMM dd yyyy")</span>
+    <br />
+    @if (Model.Set.ReleasedAt > DateTime.Now)
+    {
+        <div class="alert alert-warning">
+            <strong>Heads up!</strong> This set has not been released yet and may only be available for preorder.
+        </div>
+    }
+</div>
+
+<br />
 
 @if (Model.Cards != null)
 {
@@ -16,10 +42,12 @@
         @foreach (var card in Model.Cards)
         {
             <div class="text-center no-break">
-                <span class="card-image">
-                    <img class="spoiler card card-shadow" src="@card.ImageUris.Normal" alt="@card.Name [@card.Set.ToUpper()]" title="@card.Name [@card.Set.ToUpper()]" />
-                </span>
-                @card.Name
+                <a href="/CardDetails?cardName=@card.Name.Replace("//", "%2F%2F").Replace("'", "%27")&setCode=@card.Set">
+                    <span class="card-image">
+                        <img class="spoiler card card-shadow" src="@card.ImageUris.Normal" alt="@card.Name [@card.Set.ToUpper()]" title="@card.Name [@card.Set.ToUpper()]" />
+                    </span>
+                    <span class="small">@card.Name</span>
+                </a>
             </div>
         }
     </div>
