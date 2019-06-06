@@ -10,20 +10,25 @@
     @Scripts.Render("~/bundles/linedtextarea")
 }
 
-@if (newCollection)
-{
-    <h2>New Collection</h2>
-}
-else
-{
-    <h2>Editing <span class="text-info">@Model.Collection.Name</span></h2>
-}
-
-@if (!newCollection)
-{
-    <a href="/Builder/ViewCollection?id=@Model.Collection.CollectionId" class="float-right btn btn-outline-warning">View</a>
-    <br/>
-}
+<div class="row">
+    <div class="col-md-11">
+        @if (newCollection)
+        {
+            <h2>New Collection</h2>
+        }
+        else
+        {
+            <h2>Editing <span class="text-info">@Model.Collection.Name</span></h2>
+        }
+    </div>
+    <div class="col-md-1">
+        @if (!newCollection)
+        {
+            <a href="/Builder/ViewCollection?id=@Model.Collection.CollectionId" class="float-right btn btn-outline-warning">View</a>
+            <br />
+        }
+    </div>
+</div>
 
 <hr />
 

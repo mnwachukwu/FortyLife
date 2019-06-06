@@ -1,4 +1,16 @@
-﻿$(function () {
+﻿$(document).ready(function () {
+    $("#Set_Code").change(function () {
+        var $this = $(this);
+        var url = "/Spoilers?setCode=" + $this.val();
+        window.location.href = url;
+    });
+
+    $("#SortId").change(function () {
+        var $this = $(this);
+        var url = "/Spoilers?setCode=" + $("#Set_Code").val() + "&sortId=" + $this.val();
+        window.location.href = url;
+    });
+
     $("#flip-button").click(function () {
         var cardImage = $("#card-image");
         var whichFace = $("#which-face");
@@ -11,29 +23,10 @@
             whichFace.text("Back");
         }
     });
-});
 
-$(document).ready(function () {
+    $(".lined").linedtextarea();
+
     $(".printings-button").click(function () {
         $("#lotus-modal").modal();
-    });
-});
-
-$(function () {
-    // Target all classed with ".lined"
-    $(".lined").linedtextarea();
-});
-
-$(document).ready(function () {
-    $("#Set_Code").change(function () {
-        var $this = $(this);
-        var url = "/Spoilers?setCode=" + $this.val();
-        window.location.href = url;
-    });
-
-    $("#SortId").change(function () {
-        var $this = $(this);
-        var url = "/Spoilers?setCode=" + $("#Set_Code").val() + "&sortId=" + $this.val();
-        window.location.href = url;
     });
 });

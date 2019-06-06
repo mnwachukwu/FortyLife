@@ -36,15 +36,18 @@
     @Scripts.Render("~/bundles/tooltipjs")
 }
 
-<h2>@ViewBag.Title</h2>
-<span class="badge badge-pill badge-secondary">Collection</span> &nbsp; <a href="/Account/ViewProfile?id=@Model.OwnerId">@Model.OwnerDisplayName</a>
-
-@{
-    if (isOwner) // TODO: need to make sure only the collection owner can see this
-    {
-        <a href="/Builder/EditCollection?id=@Model.Collection.CollectionId" class="float-right btn btn-outline-warning">Edit</a>
-    }
-}
+<div class="row">
+    <div class="col-md-11">
+        <h2>@ViewBag.Title</h2>
+        <span class="badge badge-pill badge-secondary">Collection</span> &nbsp; <a href="/Account/ViewProfile?id=@Model.OwnerId">@Model.OwnerDisplayName</a>
+    </div>
+    <div class="col-md-1">
+        @if (isOwner) // TODO: need to make sure only the collection owner can see this
+        {
+            <a href="/Builder/EditCollection?id=@Model.Collection.CollectionId" class="float-right btn btn-outline-warning">Edit</a>
+        }
+    </div>
+</div>
 
 <hr />
 

@@ -38,6 +38,7 @@ namespace FortyLife.App.Controllers
 
             if (sortId != null)
             {
+                // TODO: We don't really need a new request every time they change sort order...
                 switch (sortId)
                 {
                     // default sort order, by collector number

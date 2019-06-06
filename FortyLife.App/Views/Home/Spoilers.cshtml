@@ -1,5 +1,5 @@
 ﻿@using FortyLife.App.Models
-@model FortyLife.App.Models.SpoilersViewModel
+@model SpoilersViewModel
 
 @{
     ViewBag.Title = Model.Set.Name;
@@ -19,17 +19,19 @@
 
 <hr />
 
-<h2 class="text-center">@ViewBag.Title [@Model.Set.Code.ToUpper()]</h2>
+<h2 class="text-center">@ViewBag.Title</h2>
 
 <div class="text-center">
-    <span class="badge badge-dark">Cards: @Model.Cards.Count</span>
-    <br />
-    <span class="small">Release Date: @Model.Set.ReleasedAt.ToString("MMMM dd yyyy")</span>
-    <br />
+    <div class="mb-3">
+        <span class="badge badge-info" title="Set Code">@Model.Set.Code.ToUpper()</span>
+        <span class="badge badge-secondary">Cards: @Model.Cards.Count</span>
+        <span class="badge badge-primary" title="Release Date">@Model.Set.ReleasedAt.ToString("MMMM dd yyyy")</span>
+    </div>
+
     @if (Model.Set.ReleasedAt > DateTime.Now)
     {
         <div class="alert alert-warning">
-            <strong>Heads up!</strong> This set has not been released yet and may only be available for preorder.
+            <strong>Heads up!</strong> This set has not been released yet and may only be available for pre-order.
         </div>
     }
 </div>

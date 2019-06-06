@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using FortyLife.App.Models;
 using FortyLife.DataAccess;
-using FortyLife.DataAccess.UserAccount;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using reCAPTCHA.MVC;
