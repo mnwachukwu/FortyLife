@@ -14,6 +14,8 @@ namespace FortyLife.DataAccess.UserAccount
         [Key, Column(Order = 3)]
         public bool Foil { get; set; }
 
+        public string SetName { get; set; }
+
         public bool Commander { get; set; }
 
         public int Count { get; set; }

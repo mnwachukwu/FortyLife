@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.IO;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Web;
 using FortyLife.DataAccess.TCGPlayer;
+using FortyLife.DataAccess.UserAccount;
 using Newtonsoft.Json;
 
 namespace FortyLife.DataAccess
@@ -105,7 +107,7 @@ namespace FortyLife.DataAccess
 
             using (var db = new FortyLifeDbContext())
             {
-                if (db.CardProductIds.Any(i => i.CardName == cardName && i.SetName == setName && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 7))
+                if (db.CardProductIds.Any(i => i.CardName == cardName && i.SetName == setName))
                 {
                     return db.CardProductIds.First(i => i.CardName == cardName && i.SetName == setName).ProductId;
                 }
@@ -130,14 +132,18 @@ namespace FortyLife.DataAccess
                         {
                             Name = Filter.FilterName.ProductName.ToString(),
                             Values = new List<string> {cardName}
-                        },
-                        new Filter
-                        {
-                            Name = Filter.FilterName.SetName.ToString(),
-                            Values = new List<string> {setName}
                         }
                     }
                 };
+
+                //if (!string.IsNullOrEmpty(setName))
+                //{
+                //    searchCriteria.Filters.Add(new Filter
+                //    {
+                //        Name = Filter.FilterName.SetName.ToString(),
+                //        Values = new List<string> {setName}
+                //    });
+                //}
 
                 var body = JsonConvert.SerializeObject(searchCriteria);
                 var jsonResult = Post(categoryProductSearchUri, body, RequestBodyType.Json, ReadAccessToken());
@@ -153,8 +159,7 @@ namespace FortyLife.DataAccess
                         {
                             CardName = cardName,
                             SetName = setName,
-                            ProductId = productIdResult,
-                            CacheDate = DateTime.Now
+                            ProductId = productIdResult
                         };
 
                         db.CardProductIds.AddOrUpdate(newProductId);
@@ -168,52 +173,52 @@ namespace FortyLife.DataAccess
             }
         }
 
+        public List<Price> CardListPriceRequest(Collection collection)
+        {
+            var productIds = collection.Cards.Select(i => ProductIdRequest(i.Name, i.SetName)).ToList();
+
+            // Rate limit to be a good samaritan
+            Thread.Sleep(200); // TODO: find a better way to do this without shutting down the thread
+
+            var jsonResult = Get($"{marketPriceRequestUri}{string.Join(",", productIds)}", ReadAccessToken());
+
+            if (!string.IsNullOrEmpty(jsonResult))
+            {
+                var prices = JsonConvert.DeserializeObject<MarketPriceResults>(jsonResult).Results;
+
+                return prices;
+            }
+
+            return null;
+        }
+
         public List<Price> CardPriceRequest(string cardName, string setName)
         {
-            using (var db = new FortyLifeDbContext())
+            var productId = ProductIdRequest(cardName, setName);
+
+            // Rate limit to be a good samaritan
+            Thread.Sleep(200); // TODO: find a better way to do this without shutting down the thread
+
+            var jsonResult = Get($"{marketPriceRequestUri}{productId}", ReadAccessToken());
+
+            if (!string.IsNullOrEmpty(jsonResult))
             {
-                var productId = ProductIdRequest(cardName, setName);
+                var prices = JsonConvert.DeserializeObject<MarketPriceResults>(jsonResult).Results;
 
-                if (db.Prices.Any(i => i.ProductId == productId && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 1))
-                {
-                    return db.Prices.Where(i => i.ProductId == productId).ToList();
-                }
-
-                // Rate limit to be a good samaritan
-                Thread.Sleep(200); // TODO: find a better way to do this without shutting down the thread
-
-                var jsonResult = Get($"{marketPriceRequestUri}{productId}", ReadAccessToken());
-
-                if (!string.IsNullOrEmpty(jsonResult))
-                {
-                    var prices = JsonConvert.DeserializeObject<MarketPriceResults>(jsonResult).Results;
-
-
-                    if (prices != null)
-                    {
-                        foreach (var price in prices)
-                        {
-                            price.CacheDate = DateTime.Now;
-                            db.Prices.AddOrUpdate(price);
-                            db.SaveChanges();
-                        }
-                    }
-
-                    return prices;
-                }
-
-                return null;
+                return prices;
             }
+
+            return null;
         }
 
         public ProductDetail CardDetailsRequest(int productId)
         {
             using (var db = new FortyLifeDbContext())
             {
-                if (db.ProductDetails.Any(i => i.ProductId == productId && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 7))
-                {
-                    return db.ProductDetails.FirstOrDefault(i => i.ProductId == productId);
-                }
+                //if (db.ProductDetails.Any(i => i.ProductId == productId && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 7))
+                //{
+                //    return db.ProductDetails.FirstOrDefault(i => i.ProductId == productId);
+                //}
 
                 // Rate limit to be a good samaritan
                 Thread.Sleep(200); // TODO: find a better way to do this without shutting down the thread
@@ -224,8 +229,8 @@ namespace FortyLife.DataAccess
                 if (productDetail != null)
                 {
                     productDetail.CacheDate = DateTime.Now;
-                    db.ProductDetails.AddOrUpdate(productDetail);
-                    db.SaveChanges();
+                    //db.ProductDetails.AddOrUpdate(productDetail);
+                    //db.SaveChanges();
                 }
 
                 return productDetail;

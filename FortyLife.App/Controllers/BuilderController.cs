@@ -49,25 +49,24 @@ namespace FortyLife.App.Controllers
                 return View("Error");
             }
 
-            var scryfallList = new List<Card>();
             var prices = new List<double>();
+            var pricingRequest = tcgPlayerRequestEngine.CardListPriceRequest(collection);
 
             // Get card data and prices
             foreach (var collectionCard in collection.Cards)
             {
-                var card = scryfallRequestEngine.GetCard(collectionCard.Name, collectionCard.SetCode);
-
-                scryfallList.Add(card);
-
-                var price = tcgPlayerRequestEngine.CardPriceRequest(card?.Name, card?.SetName)?.First(i =>
-                    collectionCard.Foil ? i.SubTypeName == "Foil" : i.SubTypeName == "Normal");
+                var price = pricingRequest.FirstOrDefault(i =>
+                    i.ProductId == tcgPlayerRequestEngine.ProductIdRequest(collectionCard.Name, collectionCard.SetName) &&
+                    i.SubTypeName == (collectionCard.Foil ? "Foil" : "Normal"));
+                //var price = tcgPlayerRequestEngine.CardPriceRequest(scryfallList[index]?.Name, scryfallList[index]?.SetName)?.First(i =>
+                //    collectionCard.Foil ? i.SubTypeName == "Foil" : i.SubTypeName == "Normal");
                 prices.Add(price?.MidPrice ?? 0);
             }
 
             var model = new ViewCollectionModel
             {
                 Collection = collection,
-                ScryfallList = scryfallList,
+                ScryfallList = scryfallRequestEngine.GetCardList(collection),
                 Prices = prices,
                 OwnerDisplayName = ownerDisplayName,
                 OwnerId = collection.ApplicationUserId

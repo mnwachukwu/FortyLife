@@ -85,6 +85,26 @@
     <Compile Include="Migrations\201905191638466_Init.Designer.cs">
       <DependentUpon>201905191638466_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201912220145169_UpdateLegalities.cs" />
+    <Compile Include="Migrations\201912220145169_UpdateLegalities.Designer.cs">
+      <DependentUpon>201912220145169_UpdateLegalities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912220612204_RemoveDbCaches.cs" />
+    <Compile Include="Migrations\201912220612204_RemoveDbCaches.Designer.cs">
+      <DependentUpon>201912220612204_RemoveDbCaches.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912220734150_RemoveReaddSomeDbCaches.cs" />
+    <Compile Include="Migrations\201912220734150_RemoveReaddSomeDbCaches.Designer.cs">
+      <DependentUpon>201912220734150_RemoveReaddSomeDbCaches.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912220812403_UpdateCardProductIds.cs" />
+    <Compile Include="Migrations\201912220812403_UpdateCardProductIds.Designer.cs">
+      <DependentUpon>201912220812403_UpdateCardProductIds.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912220915295_UpdateCollectionCard.cs" />
+    <Compile Include="Migrations\201912220915295_UpdateCollectionCard.Designer.cs">
+      <DependentUpon>201912220915295_UpdateCollectionCard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PrimitiveListHandler.cs" />
     <Compile Include="ScryfallRequestEngine.cs" />
@@ -134,6 +154,21 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201905191638466_Init.resx">
       <DependentUpon>201905191638466_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912220145169_UpdateLegalities.resx">
+      <DependentUpon>201912220145169_UpdateLegalities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912220612204_RemoveDbCaches.resx">
+      <DependentUpon>201912220612204_RemoveDbCaches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912220734150_RemoveReaddSomeDbCaches.resx">
+      <DependentUpon>201912220734150_RemoveReaddSomeDbCaches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912220812403_UpdateCardProductIds.resx">
+      <DependentUpon>201912220812403_UpdateCardProductIds.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912220915295_UpdateCollectionCard.resx">
+      <DependentUpon>201912220915295_UpdateCollectionCard.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

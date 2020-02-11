@@ -157,7 +157,9 @@ namespace FortyLife.DataAccess.Scryfall
 
         public string Future { get; set; }
 
-        public string Frontier { get; set; }
+        public string Historic { get; set; }
+
+        public string Pioneer { get; set; }
 
         public string Modern { get; set; }
 
@@ -170,6 +172,8 @@ namespace FortyLife.DataAccess.Scryfall
         public string Penny { get; set; }
 
         public string Commander { get; set; }
+
+        public string Brawl { get; set; }
 
         public string Duel { get; set; }
 

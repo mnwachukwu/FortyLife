@@ -170,6 +170,9 @@ namespace FortyLife.DataAccess
                     {
                         card.SetCode = scryfallRequestEngine.GetCard(card.Name).Set.ToUpper();
                     }
+
+                    // also fill in the set name
+                    card.SetName = new ScryfallRequestEngine().SetRequest(card.SetCode).Name;
                 }
 
                 var duplicates = cardList.GroupBy(i => new { i.Name, i.SetCode, i.Foil })

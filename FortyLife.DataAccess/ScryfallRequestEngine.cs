@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using FortyLife.DataAccess.Scryfall;
+using FortyLife.DataAccess.UserAccount;
 using Newtonsoft.Json;
 
 namespace FortyLife.DataAccess
@@ -95,70 +96,177 @@ namespace FortyLife.DataAccess
             return request;
         }
 
+        public List<Card> GetCardList(Collection collection)
+        {
+            var cardNames = new List<string>();
+            var setCodes = new List<string>();
+
+            foreach (var collectionCard in collection.Cards)
+            {
+                cardNames.Add(collectionCard.Name);
+                setCodes.Add(collectionCard.SetCode);
+            }
+
+            using (var db = new FortyLifeDbContext())
+            {
+                var query = string.Empty;
+
+                for (var i = 0; i < cardNames.Count; i++)
+                {
+                    query += $"\"{cardNames[i]}\" " +
+                             (!string.IsNullOrEmpty(setCodes[i]) ? $"set:{setCodes[i]}" : string.Empty) +
+                        " or ";
+                }
+
+                var searchResultList = CardListRequest(query);
+
+                if (searchResultList != null)
+                {
+                    var cards = searchResultList.Data;
+
+                    foreach (var card in cards)
+                    {
+                        if (card != null)
+                        {
+                            card.CacheDate = DateTime.Now;
+
+                            if (card.ImageUris == null)
+                                card.ImageUris = new ImageUris();
+
+                            if (card.IsDoubleFaced)
+                            {
+                                card.CardFaces[0].CacheDate = DateTime.Now;
+                                card.CardFaces[1].CacheDate = DateTime.Now;
+
+                                if (card.CardFaces[0].ImageUris == null)
+                                    card.CardFaces[0].ImageUris = new ImageUris();
+
+                                if (card.CardFaces[1].ImageUris == null)
+                                    card.CardFaces[1].ImageUris = new ImageUris();
+
+                                foreach (var i in card.CardFaces)
+                                {
+                                    if (i.Colors != null)
+                                    {
+                                        i.ColorsString = PrimitiveListHandler.ToString(i.Colors);
+                                    }
+                                }
+                            }
+
+                            if (card.Colors != null)
+                            {
+                                card.ColorsString = PrimitiveListHandler.ToString(card.Colors);
+                            }
+
+                            if (card.ColorIdentity != null)
+                            {
+                                card.ColorIdentityString = PrimitiveListHandler.ToString(card.ColorIdentity);
+                            }
+
+                            if (card.Games != null)
+                            {
+                                card.GamesString = PrimitiveListHandler.ToString(card.Games);
+                            }
+
+                            if (card.MultiverseIds != null)
+                            {
+                                card.MultiverseIdsString = PrimitiveListHandler.ToString(card.MultiverseIds);
+                            }
+
+                            //db.Cards.AddOrUpdate(card);
+
+                            //try
+                            //{
+                            //    db.SaveChanges();
+                            //}
+                            //catch (DbEntityValidationException dbEx)
+                            //{
+                            //    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                            //    {
+                            //        foreach (var validationError in validationErrors.ValidationErrors)
+                            //        {
+                            //            Trace.TraceInformation("Property: {0} Error: {1}",
+                            //                validationError.PropertyName,
+                            //                validationError.ErrorMessage);
+                            //        }
+                            //    }
+
+                            //    throw;
+                            //}
+                        }
+                    }
+
+                    return cards;
+                }
+            }
+
+            return null;
+        }
+
         public Card GetCard(string cardName, string setCode = "")
         {
             using (var db = new FortyLifeDbContext())
             {
                 Card card;
 
-                if (!string.IsNullOrEmpty(setCode))
-                {
-                    if (db.Cards.Any(i => i.Name == cardName && i.Set == setCode && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 7))
-                    {
-                        var cards = db.Cards.Include(i => i.CardFaces);
+                //if (!string.IsNullOrEmpty(setCode))
+                //{
+                //    if (db.Cards.Any(i => i.Name == cardName && i.Set == setCode && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 7))
+                //    {
+                //        var cards = db.Cards.Include(i => i.CardFaces);
 
-                        card = cards.FirstOrDefault(i => i.Name == cardName && i.Set == setCode);
+                //        card = cards.FirstOrDefault(i => i.Name == cardName && i.Set == setCode);
 
-                        if (card != null)
-                        {
-                            // prep list data by parsing string data from db
-                            foreach (var i in card.CardFaces)
-                            {
-                                if (i.ColorsString != null)
-                                {
-                                    i.Colors = i.ColorsString.Split(',').ToList();
-                                }
-                            }
+                //        if (card != null)
+                //        {
+                //            // prep list data by parsing string data from db
+                //            foreach (var i in card.CardFaces)
+                //            {
+                //                if (i.ColorsString != null)
+                //                {
+                //                    i.Colors = i.ColorsString.Split(',').ToList();
+                //                }
+                //            }
 
-                            card.Colors = card.ColorsString?.Split(',').ToList();
-                            card.ColorIdentity = card.ColorIdentityString?.Split(',').ToList();
-                            card.Games = card.GamesString?.Split(',').ToList();
-                            card.MultiverseIds = card.MultiverseIdsString?.Split(',').ToList();
+                //            card.Colors = card.ColorsString?.Split(',').ToList();
+                //            card.ColorIdentity = card.ColorIdentityString?.Split(',').ToList();
+                //            card.Games = card.GamesString?.Split(',').ToList();
+                //            card.MultiverseIds = card.MultiverseIdsString?.Split(',').ToList();
 
-                            // return prepped card
-                            return card;
-                        }
-                    }
-                }
-                else
-                {
-                    if (db.Cards.Any(i => i.Name == cardName && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 7))
-                    {
-                        var cards = db.Cards.Include(i => i.CardFaces);
+                //            // return prepped card
+                //            return card;
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //    if (db.Cards.Any(i => i.Name == cardName && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 7))
+                //    {
+                //        var cards = db.Cards.Include(i => i.CardFaces);
 
-                        card = cards.FirstOrDefault(i => i.Name == cardName);
+                //        card = cards.FirstOrDefault(i => i.Name == cardName);
 
-                        if (card != null)
-                        {
-                            // prep list data by parsing string data from db
-                            foreach (var i in card.CardFaces)
-                            {
-                                if (i.ColorsString != null)
-                                {
-                                    i.Colors = i.ColorsString.Split(',').ToList();
-                                }
-                            }
+                //        if (card != null)
+                //        {
+                //            // prep list data by parsing string data from db
+                //            foreach (var i in card.CardFaces)
+                //            {
+                //                if (i.ColorsString != null)
+                //                {
+                //                    i.Colors = i.ColorsString.Split(',').ToList();
+                //                }
+                //            }
 
-                            card.Colors = card.ColorsString?.Split(',').ToList();
-                            card.ColorIdentity = card.ColorIdentityString?.Split(',').ToList();
-                            card.Games = card.GamesString?.Split(',').ToList();
-                            card.MultiverseIds = card.MultiverseIdsString?.Split(',').ToList();
+                //            card.Colors = card.ColorsString?.Split(',').ToList();
+                //            card.ColorIdentity = card.ColorIdentityString?.Split(',').ToList();
+                //            card.Games = card.GamesString?.Split(',').ToList();
+                //            card.MultiverseIds = card.MultiverseIdsString?.Split(',').ToList();
 
-                            // return prepped card
-                            return card;
-                        }
-                    }
-                }
+                //            // return prepped card
+                //            return card;
+                //        }
+                //    }
+                //}
 
                 var searchResultList = CardPrintingsRequest(cardName);
 
@@ -217,30 +325,51 @@ namespace FortyLife.DataAccess
                             card.MultiverseIdsString = PrimitiveListHandler.ToString(card.MultiverseIds);
                         }
 
-                        db.Cards.AddOrUpdate(card);
+                        //db.Cards.AddOrUpdate(card);
 
-                        try
-                        {
-                            db.SaveChanges();
-                        }
-                        catch (DbEntityValidationException dbEx)
-                        {
-                            foreach (var validationErrors in dbEx.EntityValidationErrors)
-                            {
-                                foreach (var validationError in validationErrors.ValidationErrors)
-                                {
-                                    Trace.TraceInformation("Property: {0} Error: {1}",
-                                        validationError.PropertyName,
-                                        validationError.ErrorMessage);
-                                }
-                            }
+                        //try
+                        //{
+                        //    db.SaveChanges();
+                        //}
+                        //catch (DbEntityValidationException dbEx)
+                        //{
+                        //    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                        //    {
+                        //        foreach (var validationError in validationErrors.ValidationErrors)
+                        //        {
+                        //            Trace.TraceInformation("Property: {0} Error: {1}",
+                        //                validationError.PropertyName,
+                        //                validationError.ErrorMessage);
+                        //        }
+                        //    }
 
-                            throw;
-                        }
+                        //    throw;
+                        //}
                     }
 
                     return card;
                 }
+            }
+
+            return null;
+        }
+
+        public ScryfallList<Card> CardListRequest(string query)
+        {
+            var results = Request<ScryfallList<Card>>($"{BaseSearchUri}?q=name={query}&unique=prints");
+
+            // pull data until we have it all
+            while (results.HasMore)
+            {
+                var moreResults = Request<ScryfallList<Card>>(results.NextPage);
+                results.Data.AddRange(moreResults.Data);
+                results.NextPage = moreResults.NextPage;
+                results.HasMore = moreResults.HasMore;
+            }
+
+            if (results.TotalCards > 0)
+            {
+                return results;
             }
 
             return null;
@@ -310,10 +439,10 @@ namespace FortyLife.DataAccess
         {
             using (var db = new FortyLifeDbContext())
             {
-                if (db.Rulings.Any(i => i.RulingsUri == rulingsUri && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 7))
-                {
-                    return db.Rulings.Where(i => i.RulingsUri == rulingsUri).ToList();
-                }
+                //if (db.Rulings.Any(i => i.RulingsUri == rulingsUri && DbFunctions.DiffDays(i.CacheDate, DateTime.Now) < 7))
+                //{
+                //    return db.Rulings.Where(i => i.RulingsUri == rulingsUri).ToList();
+                //}
 
                 var rulings = Request<ScryfallList<Ruling>>(rulingsUri).Data;
 
@@ -323,8 +452,8 @@ namespace FortyLife.DataAccess
                     {
                         ruling.RulingsUri = rulingsUri;
                         ruling.CacheDate = DateTime.Now;
-                        db.Rulings.AddOrUpdate(ruling);
-                        db.SaveChanges();
+                        //db.Rulings.AddOrUpdate(ruling);
+                        //db.SaveChanges();
                     }
                 }
 

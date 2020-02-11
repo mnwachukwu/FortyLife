@@ -11,7 +11,5 @@ namespace FortyLife.DataAccess.TCGPlayer
         public string SetName { get; set; }
 
         public int ProductId { get; set; }
-
-        public DateTime CacheDate { get; set; }
     }
 }
