@@ -21,3 +21,5 @@ FortyLife.App/Properties/PublishProfiles/
 FortyLife\.App/Web\.Release\.config
 
 FortyLife\.sln\.DotSettings\.user
+
+*.user
