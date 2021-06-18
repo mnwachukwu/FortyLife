@@ -3,7 +3,7 @@
 }
 
 <div>
-    <p class="lead">Forty Life is a free and <a href="https://git.tm14.net/mattn/FortyLife">open-source</a> Magic: The Gathering collection web application for building and tracking your decks and collections using powerful features backed by the most up to date card information.</p>
+    <p class="lead">Forty Life is a free and <a href="https://github.com/mnwachukwu/FortyLife">open-source</a> Magic: The Gathering collection web application for building and tracking your decks and collections using powerful features backed by the most up to date card information.</p>
 
     @if (!Request.IsAuthenticated)
     {
@@ -11,28 +11,12 @@
     }
 
     <div class="row">
-        <div class="h4"><span class="oi oi-clock"></span> Latest changes as of 1.24.2019</div> &nbsp; <i class="small">(This section is hard-coded HTML so don't kill us if it isn't up to date!)</i>
+        <div class="h4"><span class="oi oi-clock"></span> Latest changes as of 3.27.2019</div> &nbsp; <i class="small">(This section is hard-coded HTML so don't kill us if it isn't up to date!)</i>
     </div>
     <ul>
-        <li>
-            Very basic, name-based card search using <a href="https://scryfall.com/">Scryfall's</a> API; not very useful now - you're probably better off actually going to Scryfall for the time being!
-            <ul>
-                <li>An advanced search page is coming soon which will be a functional mirror of Scryfall's search.</li>
-            </ul>
-        </li>
-        <li>Complete mana and card symbol parsing. Complete mana color wheel parsing. We even have set symbol parsing, now!</li>
-        <li>
-            Full support for double faced cards.
-            <ul>
-                <li>You can flip double faced cards in the card details view with just the click of a button.</li>
-            </ul>
-        </li>
-        <li>
-            Very informative card details page complete with rulings and printings information!
-            <ul>
-                <li>My dev key application was approved! Pricing information for non-foil and foil versions of cards have been implemented. We even link to each card's store page for your convenience.</li>
-            </ul>
-        </li>
+        <li>Implemented account registration complete with email activation.</li>
+        <li>Collection creation is now possible!</li>
+        <li>Locally caching Scryfall and TCGPlayer data for faster data queries.</li>
         <li>Several bugs have been fixed since initial release.</li>
     </ul>
 </div>

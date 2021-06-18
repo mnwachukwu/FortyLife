@@ -37,6 +37,7 @@ namespace FortyLife.Core
 
             if (cardResult.ImageUris != null)
             {
+                // TODO: Incase any of this comes up null, we should coalesce into a default image
                 switch (size)
                 {
                     default:
@@ -61,6 +62,8 @@ namespace FortyLife.Core
             else
             {
                 var cardFace = cardResult.CardFaces[reverseSide ? 1 : 0];
+
+                // TODO: Incase any of this comes up null, we should coalesce into a default image
                 switch (size)
                 {
                     default:
@@ -103,11 +106,11 @@ namespace FortyLife.Core
             // Some just have Colors listed where some don't have a color attribute at all!
             var cardColors = new List<string>();
 
-            if (cardResult.IsDoubleFaced && cardResult.Colors == null)
+            if (cardResult.IsDoubleFaced)
             {
                 cardResult.CardFaces.ForEach(cardFace =>
                 {
-                    cardFace.Colors.ForEach(color =>
+                    cardFace.Colors?.ForEach(color =>
                     {
                         if (!cardColors.Contains(color))
                         {
@@ -133,8 +136,6 @@ namespace FortyLife.Core
         {
             if (colors == null || colors.Count == 0)
                 return "Colorless";
-
-
 
             var sb = new StringBuilder();
             var sortedColors = colors.OrderBy(i => WubrgOrder.IndexOf(i, StringComparison.Ordinal));
@@ -165,7 +166,13 @@ namespace FortyLife.Core
                 }
             }
 
-            return sb.ToString().Remove(sb.Length - 1);
+            if (sb.Length > 0)
+            {
+                return sb.ToString().Remove(sb.Length - 1);
+            }
+
+            return "Colorless";
+
         }
 
         public static string RenderManaSymbols(string originalText)

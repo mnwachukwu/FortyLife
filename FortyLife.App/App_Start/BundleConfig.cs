@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace FortyLife
+namespace FortyLife.App
 {
     public class BundleConfig
     {
@@ -30,6 +30,9 @@ namespace FortyLife
             bundles.Add(new ScriptBundle("~/bundles/sitejs").Include(
                 "~/Scripts/Site.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/linedtextarea").Include(
+                "~/Scripts/jquery-linedtextarea.js"));
+
             // TODO: we probably want to split this bundle up so not every page loads every css resource
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/Bootstrap/bootstrap.min.css",
@@ -40,7 +43,8 @@ namespace FortyLife
                 "~/Content/ColorPie.css",
                 "~/Content/BlackLotus.css",
                 "~/Content/CardFlip.css",
-                "~/Content/RainbowText.css"));
+                "~/Content/RainbowText.css",
+                "~/Content/jquery-linedtextarea.css"));
         }
     }
 }

@@ -78,11 +78,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contexts\CardContext.cs" />
+    <Compile Include="ApplicationUserEngine.cs" />
+    <Compile Include="FortyLifeDbContext.cs" />
+    <Compile Include="Mailer.cs" />
+    <Compile Include="Migrations\201905191638466_Init.cs" />
+    <Compile Include="Migrations\201905191638466_Init.Designer.cs">
+      <DependentUpon>201905191638466_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912220145169_UpdateLegalities.cs" />
+    <Compile Include="Migrations\201912220145169_UpdateLegalities.Designer.cs">
+      <DependentUpon>201912220145169_UpdateLegalities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912220612204_RemoveDbCaches.cs" />
+    <Compile Include="Migrations\201912220612204_RemoveDbCaches.Designer.cs">
+      <DependentUpon>201912220612204_RemoveDbCaches.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912220734150_RemoveReaddSomeDbCaches.cs" />
+    <Compile Include="Migrations\201912220734150_RemoveReaddSomeDbCaches.Designer.cs">
+      <DependentUpon>201912220734150_RemoveReaddSomeDbCaches.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912220812403_UpdateCardProductIds.cs" />
+    <Compile Include="Migrations\201912220812403_UpdateCardProductIds.Designer.cs">
+      <DependentUpon>201912220812403_UpdateCardProductIds.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201912220915295_UpdateCollectionCard.cs" />
+    <Compile Include="Migrations\201912220915295_UpdateCollectionCard.Designer.cs">
+      <DependentUpon>201912220915295_UpdateCollectionCard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="PrimitiveListHandler.cs" />
     <Compile Include="ScryfallRequestEngine.cs" />
     <Compile Include="Scryfall\Card.cs" />
-    <Compile Include="IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scryfall\CardFace.cs" />
     <Compile Include="Scryfall\Ruling.cs" />
     <Compile Include="Scryfall\ScryfallList.cs" />
     <Compile Include="RequestEngine.cs" />
@@ -90,23 +118,23 @@
     <Compile Include="Scryfall\Set.cs" />
     <Compile Include="TcgPlayerRequestEngine.cs" />
     <Compile Include="TCGPlayer\AccessToken.cs" />
+    <Compile Include="TCGPlayer\CardProductId.cs" />
     <Compile Include="TCGPlayer\CategoryProductsResult.cs" />
     <Compile Include="TCGPlayer\CategoryProductsSearchBody.cs" />
     <Compile Include="TCGPlayer\MarketPriceResults.cs" />
+    <Compile Include="TCGPlayer\Price.cs" />
+    <Compile Include="TCGPlayer\ProductDetail.cs" />
     <Compile Include="TCGPlayer\ProductDetailsResults.cs" />
+    <Compile Include="UserAccount\ApplicationUser.cs" />
+    <Compile Include="UserAccount\CollectionCard.cs" />
+    <Compile Include="UserAccount\Collection.cs" />
+    <Compile Include="UserAccount\Deck.cs" />
+    <Compile Include="UserAccount\Suggestion.cs" />
+    <Compile Include="UserAuthenticator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="App_Data\TestDb.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="App_Data\TestDb_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>TestDb.mdf</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7">
@@ -120,6 +148,28 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201905191638466_Init.resx">
+      <DependentUpon>201905191638466_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912220145169_UpdateLegalities.resx">
+      <DependentUpon>201912220145169_UpdateLegalities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912220612204_RemoveDbCaches.resx">
+      <DependentUpon>201912220612204_RemoveDbCaches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912220734150_RemoveReaddSomeDbCaches.resx">
+      <DependentUpon>201912220734150_RemoveReaddSomeDbCaches.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912220812403_UpdateCardProductIds.resx">
+      <DependentUpon>201912220812403_UpdateCardProductIds.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201912220915295_UpdateCollectionCard.resx">
+      <DependentUpon>201912220915295_UpdateCollectionCard.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

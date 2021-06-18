@@ -1,18 +1,18 @@
-﻿@using FortyLife.Models
-@model LoginViewModel
+﻿@model FortyLife.App.Models.LoginViewModel
 @{
     ViewBag.Title = "Log in";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
+<h4>Use an existing Forty Life account to log in, or <a href="/Account/Register">create an account for <i>free</i></a>!</h4>
+<hr />
+
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-4">
         <section id="loginForm">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
                     @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
@@ -30,29 +30,26 @@
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
+                        <input type="submit" value="Log in" class="btn btn-outline-success" />
                     </div>
                 </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-outline-success" /> &nbsp;
-                        @Html.ActionLink("Register as a new user", "Register", null, new { @class = "btn btn-outline-info" })
-                    </div>
-                </div>
-                @* Enable this once you have account confirmation enabled for password reset functionality
-                    <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
             }
         </section>
     </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
+    <div class="col-md-8">
+        With a Forty Life account you can...
+
+        <ul>
+            <li>Create an unlimited amount of lists to track both your collections and your decks!</li>
+            <li>Help users looking for feedback by providing yours.</li>
+            <li>Gather your own feedback from other registered users.</li>
+        </ul>
+
+        Need help accessing your account?
+        <ul>
+            <li><a href="#">Forgot your password?</a></li>
+            <li><a href="/Account/Activate">Need to activate your account?</a></li>
+        </ul>
     </div>
 </div>
 

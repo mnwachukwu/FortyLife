@@ -1,8 +1,8 @@
-[Production Site](https://forty.life/) - forty.life
+[Production Site](https://forty.life/) - Latest **STABLE** version of the site; based off the `master` brach
 
-[Development Site](https://dev.forty.life/) - dev.forty.life (Not a working site yet; working on it!)
+[Development Site](https://dev.forty.life/) - Latest version of the site; based off the `dev` branch; **unstable and unfit for production use**
 
-*Note: There is no automatic deployment pipeline in place quite yet. That will be set up eventually and the Development Site will enjoy automatic nightly builds while the Production Site will have one click deployments set up.*
+*Note: There is no automatic deployment pipeline in place quite yet. That will be set up eventually and the Development Site will enjoy automatic nightly builds. The Production Site will has one click deployments set up.*
 
 ---
 

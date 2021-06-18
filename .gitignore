@@ -1,6 +1,6 @@
 \.vs/
 packages/
-FortyLife/Properties/PublishProfiles
+FortyLife\.App/Properties/PublishProfiles/
 
 FortyLife\.Core/bin/
 FortyLife\.Core/obj/
@@ -16,3 +16,8 @@ FortyLife\.App/App_Data/
 FortyLife\.Database/bin/
 FortyLife\.Database/obj/
 FortyLife.App/Properties/PublishProfiles/
+
+
+FortyLife\.App/Web\.Release\.config
+
+FortyLife\.sln\.DotSettings\.user

@@ -13,7 +13,7 @@
     <div class="row">
         <!-- Card image -->
         <div class="col-md-6">
-            @if (Model.ImageUris != null)
+            @if (Model.ImageUris.Normal != null)
             {
                 <div class='d-flex justify-content-center'>
                     <div class="card-image">
@@ -106,7 +106,7 @@
 
                         <br />
 
-                        @rarity, #@Model.CollectorNumber/@(requestEngine.SetCardCount(Model.SetUri)) <span class="float-right"><i class="ms ms-artist-nib"></i> @Model.Artist</span>
+                        @rarity, #@Model.CollectorNumber/@(requestEngine.SetCardCount(Model.Set)) <span class="float-right"><i class="ms ms-artist-nib" title="Artist"></i> @Model.Artist</span>
                     </p>
                 </div>
 

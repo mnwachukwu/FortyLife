@@ -1,21 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace FortyLife.DataAccess.Scryfall
 {
     public class Ruling
     {
-        public string Object { get; set; }
-
+        [Key]
         public string OracleId { get; set; }
+
+        public string RulingsUri { get; set; }
+
+        public string Object { get; set; }
 
         public string Source { get; set; }
 
         public DateTime? PublishedAt { get; set; }
 
         public string Comment { get; set; }
+
+        public DateTime CacheDate { get; set; }
     }
 }

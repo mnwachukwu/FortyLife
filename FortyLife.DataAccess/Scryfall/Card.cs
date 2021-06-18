@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace FortyLife.DataAccess.Scryfall
 {
-    public class Card : CardFace
+    public class Card
     {
-        public string Id { get; set; }
-
         public string OracleId { get; set; }
 
-        public List<int> MultiverseIds { get; set; }
+        public string MultiverseIdsString { get; set; }
+
+        public List<string> MultiverseIds { get; set; }
 
         public int MtgoId { get; set; }
 
@@ -31,9 +33,13 @@ namespace FortyLife.DataAccess.Scryfall
 
         public double Cmc { get; set; }
 
+        public string ColorIdentityString { get; set; }
+
         public List<string> ColorIdentity { get; set; }
 
         public Legalities Legalities { get; set; }
+
+        public string GamesString { get; set; }
 
         public List<string> Games { get; set; }
 
@@ -95,8 +101,39 @@ namespace FortyLife.DataAccess.Scryfall
 
         public List<CardFace> CardFaces { get; set; }
 
-        // Non-Scryfall data
-        public bool IsDoubleFaced => CardFaces != null;
+        public string Id { get; set; }
+
+        public string Object { get; set; }
+
+        public string Name { get; set; }
+
+        public string ManaCost { get; set; }
+
+        public string TypeLine { get; set; }
+
+        public string OracleText { get; set; }
+
+        public string ColorsString { get; set; }
+
+        public List<string> Colors { get; set; }
+
+        public string Power { get; set; }
+
+        public string Toughness { get; set; }
+
+        public string FlavorText { get; set; }
+
+        public string Artist { get; set; }
+
+        public string IllustrationId { get; set; }
+
+        public ImageUris ImageUris { get; set; }
+
+        public string Loyalty { get; set; }
+
+        public DateTime CacheDate { get; set; }
+
+        public bool IsDoubleFaced => CardFaces != null && CardFaces?.Count > 0;
     }
 
     public class ImageUris
@@ -120,7 +157,9 @@ namespace FortyLife.DataAccess.Scryfall
 
         public string Future { get; set; }
 
-        public string Frontier { get; set; }
+        public string Historic { get; set; }
+
+        public string Pioneer { get; set; }
 
         public string Modern { get; set; }
 
@@ -133,6 +172,8 @@ namespace FortyLife.DataAccess.Scryfall
         public string Penny { get; set; }
 
         public string Commander { get; set; }
+
+        public string Brawl { get; set; }
 
         public string Duel { get; set; }
 
@@ -152,39 +193,10 @@ namespace FortyLife.DataAccess.Scryfall
 
     public class PurchaseUris
     {
-        public string TcpPlayer { get; set; }
+        public string TcgPlayer { get; set; }
 
         public string CardMarket { get; set; }
 
         public string CardHoarder { get; set; }
-    }
-
-    public class CardFace
-    {
-        public string Object { get; set; }
-
-        public string Name { get; set; }
-
-        public string ManaCost { get; set; }
-
-        public string TypeLine { get; set; }
-
-        public string OracleText { get; set; }
-
-        public List<string> Colors { get; set; }
-
-        public string Power { get; set; }
-
-        public string Toughness { get; set; }
-
-        public string FlavorText { get; set; }
-
-        public string Artist { get; set; }
-
-        public string IllustrationId { get; set; }
-
-        public ImageUris ImageUris { get; set; }
-        
-        public string Loyalty { get; set; }
     }
 }

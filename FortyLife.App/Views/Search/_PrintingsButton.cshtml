@@ -16,7 +16,7 @@
             {
                 if (printing.Code != Model.Set)
                 {
-                    <a class="dropdown-item printings-button" href="/Search/CardDetails?cardName=@Model.Name&setCode=@printing.Code">
+                    <a class="dropdown-item printings-button" href="/CardDetails?cardName=@Model.Name&setCode=@printing.Code">
                         @Html.Raw($"<span class='lead'> {CardParsingEngine.RenderSetSymbol(printing.Code, printing.Rarity)}</span>") @printing.Name [@printing.Code.ToUpper()]
                     </a>
                 }

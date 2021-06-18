@@ -1,0 +1,56 @@
+﻿@using FortyLife.App.Models
+@model SpoilersViewModel
+
+@{
+    ViewBag.Title = Model.Set.Name;
+}
+
+<!-- Page management stuff here -->
+<div class="row">
+    <div class="col-md-6">
+        Set
+        @Html.DropDownListFor(i => i.Set.Code, new SelectList(Model.Sets.Data, "Code", "Name", Model.Set.Code), new { @class = "form-control" })
+    </div>
+    <div class="col-md-6">
+        Order By
+        @Html.DropDownListFor(i => i.SortId, Model.Sort, new { @class = "form-control" })
+    </div>
+</div>
+
+<hr />
+
+<h2 class="text-center">@ViewBag.Title</h2>
+
+<div class="text-center">
+    <div class="mb-3">
+        <span class="badge badge-info" title="Set Code">@Model.Set.Code.ToUpper()</span>
+        <span class="badge badge-secondary">Cards: @Model.Cards.Count</span>
+        <span class="badge badge-primary" title="Release Date">@Model.Set.ReleasedAt.ToString("MMMM dd yyyy")</span>
+    </div>
+
+    @if (Model.Set.ReleasedAt > DateTime.Now)
+    {
+        <div class="alert alert-warning">
+            <strong>Heads up!</strong> This set has not been released yet and may only be available for pre-order.
+        </div>
+    }
+</div>
+
+<br />
+
+@if (Model.Cards != null)
+{
+    <div class="spoiler-container">
+        @foreach (var card in Model.Cards)
+        {
+            <div class="text-center no-break">
+                <a href="/CardDetails?cardName=@card.Name.Replace("//", "%2F%2F").Replace("'", "%27")&setCode=@card.Set">
+                    <span class="card-image">
+                        <img class="spoiler card card-shadow" src="@card.ImageUris.Normal" alt="@card.Name [@card.Set.ToUpper()]" title="@card.Name [@card.Set.ToUpper()]" />
+                    </span>
+                    <span class="small">@card.Name</span>
+                </a>
+            </div>
+        }
+    </div>
+}

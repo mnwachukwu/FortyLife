@@ -11,8 +11,8 @@
 
     if (marketPrice != null)
     {
-        price = marketPrice.Results.First(i => i.SubTypeName == "Normal");
-        foilPrice = marketPrice.Results.First(i => i.SubTypeName == "Foil");
+        price = marketPrice.First(i => i.SubTypeName == "Normal");
+        foilPrice = marketPrice.First(i => i.SubTypeName == "Foil");
     }
     else
     {

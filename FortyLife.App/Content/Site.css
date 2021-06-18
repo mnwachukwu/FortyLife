@@ -11,13 +11,6 @@
     white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
 .no-padding {
     padding: 0;
 }
@@ -107,3 +100,25 @@ img.card-tooltip {
         transition: transform 200ms, -webkit-transform 200ms, -o-transform 200ms;
         border: 0;
     }
+
+textarea {
+    resize: none;
+    white-space: nowrap;
+}
+
+img.spoiler {
+    max-width: 250px;
+}
+
+div.spoiler-container {
+    width: 1270px;
+    margin-left: -80px;
+    overflow: hidden;
+}
+
+div.no-break {
+    max-width: 250px;
+    float: left;
+    margin-bottom: 1em;
+    margin-right: 3px;
+}

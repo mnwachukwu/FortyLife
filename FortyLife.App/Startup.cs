@@ -1,8 +1,9 @@
-﻿using Microsoft.Owin;
+﻿using FortyLife.App;
+using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(FortyLife.Startup))]
-namespace FortyLife
+[assembly: OwinStartup(typeof(Startup))]
+namespace FortyLife.App
 {
     public partial class Startup
     {

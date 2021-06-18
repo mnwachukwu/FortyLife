@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Runtime.Caching;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace FortyLife.DataAccess.Scryfall
 {
@@ -39,10 +35,10 @@ namespace FortyLife.DataAccess.Scryfall
 
             if (!cache.Contains(key))
             {
-                var card = scryfallRequestEngine.FirstCardFromSearch(cardName);
+                var card = scryfallRequestEngine.GetCard(cardName);
                 // TODO: Make sure the card being added is legit
                 if (card != null)
-                    cache.Set($"{cardName}_card", card, DateTimeOffset.Now.AddDays(3));
+                    cache.Set($"{cardName}_card", card, DateTime.Now.AddDays(7));
             }
 
             return (Card)cache[key];

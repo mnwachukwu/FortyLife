@@ -1,0 +1,69 @@
+﻿@model FortyLife.App.Models.ManageViewModel
+
+@{
+    ViewBag.Title = "Manage";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card border-primary">
+            <div class="card-header">
+                Decks <span class="float-right"><a href="#">Add New Deck</a></span>
+            </div>
+            <div class="card-body">
+                <a href="#">See All Decks</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-primary">
+            <div class="card-header">
+                Collections <span class="float-right"><a href="/Builder/NewCollection">Add New Collection</a></span>
+            </div>
+            <div class="card-body">
+                <ul>
+                    @{
+                        var count = 1;
+
+                        foreach (var list in Model.User.Collections.OrderByDescending(i => i.LastEditDate))
+                        {
+                            var id = list.CollectionId;
+
+                            string displayName;
+                            if (list.Name.Length > 31)
+                            {
+                                displayName = list.Name.Substring(0, 30) + "...";
+                            }
+                            else
+                            {
+                                displayName = list.Name;
+                            }
+
+                            <li><a href="/Builder/ViewCollection?id=@id" title="@list.Name">@displayName</a> <a href="/Builder/EditCollection?id=@id"><span class="text-info">[Edit]</span></a></li>
+
+                            if (count++ >= 10)
+                            {
+                                break;
+                            }
+                        }
+                    }
+                </ul>
+                <a href="#">See All Collections</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card border-info">
+            <div class="card-header">
+                Manage Your Account
+            </div>
+            <div class="card-body">
+                <a href="/Account/ViewProfile?id=@Model.Id">View Profile</a><br />
+                <a href="#">Edit Profile</a><br />
+                <a href="#">Change Display Name</a><br />
+                <a href="#">Change Password</a><br />
+                <a href="#" class="text-danger">Delete Your Account</a><br />
+            </div>
+        </div>
+    </div>
+</div>

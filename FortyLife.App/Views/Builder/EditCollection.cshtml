@@ -1,0 +1,75 @@
+﻿@model FortyLife.App.Models.EditCollectionModel
+
+@{
+    var newCollection = string.IsNullOrEmpty(Model.Collection.Name);
+    ViewBag.Title = newCollection ? "New Collection" : "Editing " + Model.Collection.Name;
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/linedtextarea")
+}
+
+<div class="row">
+    <div class="col-md-11">
+        @if (newCollection)
+        {
+            <h2>New Collection</h2>
+        }
+        else
+        {
+            <h2>Editing <span class="text-info">@Model.Collection.Name</span></h2>
+        }
+    </div>
+    <div class="col-md-1">
+        @if (!newCollection)
+        {
+            <a href="/Builder/ViewCollection?id=@Model.Collection.CollectionId" class="float-right btn btn-outline-warning">View</a>
+            <br />
+        }
+    </div>
+</div>
+
+<hr />
+
+@using (Html.BeginForm("SaveCollection", "Builder"))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(i => i.Collection.CollectionId)
+    @Html.HiddenFor(i => i.Collection.CreateDate)
+    @Html.HiddenFor(i => i.Collection.LastEditDate)
+
+    <div class="row">
+        <div class="col-md-5">
+            @Html.TextAreaFor(i => i.RawList, new { @class = "lined", rows = "37", cols = "54" })
+            <span class="small">Use the format <code>0x CardName (SETCODE) *F* *CMDR*</code> to list cards. <em>Use one line per card.</em> Not using a count will make the engine assume the count is 1. Not using <code>(SETCODE)</code> will make the engine assume the latest set. Using <code>*F*</code> will let the engine know the card is foil. Using <code>*CMDR*</code> will indicate that the card is a Commander.</span>
+        </div>
+        <div class="col-md-7">
+            <div class="card border-dark">
+                <div class="card-header">
+                    <span class="oi oi-paperclip"></span> Collection Details
+                </div>
+                <div class="card-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                    @Html.LabelFor(i => i.Collection.Name)
+                    @Html.TextBoxFor(i => i.Collection.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(i => i.Collection.Name, "", new { @class = "text-danger" })
+
+                    <br />
+
+                    @Html.LabelFor(i => i.Collection.Description) <i class="small">(You can use <a href="https://www.markdownguide.org/basic-syntax/" target="_blank">Markdown</a> here!)</i>
+                    @Html.TextAreaFor(i => i.Collection.Description, new { @class = "form-control", rows = "20" })
+                    @Html.ValidationMessageFor(i => i.Collection.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <span class="small float-right">A Quick Card Lookup section exists below to help add cards to your list.</span>
+        </div>
+    </div>
+    <br />
+    <input type="submit" value="Save Collection" class="btn btn-outline-success" />
+}
+
+<hr />
+
+@Html.Partial("_QuickCardLookup")
