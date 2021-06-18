@@ -1,0 +1,38 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+
+// This file is auto-generated and will be rebuilt automatically on each change.
+
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+
+// Remove the properties defined below from the AssemblyInfo.cs file in the current project.
+// Use the definitions defined here to apply the standards.
+
+[assembly: AssemblyCopyright("Copyright © <#= DateTime.Now.Year #> Studio TM14")]
+
+[assembly: AssemblyVersion("<#= Major #>.<#= Minor #>.<#= MinorBugFix #>.<#= BuildTimeStamp #>")]
+[assembly: AssemblyFileVersionAttribute("<#= Major #>.<#= Minor #>.<#= MinorBugFix #>.<#= BuildTimeStamp #>")]
+<#+
+    // Major version
+    // Only update when compatibility is broken completely with previous releases.
+    int Major = 0;
+
+    // Minor/Feature version
+    // Update when a new feature or function is added.
+    // A change to this value should reset MinorBugFix back to 0.
+    int Minor = 7;
+
+    // Minor Bug Fix version
+    // Update when a fix is made without adding new features.
+    // An update to Minor should reset this back to 0.
+    int MinorBugFix = 0;
+
+    // Automatically generated based on current date.
+    string BuildTimeStamp = DateTime.Now.ToString("MMdd") + DateTime.Now.Year.ToString().Substring(3, 1);
+#>
