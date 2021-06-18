@@ -1,48 +1,29 @@
-[Production Site](https://forty.life/) - Latest **STABLE** version of the site; based off the `master` brach
+# Forty Life
+*A Commander-tuned Magic: The Gathering Collection App*
 
-[Development Site](https://dev.forty.life/) - Latest version of the site; based off the `dev` branch; **unstable and unfit for production use**
-
-*Note: There is no automatic deployment pipeline in place quite yet. That will be set up eventually and the Development Site will enjoy automatic nightly builds. The Production Site will has one click deployments set up.*
-
----
+[Visit the website!](https://forty.life/) - Latest "stable" version of the site; based off the `main` brach's tagged releases.
 
 # Introduction
 
 In my frustration one night, I decided that I've had enough of the shoddy free services that allow you to manage a Magic: The Gathering collection and it really cheesed me off to pick and pay for one specific provider that didn't have all the features that I would have wanted in a collection application. Instead of settling for one, I decided I would create one. It would have all of the bells and whistles - the best features - from all of the sites I've used and leave out all of the bad things from these sites. I then thought, I have a lot of Magic: The Gathering playing friends who also write code so I wanted to open source the effort.
 
-This is the project for that vision. I have purchased the domain forty.life and some hosting to use for the release version of this project. Of course, anyone is free to take the project for themselves and modify it, redistribute it, or host their own instance. We will work on an agreeable license for proper terms of use. This code is being worked on to provide a free service, so of course derivative works must be offered for free. Honestly, the commercialization of such a service is understandable, but I will commit to keeping Forty Life and any forked projects free of charge.
-
-*(Add more introduction. Find a license to use.)*
+This is the project for that vision. I have purchased the domain forty.life and some hosting to use for the release version of this project. Of course, anyone is free to take the project for themselves and modify it, redistribute it, or host their own instance. This code is being worked on to provide a free service, so I only ask that derivative be offered non-commercially. Honestly, the commercialization of such a service is understandable, but half of the reason I developed Forty Life was in spite of that so at the very least I can promise that Forty Life will remain free of charge.
 
 # Contribute!
 
 Would you like to contribute the project? Head over to the [Issues List](https://git.tm14.net/mattn/FortyLife/issues), roll up your sleeves, and see what you can help out with.
 
-*(Insert steps to clone repo and run project.)*
-
-*(Include SOP for contributing to source.)*
-
-# Governance
-
-The **Core Development Team (CDT)** will be in charge of the general direction the project will go. Matt N (repository owner) is currently the sole member of the CDT.
-
-Goal: Add 4 other members to the CDT to vote on issues, merge requests, resolutions, new directions for project, and any other major design or architectural decision that need to be made to the project.
-
-*(TODO: Implement a proper description of the powers granted by being a member of the CDT.)*
-
-# Glossary
-
-Because we're bound to need one eventually. Being developers, We like long, descriptive terms, but we hate typing them out every time.
-
-* SOP -> Standard Operating Procedure: The typical routine we'll use to contribute code (and anything else) to the source.
-
-* CDT -> Core Development Team: The five individuals who will vote on major decisions that need to be made with the direction of the project. Ideally, they'll be the five top contributors to the project.
-
-* CPE -> Card Parsing Engine: One of the longer named, more important static classes that handle rendering Andrew's awesome fonts in place of Scryfall's brackets is used to textually represent mana and card symbols. Who's Andrew? See the Attributions section!
-
 # License
 
-*(Find a license to use.)*
+Copyright &copy; Studio TM14
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software, including without limitation the rights to use, copy, modify, merge, publish, and/or distribute, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+This license asks that no person creates for-profit Derivitive Works of any kind. The Derivitive Work should not be sold in part or wholly, as code or as binaries.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 # Attributions
 

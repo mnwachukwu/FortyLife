@@ -23,3 +23,5 @@ FortyLife\.App/Web\.Release\.config
 FortyLife\.sln\.DotSettings\.user
 
 *.user
+
+FortyLife.App/Web.config
