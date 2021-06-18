@@ -1,4 +1,6 @@
-﻿@using FortyLife.App.Models
+﻿@using System.Diagnostics
+@using FortyLife.App.Models
+@using FortyLife.DataAccess.Scryfall
 @model SpoilersViewModel
 
 @{
@@ -40,13 +42,16 @@
 
 @if (Model.Cards != null)
 {
+    var count = 0;
     <div class="spoiler-container">
         @foreach (var card in Model.Cards)
         {
+            var cardUris = card.ImageUris ?? @card.CardFaces.First().ImageUris;
+
             <div class="text-center no-break">
                 <a href="/CardDetails?cardName=@card.Name.Replace("//", "%2F%2F").Replace("'", "%27")&setCode=@card.Set">
                     <span class="card-image">
-                        <img class="spoiler card card-shadow" src="@card.ImageUris.Normal" alt="@card.Name [@card.Set.ToUpper()]" title="@card.Name [@card.Set.ToUpper()]" />
+                        <img class="spoiler card card-shadow" src="@cardUris.Normal" alt="@card.Name [@card.Set.ToUpper()]" title="@card.Name [@card.Set.ToUpper()]" />
                     </span>
                     <span class="small">@card.Name</span>
                 </a>
