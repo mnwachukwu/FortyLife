@@ -8,11 +8,11 @@ namespace FortyLife.DataAccess
 {
     public class Mailer
     {
-        private readonly SmtpClient mailClient = new SmtpClient("smtp.sparkpostmail.com", 587);
+        private readonly SmtpClient mailClient = new SmtpClient("mail.tm14.net", 587);
 
         public Mailer()
         {
-            mailClient.Credentials = new NetworkCredential("SMTP_Injection", GetSmtpPassword());
+            mailClient.Credentials = new NetworkCredential("automailer@mail.tm14.net", GetSmtpPassword());
         }
 
         /// <summary>
@@ -27,8 +27,7 @@ namespace FortyLife.DataAccess
             var mailMessage = new MailMessage
             {
                 To = { to },
-                From = new MailAddress("noreply@forty.life", "Forty Life Administrator"),
-                ReplyToList = { "noreply@forty.life" },
+                From = new MailAddress("no-reply@mail.tm14.life", "Forty Life Administrator"),
                 Subject = subject,
                 Body = body,
                 IsBodyHtml = isBodyHtml
@@ -44,8 +43,9 @@ namespace FortyLife.DataAccess
             if (File.Exists(path)) return File.ReadAllText(path);
 
             // Didn't find a file, so make one - throw an error to inform the programmer/user
-            File.AppendAllText(path, "Replace the contents of this file with a password to access a db!");
-            throw new Exception("The password file dbpwd.txt in App_Data didn't exist, but now it does. Replace its contents with a db password (NO EXTRA WHITESPACE) and try running this web app again.");
+            File.AppendAllText(path, "Replace the contents of this file with a password to access a mail sever!");
+            throw new Exception("The password file smtp-pwd.txt in App_Data didn't exist, but now it does. " +
+                                "Replace its contents with an smtp password (NO EXTRA WHITESPACE) and try running this web app again.");
         }
     }
 }

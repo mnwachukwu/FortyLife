@@ -1,4 +1,5 @@
-﻿@model FortyLife.App.Models.ResendActivationViewModel
+﻿@using FortyLife.Core
+@model FortyLife.App.Models.ResendActivationViewModel
 
 @{
     ViewBag.Title = "Resend Activation";
@@ -8,7 +9,7 @@
 <h4>Use this form to request a new activation key, or <a href="/Account/Activate">use this form to activate your account.</a></h4>
 <hr />
 
-@using (Html.BeginForm("ResendActivation", "Account", new { }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("ResendActivation", "Account", new { }, FormMethod.Post, new {id="resend-form", @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -19,9 +20,23 @@
             @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
         </div>
     </div>
+
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Resend Activation" class="btn btn-outline-success" />
+            <button type="submit" class="btn btn-outline-success g-recaptcha"
+                    data-sitekey="@Secrets.GetRecaptchaClientKey()"
+                    data-callback='onSubmit'>
+                Resend Activation
+            </button>
         </div>
     </div>
+}
+
+@section Scripts {
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        function onSubmit(token) {
+            document.getElementById("resend-form").submit();
+        }
+    </script>
 }

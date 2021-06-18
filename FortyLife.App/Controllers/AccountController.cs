@@ -7,7 +7,6 @@ using FortyLife.App.Models;
 using FortyLife.DataAccess;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using reCAPTCHA.MVC;
 
 namespace FortyLife.App.Controllers
 {
@@ -107,7 +106,6 @@ namespace FortyLife.App.Controllers
         }
 
         [HttpPost]
-        [CaptchaValidator]
         public ActionResult Register(RegisterViewModel model)
         {
             if (User.Identity.IsAuthenticated)
@@ -127,6 +125,7 @@ namespace FortyLife.App.Controllers
             {
                 if (ApplicationUserEngine.CreateAccount(model.Email, model.Password))
                 {
+
                     return View("RegisterSuccess", model: model.Email);
                 }
 

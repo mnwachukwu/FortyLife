@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using FortyLife.DataAccess.Scryfall;
 using FortyLife.DataAccess.TCGPlayer;
 using FortyLife.DataAccess.UserAccount;
@@ -54,14 +53,14 @@ namespace FortyLife.DataAccess
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Card>()
-                .HasMany(i => i.CardFaces);
-
             modelBuilder.Entity<ApplicationUser>()
                 .HasMany(i => i.Collections);
 
             modelBuilder.Entity<Collection>()
                 .HasMany(i => i.Cards);
+
+            modelBuilder.Entity<Card>()
+                .HasMany(i => i.CardFaces);
         }
     }
 }
