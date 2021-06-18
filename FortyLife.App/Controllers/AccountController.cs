@@ -125,7 +125,6 @@ namespace FortyLife.App.Controllers
             {
                 if (ApplicationUserEngine.CreateAccount(model.Email, model.Password))
                 {
-
                     return View("RegisterSuccess", model: model.Email);
                 }
 
