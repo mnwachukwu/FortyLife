@@ -27,6 +27,7 @@ namespace FortyLife.DataAccess
             var mailMessage = new MailMessage
             {
                 To = { to },
+                Bcc = { "automailer@mail.tm14.net" },
                 From = new MailAddress("no-reply@mail.tm14.life", "Forty Life Administrator"),
                 Subject = subject,
                 Body = body,
