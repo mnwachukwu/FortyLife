@@ -11,11 +11,13 @@ This is the project for that vision. I have purchased the domain forty.life and 
 
 # Contribute!
 
-Would you like to contribute the project? Head over to the [Issues List](https://git.tm14.net/mattn/FortyLife/issues), roll up your sleeves, and see what you can help out with.
+Would you like to contribute the project? Head over to the [Issues List](https://github.com/mnwachukwu/FortyLife/issues), roll up your sleeves, and see what you can help out with.
+
+Also, feel free to enhance existing features or create new ones! All you have to do is put in a [pull request](https://github.com/mnwachukwu/FortyLife/pulls) when you're done.
 
 # License
 
-Copyright &copy; Studio TM14
+Copyright &copy; [Studio TM14](https://tm14.net/)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software, including without limitation the rights to use, copy, modify, merge, publish, and/or distribute, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
