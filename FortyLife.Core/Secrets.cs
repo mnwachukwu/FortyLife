@@ -21,5 +21,17 @@ namespace FortyLife.Core
             throw new Exception("The password file recaptcha-client-key.txt in App_Data didn't exist, but now it does. " +
                                 "Replace its contents with an reCaptcha client key (NO EXTRA WHITESPACE) and try running this web app again.");
         }
+
+        public static string GetRecaptchaSecretKey()
+        {
+            var path = HttpRuntime.AppDomainAppPath + @"\App_Data\recaptcha-secret-key.txt";
+
+            if (File.Exists(path)) return File.ReadAllText(path);
+
+            // Didn't find a file, so make one - throw an error to inform the programmer/user
+            File.AppendAllText(path, "Replace the contents of this file with a client key to access recaptcha services!");
+            throw new Exception("The password file recaptcha-secret-key.txt in App_Data didn't exist, but now it does. " +
+                                "Replace its contents with an reCaptcha secret key (NO EXTRA WHITESPACE) and try running this web app again.");
+        }
     }
 }

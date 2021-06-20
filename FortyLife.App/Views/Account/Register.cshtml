@@ -10,7 +10,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { id="registration-form", @class = "form-horizontal", role = "form" }))
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { id = "registration-form", @class = "form-horizontal", role = "form" }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary("", new { @class = "text-danger" })
@@ -41,13 +41,13 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <button type="submit" class="btn btn-outline-success g-recaptcha"
-                            data-sitekey="@Secrets.GetRecaptchaClientKey()"
-                            data-callback='onSubmit'>
+                    <button type="submit" class="btn btn-outline-success g-recaptcha">
                         Register
                     </button>
                 </div>
             </div>
+
+            <input type="hidden" id="g-recaptcha-data" name="g-recaptcha-data" />
         }
     </div>
 
@@ -66,10 +66,12 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=@Secrets.GetRecaptchaClientKey()"></script>
     <script>
-        function onSubmit(token) {
-            document.getElementById("registration-form").submit();
-        }
+        grecaptcha.ready(function () {
+            grecaptcha.execute('@Secrets.GetRecaptchaClientKey()', { action: 'Register' }).then(function (token) {
+                document.getElementById("g-recaptcha-data").value = token;
+            });
+        });
     </script>
 }

@@ -217,6 +217,7 @@
     <Content Include="App_Data\access-token.txt" />
     <Content Include="App_Data\ActivationEmail.html" />
     <Content Include="App_Data\private-key.txt" />
+    <Content Include="App_Data\recaptcha-secret-key.txt" />
     <Content Include="App_Data\recaptcha-client-key.txt" />
     <Content Include="App_Data\smtp-pwd.txt" />
     <Content Include="Properties\AssemblyVersion.tt">
