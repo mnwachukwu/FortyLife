@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using FortyLife.App.Models;
+using FortyLife.Core;
 using FortyLife.DataAccess;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using Newtonsoft.Json.Linq;
 
 namespace FortyLife.App.Controllers
 {
@@ -121,6 +125,13 @@ namespace FortyLife.App.Controllers
                 return View(model);
             }
 
+            // Recaptcha challenge
+            if (!ReCaptchaPassed(Request))
+            {
+                ModelState.AddModelError("", "Failed to pass reCaptcha challenge.");
+                return View(model);
+            }
+
             if (ModelState.IsValid)
             {
                 if (ApplicationUserEngine.CreateAccount(model.Email, model.Password))
@@ -196,6 +207,13 @@ namespace FortyLife.App.Controllers
         [HttpPost]
         public ActionResult ResendActivation(ResendActivationViewModel model)
         {
+            // Recaptcha challenge
+            if (!ReCaptchaPassed(Request))
+            {
+                ModelState.AddModelError("", "Failed to pass reCaptcha challenge.");
+                return View(model);
+            }
+
             if (!string.IsNullOrEmpty(model.Email))
             {
                 var user = ApplicationUserEngine.GetApplicationUser(model.Email);
@@ -258,6 +276,28 @@ namespace FortyLife.App.Controllers
                                    "<strong>This user does not exist or has a private profile.</div>";
 
             return View("Error");
+        }
+
+        private static bool ReCaptchaPassed(HttpRequestBase request)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                var gRecaptchaData = request.Form["g-recaptcha-data"];
+                var recaptchaResponse = httpClient
+                    .GetAsync(
+                        $"https://www.google.com/recaptcha/api/siteverify?secret={Secrets.GetRecaptchaSecretKey()}&response={gRecaptchaData}")
+                    .Result;
+
+                if (recaptchaResponse.StatusCode != HttpStatusCode.OK)
+                {
+                    return false;
+                }
+
+                var jsonResponse = recaptchaResponse.Content.ReadAsStringAsync().Result;
+                dynamic jsonData = JObject.Parse(jsonResponse);
+
+                return jsonData.success == "true" && jsonData.score > 0.5m;
+            }
         }
     }
 }
