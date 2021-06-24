@@ -31,7 +31,7 @@ using System.Runtime.InteropServices;
     // Minor Bug Fix version
     // Update when a fix is made without adding new features.
     // An update to Minor should reset this back to 0.
-    int MinorBugFix = 4;
+    int MinorBugFix = 5;
 
     // Automatically generated based on current date.
     string BuildTimeStamp = DateTime.Now.ToString("MMdd") + DateTime.Now.Year.ToString().Substring(3, 1);

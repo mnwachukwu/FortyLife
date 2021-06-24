@@ -10,5 +10,5 @@ using System.Runtime.InteropServices;
 
 [assembly: AssemblyCopyright("Copyright © 2021 Studio TM14")]
 
-[assembly: AssemblyVersion("0.7.4.06201")]
-[assembly: AssemblyFileVersionAttribute("0.7.4.06201")]
+[assembly: AssemblyVersion("0.7.5.06231")]
+[assembly: AssemblyFileVersionAttribute("0.7.5.06231")]
