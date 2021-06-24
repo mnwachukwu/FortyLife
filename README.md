@@ -3,6 +3,8 @@
 
 [Visit the website!](https://forty.life/) - Latest "stable" version of the site; based off the `main` brach's tagged releases.
 
+Copyright &copy; [Studio TM14](https://tm14.net/)
+
 # Introduction
 
 In my frustration one night, I decided that I've had enough of the shoddy free services that allow you to manage a Magic: The Gathering collection and it really cheesed me off to pick and pay for one specific provider that didn't have all the features that I would have wanted in a collection application. Instead of settling for one, I decided I would create one. It would have all of the bells and whistles - the best features - from all of the sites I've used and leave out all of the bad things from these sites. I then thought, I have a lot of Magic: The Gathering playing friends who also write code so I wanted to open source the effort.
