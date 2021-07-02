@@ -31,10 +31,10 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 # Attributions
 
-[Scryfall API: Magic Card Data](https://scryfall.com/docs/api) - Premier card lookup application which freely provides it's API on which Forty Life relies on for all its data... Thank you!
+[Scryfall API: Magic Card Data](https://scryfall.com/docs/api) - Premier card lookup application which freely provides it's API on which Forty Life relies on for all its card data... Thank you!
 
 [TCGPlayer API: Card Price Data](https://docs.tcgplayer.com/v1.20.0/reference) - Do you trust anyone else for pricing up cards? Exactly. Thank you!
 
-[Mana: Mana Symbol Font](https://andrewgioia.github.io/Mana/index.html) - A beautiful FontAwesome style font that makes our website look like Magic! They're beautiful. Thank you!
+[Mana: Mana Symbol Font](https://mana.andrewgioia.com/) - A beautiful FontAwesome style font that makes our website look like Magic! They're beautiful. Thank you!
 
-[Keyrune: Set Symbol Font](https://andrewgioia.github.io/Keyrune/index.html) - Another FontAwesome style font that help make our site prettier! [Andrew Gioia](http://andrewgioia.com/), you rock!
+[Keyrune: Set Symbol Font](https://keyrune.andrewgioia.com/) - Another FontAwesome style font that help make our site prettier! [Andrew Gioia](http://andrewgioia.com/), you rock!
