@@ -24,8 +24,6 @@
         }
     });
 
-    $(".lined").linedtextarea();
-
     $(".printings-button").click(function () {
         $("#lotus-modal").modal();
     });

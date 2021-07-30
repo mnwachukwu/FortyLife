@@ -124,3 +124,7 @@
   	selectedClass: 'lineselect'
   };
 })(jQuery);
+
+$(document).ready(function () {
+	$(".lined").linedtextarea();
+});
